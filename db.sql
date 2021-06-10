@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2021/6/8 19:54:32                            */
+/* Created on:     2021/6/10 14:09:20                           */
 /*==============================================================*/
 
 
@@ -236,6 +236,7 @@ create table student
    gender               varchar(2),
    birth_date           date,
    is_qualified         bool,
+   password             varchar(20),
    primary key (s_id)
 );
 
