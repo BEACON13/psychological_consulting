@@ -16,7 +16,7 @@ drop table if exists consult_appointment_report;
 
 drop table if exists consultant_duty;
 
-drop table if exists first_application;
+drop table if exists first_apply;
 
 drop table if exists first_visit_record;
 
@@ -117,11 +117,11 @@ create table consultant_duty
 );
 
 /*==============================================================*/
-/* Table: first_application                                     */
+/* Table: first_apply                                     */
 /*==============================================================*/
-create table first_application
+create table first_apply
 (
-   fva_id               bigint not null,
+   fa_id               bigint not null,
    s_id                 bigint not null,
    tp_id                smallint,
    score                int,
@@ -135,7 +135,7 @@ create table first_application
    problem_type         varchar(50),
    consult_expectation  varchar(100),
    consult_history      varchar(200),
-   primary key (fva_id)
+   primary key (fa_id)
 );
 
 /*==============================================================*/
@@ -308,10 +308,10 @@ alter table consultant_duty add constraint FK_consultant_loc foreign key (locati
 alter table consultant_duty add constraint FK_time_cd foreign key (tp_id)
       references time_period (tp_id) on delete restrict on update restrict;
 
-alter table first_application add constraint FK_Reference_26 foreign key (tp_id)
+alter table first_apply add constraint FK_Reference_26 foreign key (tp_id)
       references time_period (tp_id) on delete restrict on update restrict;
 
-alter table first_application add constraint FK_stu_first_application2 foreign key (s_id)
+alter table first_apply add constraint FK_stu_first_apply2 foreign key (s_id)
       references student (s_id) on delete restrict on update restrict;
 
 alter table first_visit_record add constraint FK_Reference_24 foreign key (tp_id)
@@ -346,4 +346,3 @@ alter table first_visitor_duty add constraint FK_fvd_time foreign key (tp_id)
 
 alter table person_type add constraint FK_Reference_30 foreign key (p_id)
       references person (p_id) on delete restrict on update restrict;
-
