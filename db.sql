@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2021/6/8 19:54:32                            */
+/* Created on:     2021/6/10 14:09:20                           */
 /*==============================================================*/
 
 
@@ -16,7 +16,7 @@ drop table if exists consult_appointment_report;
 
 drop table if exists consultant_duty;
 
-drop table if exists first_application;
+drop table if exists first_apply;
 
 drop table if exists first_visit_record;
 
@@ -39,7 +39,7 @@ drop table if exists time_period;
 /*==============================================================*/
 create table add_consult
 (
-   add_c_id             bigint not null,
+   add_c_id             bigint not null auto_increment,
    s_id                 bigint not null,
    c_id                 bigint,
    times                int not null,
@@ -51,7 +51,7 @@ create table add_consult
 /*==============================================================*/
 create table closing_report
 (
-   closing_report_id    bigint not null,
+   closing_report_id    bigint not null auto_increment,
    s_id                 bigint not null,
    c_id                 bigint,
    problem_type         varchar(50),
@@ -65,7 +65,7 @@ create table closing_report
 /*==============================================================*/
 create table consult_apply
 (
-   consult_apply_id     bigint not null,
+   consult_apply_id     bigint not null auto_increment,
    s_id                 bigint not null,
    tp_id_1              smallint,
    tp_id_2              smallint,
@@ -79,12 +79,12 @@ create table consult_apply
 /*==============================================================*/
 create table consult_appointment_record
 (
-   consult_appoint_id   bigint not null,
+   consult_appoint_id   bigint not null auto_increment,
    s_id                 bigint not null,
    tp_id                smallint,
    location_id          bigint,
    c_id                 bigint,
-   is_deleted           bool,
+   is_deleted           bool default 0,
    date                 date,
    primary key (consult_appoint_id)
 );
@@ -94,7 +94,7 @@ create table consult_appointment_record
 /*==============================================================*/
 create table consult_appointment_report
 (
-   car_id               bigint not null,
+   car_id               bigint not null auto_increment,
    s_id                 bigint,
    tp_id                smallint,
    c_id                 bigint,
@@ -108,7 +108,7 @@ create table consult_appointment_report
 /*==============================================================*/
 create table consultant_duty
 (
-   cd_id                bigint not null,
+   cd_id                bigint not null auto_increment,
    tp_id                smallint not null,
    location_id          bigint not null,
    c_id                 bigint,
@@ -117,11 +117,11 @@ create table consultant_duty
 );
 
 /*==============================================================*/
-/* Table: first_application                                     */
+/* Table: first_apply                                     */
 /*==============================================================*/
-create table first_application
+create table first_apply
 (
-   fva_id               bigint not null,
+   fa_id               bigint not null auto_increment,
    s_id                 bigint not null,
    tp_id                smallint,
    score                int,
@@ -135,7 +135,7 @@ create table first_application
    problem_type         varchar(50),
    consult_expectation  varchar(100),
    consult_history      varchar(200),
-   primary key (fva_id)
+   primary key (fa_id)
 );
 
 /*==============================================================*/
@@ -143,13 +143,13 @@ create table first_application
 /*==============================================================*/
 create table first_visit_record
 (
-   fvr_id               bigint not null,
+   fvr_id               bigint not null auto_increment,
    s_id                 bigint not null,
    tp_id                smallint,
    location_id          bigint,
    fv_id                bigint,
    date                 date,
-   is_deleted           bool,
+   is_deleted           bool default 0,
    primary key (fvr_id)
 );
 
@@ -158,7 +158,7 @@ create table first_visit_record
 /*==============================================================*/
 create table first_visit_report
 (
-   fvreport_id          bigint not null,
+   fvreport_id          bigint not null auto_increment,
    s_id                 bigint,
    tp_id                smallint,
    fv_id                bigint,
@@ -174,10 +174,11 @@ create table first_visit_report
 /*==============================================================*/
 create table first_visitor_duty
 (
-   fvd_id               bigint not null,
+   fvd_id               bigint not null auto_increment,
    tp_id                smallint not null,
    location_id          bigint not null,
    fv_id                bigint,
+   is_available         bool default 1,
    primary key (fvd_id)
 );
 
@@ -186,7 +187,7 @@ create table first_visitor_duty
 /*==============================================================*/
 create table location
 (
-   location_id          bigint not null,
+   location_id          bigint not null auto_increment,
    location_type        int not null,
    location_name        varchar(50) not null,
    primary key (location_id)
@@ -197,7 +198,7 @@ create table location
 /*==============================================================*/
 create table person
 (
-   p_id                 bigint not null,
+   p_id                 bigint not null auto_increment,
    username             varchar(20) not null,
    password             varchar(20) not null,
    name                 varchar(50),
@@ -216,7 +217,7 @@ create table person
 /*==============================================================*/
 create table person_type
 (
-   pt_id                bigint not null,
+   pt_id                bigint not null auto_increment,
    p_id                 bigint not null,
    type                 varchar(20),
    primary key (pt_id)
@@ -227,7 +228,7 @@ create table person_type
 /*==============================================================*/
 create table student
 (
-   s_id                 bigint not null,
+   s_id                 bigint not null auto_increment,
    code                 varchar(20),
    name                 varchar(50),
    phone                varchar(11),
@@ -236,6 +237,7 @@ create table student
    gender               varchar(2),
    birth_date           date,
    is_qualified         bool,
+   password             varchar(20),
    primary key (s_id)
 );
 
@@ -246,7 +248,7 @@ alter table student comment '学生表';
 /*==============================================================*/
 create table time_period
 (
-   tp_id                smallint not null,
+   tp_id                smallint not null auto_increment,
    start_time           time,
    duration             int,
    weekday              smallint,
@@ -307,10 +309,10 @@ alter table consultant_duty add constraint FK_consultant_loc foreign key (locati
 alter table consultant_duty add constraint FK_time_cd foreign key (tp_id)
       references time_period (tp_id) on delete restrict on update restrict;
 
-alter table first_application add constraint FK_Reference_26 foreign key (tp_id)
+alter table first_apply add constraint FK_Reference_26 foreign key (tp_id)
       references time_period (tp_id) on delete restrict on update restrict;
 
-alter table first_application add constraint FK_stu_first_application2 foreign key (s_id)
+alter table first_apply add constraint FK_stu_first_apply2 foreign key (s_id)
       references student (s_id) on delete restrict on update restrict;
 
 alter table first_visit_record add constraint FK_Reference_24 foreign key (tp_id)
@@ -345,4 +347,3 @@ alter table first_visitor_duty add constraint FK_fvd_time foreign key (tp_id)
 
 alter table person_type add constraint FK_Reference_30 foreign key (p_id)
       references person (p_id) on delete restrict on update restrict;
-
