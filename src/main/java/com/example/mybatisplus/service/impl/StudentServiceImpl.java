@@ -4,6 +4,7 @@ import com.example.mybatisplus.model.domain.Student;
 import com.example.mybatisplus.mapper.StudentMapper;
 import com.example.mybatisplus.service.StudentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements StudentService {
 
+    @Autowired
+    StudentMapper studentMapper;
+
+    @Override
+    public Student login(String code){
+        Student student=studentMapper.login(code);
+        return student;
+    }
 }

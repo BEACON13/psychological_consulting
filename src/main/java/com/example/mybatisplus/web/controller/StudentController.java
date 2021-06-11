@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.model.domain.Person;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -28,6 +29,23 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+
+    /**
+     * 登录
+     *
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse login(@RequestParam("username")String code,@RequestParam("pwd")String pwd){
+        System.out.println("hello");
+        Student student=studentService.login(code);
+        if (student == null)
+            return JsonResponse.failure("用户不存在");
+        else if(!student.getPassword().equals(pwd))
+            return JsonResponse.failure("密码错误");
+        return JsonResponse.success(student,"登录成功！");
+    }
 
     /**
     * 描述：根据Id 查询
