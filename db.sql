@@ -39,7 +39,7 @@ drop table if exists time_period;
 /*==============================================================*/
 create table add_consult
 (
-   add_c_id             bigint not null,
+   add_c_id             bigint not null auto_increment,
    s_id                 bigint not null,
    c_id                 bigint,
    times                int not null,
@@ -51,7 +51,7 @@ create table add_consult
 /*==============================================================*/
 create table closing_report
 (
-   closing_report_id    bigint not null,
+   closing_report_id    bigint not null auto_increment,
    s_id                 bigint not null,
    c_id                 bigint,
    problem_type         varchar(50),
@@ -65,7 +65,7 @@ create table closing_report
 /*==============================================================*/
 create table consult_apply
 (
-   consult_apply_id     bigint not null,
+   consult_apply_id     bigint not null auto_increment,
    s_id                 bigint not null,
    tp_id_1              smallint,
    tp_id_2              smallint,
@@ -79,12 +79,12 @@ create table consult_apply
 /*==============================================================*/
 create table consult_appointment_record
 (
-   consult_appoint_id   bigint not null,
+   consult_appoint_id   bigint not null auto_increment,
    s_id                 bigint not null,
    tp_id                smallint,
    location_id          bigint,
    c_id                 bigint,
-   is_deleted           bool,
+   is_deleted           bool default 0,
    date                 date,
    primary key (consult_appoint_id)
 );
@@ -94,7 +94,7 @@ create table consult_appointment_record
 /*==============================================================*/
 create table consult_appointment_report
 (
-   car_id               bigint not null,
+   car_id               bigint not null auto_increment,
    s_id                 bigint,
    tp_id                smallint,
    c_id                 bigint,
@@ -108,7 +108,7 @@ create table consult_appointment_report
 /*==============================================================*/
 create table consultant_duty
 (
-   cd_id                bigint not null,
+   cd_id                bigint not null auto_increment,
    tp_id                smallint not null,
    location_id          bigint not null,
    c_id                 bigint,
@@ -121,7 +121,7 @@ create table consultant_duty
 /*==============================================================*/
 create table first_apply
 (
-   fa_id               bigint not null,
+   fa_id               bigint not null auto_increment,
    s_id                 bigint not null,
    tp_id                smallint,
    score                int,
@@ -143,13 +143,13 @@ create table first_apply
 /*==============================================================*/
 create table first_visit_record
 (
-   fvr_id               bigint not null,
+   fvr_id               bigint not null auto_increment,
    s_id                 bigint not null,
    tp_id                smallint,
    location_id          bigint,
    fv_id                bigint,
    date                 date,
-   is_deleted           bool,
+   is_deleted           bool default 0,
    primary key (fvr_id)
 );
 
@@ -158,7 +158,7 @@ create table first_visit_record
 /*==============================================================*/
 create table first_visit_report
 (
-   fvreport_id          bigint not null,
+   fvreport_id          bigint not null auto_increment,
    s_id                 bigint,
    tp_id                smallint,
    fv_id                bigint,
@@ -174,10 +174,11 @@ create table first_visit_report
 /*==============================================================*/
 create table first_visitor_duty
 (
-   fvd_id               bigint not null,
+   fvd_id               bigint not null auto_increment,
    tp_id                smallint not null,
    location_id          bigint not null,
    fv_id                bigint,
+   is_available         bool default 1,
    primary key (fvd_id)
 );
 
@@ -186,7 +187,7 @@ create table first_visitor_duty
 /*==============================================================*/
 create table location
 (
-   location_id          bigint not null,
+   location_id          bigint not null auto_increment,
    location_type        int not null,
    location_name        varchar(50) not null,
    primary key (location_id)
@@ -197,7 +198,7 @@ create table location
 /*==============================================================*/
 create table person
 (
-   p_id                 bigint not null,
+   p_id                 bigint not null auto_increment,
    username             varchar(20) not null,
    password             varchar(20) not null,
    name                 varchar(50),
@@ -216,7 +217,7 @@ create table person
 /*==============================================================*/
 create table person_type
 (
-   pt_id                bigint not null,
+   pt_id                bigint not null auto_increment,
    p_id                 bigint not null,
    type                 varchar(20),
    primary key (pt_id)
@@ -227,7 +228,7 @@ create table person_type
 /*==============================================================*/
 create table student
 (
-   s_id                 bigint not null,
+   s_id                 bigint not null auto_increment,
    code                 varchar(20),
    name                 varchar(50),
    phone                varchar(11),
@@ -247,7 +248,7 @@ alter table student comment '学生表';
 /*==============================================================*/
 create table time_period
 (
-   tp_id                smallint not null,
+   tp_id                smallint not null auto_increment,
    start_time           time,
    duration             int,
    weekday              smallint,
