@@ -10,6 +10,9 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.PersonService;
 import com.example.mybatisplus.model.domain.Person;
 
+import javax.servlet.http.HttpSession;
+import java.util.Map;
+
 
 /**
  *
@@ -36,12 +39,16 @@ public class PersonController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse login(@RequestParam("username")String username,@RequestParam("pwd")String pwd,@RequestParam("type")String type){
+        /*Map<String,String> map = (Map<String, String>) form;
+        Person person = personService.login(map.get("username"),map.get("type"));*/
         Person person = personService.login(username,type);
         if (person == null)
-           return JsonResponse.failure("用户不存在");
+            return JsonResponse.failure("用户不存在");
         else if(!person.getPassword().equals(pwd))
             return JsonResponse.failure("密码错误");
         return JsonResponse.success(person,"登录成功！");
+
+
     }
 
     /**
