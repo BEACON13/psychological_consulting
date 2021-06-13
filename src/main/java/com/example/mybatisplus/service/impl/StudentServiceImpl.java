@@ -2,6 +2,7 @@ package com.example.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.mybatisplus.model.domain.Student;
 import com.example.mybatisplus.mapper.StudentMapper;
 import com.example.mybatisplus.service.StudentService;
@@ -33,9 +34,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public boolean changePwd(Long id,String NewPwd) {
-        Student stu=new Student();
-        stu.setSId(id).setPassword(NewPwd);
-        return baseMapper.updateById(stu)==1;
+    public boolean changePwd(String code,String NewPwd) {
+        UpdateWrapper<Student> wrapper = new UpdateWrapper();
+        wrapper.lambda().eq(Student::getCode,code);
+        Student student = new Student();
+        student.setPassword(NewPwd);
+        return 1== baseMapper.update(student,wrapper);
     }
 }

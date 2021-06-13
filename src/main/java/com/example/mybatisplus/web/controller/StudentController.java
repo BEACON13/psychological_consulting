@@ -53,14 +53,9 @@ public class StudentController {
     @RequestMapping(value = "/changePwd", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse changePwd(@RequestParam("username")String code,@RequestParam("newPwd")String newPwd){
-        Student student=studentService.login(code);
-        if (student == null)
-            return JsonResponse.failure("用户不存在");
-        else if(!student.getPassword().equals(newPwd))
-            return JsonResponse.failure("新密码不可以和旧密码相同");
-        else if(studentService.changePwd(student.getSId(),newPwd))
-                return JsonResponse.success(student,"修改成功");
-        return JsonResponse.success(student,"修改出错，请重试");
+        if(studentService.changePwd(code,newPwd))
+            return JsonResponse.success("修改成功");
+        return JsonResponse.failure("修改出错，请重试");
     }
 
     /**
