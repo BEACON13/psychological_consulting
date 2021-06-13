@@ -86,6 +86,7 @@ create table consult_appointment_record
    c_id                 bigint,
    is_deleted           bool default 0,
    date                 date,
+   is_finished          bool default 0,
    primary key (consult_appoint_id)
 );
 
@@ -150,6 +151,7 @@ create table first_visit_record
    fv_id                bigint,
    date                 date,
    is_deleted           bool default 0,
+   is_finished          bool default 0,
    primary key (fvr_id)
 );
 
