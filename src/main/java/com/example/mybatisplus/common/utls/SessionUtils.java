@@ -36,4 +36,8 @@ public class SessionUtils {
     public static void saveCurrentUserInfo(Person person) {
         session().setAttribute(USERKEY, person);
     }
+
+    public static void saveCurrentUserInfo(Student student) {
+        session().setAttribute(USERKEY, student);
+    }
 }
