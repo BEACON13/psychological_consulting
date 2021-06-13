@@ -28,13 +28,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public Student login(String code){
         QueryWrapper<Student> wrapper = new QueryWrapper();
         wrapper.lambda().eq(Student::getCode,code);
-        List<Student> studentList = baseMapper.selectList(wrapper);
-        return studentList.get(0);
+        Student student = baseMapper.selectOne(wrapper);
+        return student;
     }
 
     @Override
     public boolean changePwd(Long id,String NewPwd) {
-        UpdateWrapper<Student> wrapper = new UpdateWrapper<>();
         Student stu=new Student();
         stu.setSId(id).setPassword(NewPwd);
         return baseMapper.updateById(stu)==1;
