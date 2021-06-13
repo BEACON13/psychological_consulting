@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface StudentService extends IService<Student> {
 
     Student login(String code);
+
+    boolean changePwd(Long id,String NewPwd);
 }

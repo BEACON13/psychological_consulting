@@ -1,6 +1,7 @@
 package com.example.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.model.domain.Student;
 import com.example.mybatisplus.mapper.StudentMapper;
 import com.example.mybatisplus.service.StudentService;
@@ -23,14 +24,19 @@ import java.util.List;
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements StudentService {
 
-    @Autowired
-    StudentMapper studentMapper;
-
     @Override
     public Student login(String code){
-        QueryWrapper<Student> wrapper=new QueryWrapper();
+        QueryWrapper<Student> wrapper = new QueryWrapper();
         wrapper.lambda().eq(Student::getCode,code);
-        List<Student> studentList = studentMapper.selectList(wrapper);
+        List<Student> studentList = baseMapper.selectList(wrapper);
         return studentList.get(0);
+    }
+
+    @Override
+    public boolean changePwd(Long id,String NewPwd) {
+        UpdateWrapper<Student> wrapper = new UpdateWrapper<>();
+        Student stu=new Student();
+        stu.setSId(id).setPassword(NewPwd);
+        return baseMapper.updateById(stu)==1;
     }
 }
