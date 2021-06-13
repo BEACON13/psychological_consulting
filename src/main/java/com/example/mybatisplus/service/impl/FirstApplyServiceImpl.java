@@ -19,7 +19,6 @@ public class FirstApplyServiceImpl extends ServiceImpl<FirstApplyMapper, FirstAp
 
     @Override
     public boolean insertFirstApply(FirstApply firstApply) {
-        baseMapper.insert(firstApply);
-        return false;
+        return 1==baseMapper.insert(firstApply);
     }
 }

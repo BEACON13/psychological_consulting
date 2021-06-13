@@ -10,6 +10,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.FirstApplyService;
 import com.example.mybatisplus.model.domain.FirstApply;
 
+import java.util.Map;
+
 
 /**
  *
@@ -28,6 +30,32 @@ public class FirstApplyController {
 
     @Autowired
     private FirstApplyService firstApplyService;
+
+    /**
+     * 描述：插入新预约申请
+     *
+     */
+    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info)throws Exception {
+        FirstApply firstApply=new FirstApply();
+        firstApply.setSId((Long) info.get("sId"))
+                .setTpId((Integer) info.get("tpID"))
+                .setScore((Integer) info.get("score"))
+                .setName((String) info.get("name"))
+                .setPhone((String) info.get("phone"))
+                .setAddress((String) info.get("address"))
+                .setEmergencyPhone((String) info.get("emergencyPhone"))
+                .setPhysicalIllness((String) info.get("physicalIllness"))
+                .setIsDiagnosed((Boolean) info.get("isDiagnosed"))
+                .setEmergencyLevel((String) info.get("emergencyLevel"))
+                .setProblemType((String) info.get("problemType"))
+                .setConsultExpectation((String) info.get("consultExpectation"))
+                .setConsultHistory((String) info.get("consultHistory"));
+        if(firstApplyService.insertFirstApply(firstApply))
+            return JsonResponse.success(null);
+        return JsonResponse.failure("插入失败");
+    }
 
     /**
     * 描述：根据Id 查询
@@ -59,7 +87,7 @@ public class FirstApplyController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResponse updateFirstApply(@PathVariable("id") Long  id,FirstApply  firstApply) throws Exception {
-        firstApply.setId(id);
+        firstApply.setFaId(id);
         firstApplyService.updateById(firstApply);
         return JsonResponse.success(null);
     }

@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FirstApplyService extends IService<FirstApply> {
 
-    public boolean insertFirstApply(FirstApply firstApply);
+    boolean insertFirstApply(FirstApply firstApply);
 }
