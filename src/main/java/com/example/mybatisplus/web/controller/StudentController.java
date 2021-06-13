@@ -32,9 +32,6 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-
-
-
     /**
      * 登录
      *
@@ -49,6 +46,7 @@ public class StudentController {
             return JsonResponse.failure("密码错误");
 
         SessionUtils.saveCurrentUserInfo(student);
+        System.out.println(student);
         return JsonResponse.success(student,"登录成功！");
     }
 
