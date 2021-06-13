@@ -17,4 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class FirstApplyServiceImpl extends ServiceImpl<FirstApplyMapper, FirstApply> implements FirstApplyService {
 
+    @Override
+    public boolean insertFirstApply(FirstApply firstApply) {
+        baseMapper.insert(firstApply);
+        return false;
+    }
 }
