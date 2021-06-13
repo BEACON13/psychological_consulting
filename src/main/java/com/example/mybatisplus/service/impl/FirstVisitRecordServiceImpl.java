@@ -46,8 +46,8 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         wrapper2.lambda().eq(FirstVisitRecord::getFvId,id).le(FirstVisitRecord::getDate,date).eq(FirstVisitRecord::getIsFinished,0);
         List<FirstVisitRecord> firstVisitRecords2 = firstVisitRecordMapper.selectList(wrapper2);
 
-        System.out.println(firstVisitRecords);
-        System.out.println(firstVisitRecords2);
+        //System.out.println(firstVisitRecords);
+        //System.out.println(firstVisitRecords2);
         Map<String,List> map = new HashMap();
         map.put("未完成",firstVisitRecords);
         map.put("未填报",firstVisitRecords2);
