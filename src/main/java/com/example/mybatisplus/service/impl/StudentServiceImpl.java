@@ -34,11 +34,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public boolean changePwd(String code,String NewPwd) {
+    public boolean changePwd(String code,String newPwd) {
         UpdateWrapper<Student> wrapper = new UpdateWrapper();
-        wrapper.lambda().eq(Student::getCode,code);
-        Student student = new Student();
-        student.setPassword(NewPwd);
-        return 1== baseMapper.update(student,wrapper);
+        wrapper.lambda().eq(Student::getCode,code).set(Student::getPassword,newPwd);
+        return 1 == baseMapper.update(null,wrapper);
     }
 }

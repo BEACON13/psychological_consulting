@@ -16,5 +16,5 @@ public interface StudentService extends IService<Student> {
 
     Student login(String code);
 
-    boolean changePwd(String code,String NewPwd);
+    boolean changePwd(String code,String newPwd);
 }
