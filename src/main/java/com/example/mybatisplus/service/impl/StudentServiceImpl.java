@@ -28,10 +28,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Override
     public Student login(String code){
-        //Student student=studentMapper.login(code);
-        //return student;
-        QueryWrapper wrapper=new QueryWrapper<Student>();
-        wrapper.eq("code","2018141411216");
+        QueryWrapper<Student> wrapper=new QueryWrapper();
+        //wrapper.eq("code","2018141411216");
+        wrapper.lambda().eq(Student::getCode,code);
         List<Student> studentList = studentMapper.selectList(wrapper);
         return studentList.get(0);
     }
