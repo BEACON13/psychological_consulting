@@ -59,7 +59,7 @@ public class ConsultAppointmentRecordController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResponse updateConsultAppointmentRecord(@PathVariable("id") Long  id,ConsultAppointmentRecord  consultAppointmentRecord) throws Exception {
-        consultAppointmentRecord.setId(id);
+        consultAppointmentRecord.setConsultAppointId(id);
         consultAppointmentRecordService.updateById(consultAppointmentRecord);
         return JsonResponse.success(null);
     }
