@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 13/06/2021 15:34:28
+ Date: 13/06/2021 17:08:22
 */
 
 SET NAMES utf8mb4;
@@ -238,7 +238,7 @@ CREATE TABLE `first_visit_record`  (
 -- Records of first_visit_record
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_visit_record` VALUES (1, 1, 1, 1, 2, '2020-06-05', 0, 1), (2, 2, 2, 2, 3, '2021-04-30', 0, 1), (3, 3, 3, 2, 2, '2021-07-09', 0, 0), (4, 4, 4, 1, 3, '2021-06-18', 0, 0);
+INSERT INTO `first_visit_record` VALUES (1, 1, 1, 1, 2, '2021-06-05', 0, 1), (2, 2, 2, 2, 3, '2021-04-30', 0, 1), (3, 3, 3, 2, 2, '2021-07-09', 0, 0), (4, 4, 4, 1, 3, '2021-06-13', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -267,7 +267,7 @@ CREATE TABLE `first_visit_report`  (
 -- Records of first_visit_report
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_visit_report` VALUES (1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-01'), (2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-05-31');
+INSERT INTO `first_visit_report` VALUES (1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-05'), (2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-04-30');
 COMMIT;
 
 -- ----------------------------
