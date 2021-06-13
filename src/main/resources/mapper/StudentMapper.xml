@@ -15,11 +15,4 @@
         <result column="is_qualified" property="isQualified" />
         <result column="password" property="password" />
     </resultMap>
-
-    <select id="login" resultMap="BaseResultMap">
-        select *
-        from student
-        where code = #{code}
-    </select>
-
 </mapper>

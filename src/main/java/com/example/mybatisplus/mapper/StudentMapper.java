@@ -15,6 +15,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface StudentMapper extends BaseMapper<Student> {
-
-    Student login(@Param("code")String code);
 }
