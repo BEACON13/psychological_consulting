@@ -1,6 +1,7 @@
 package com.example.mybatisplus.common.utls;
 
 import com.example.mybatisplus.model.domain.Person;
+import com.example.mybatisplus.model.domain.Student;
 import com.example.mybatisplus.model.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,16 @@ public class SecurityUtils {
     }
      */
 
+    public static Student getCurrentStudentInfo() {
+        Student studentInfo = SessionUtils.getCurrentStudentInfo();
+        //模拟登录
+        if (studentInfo == null) {
+            studentInfo = new Student();
+            studentInfo.setName("模拟");
+        }
+
+        return studentInfo;
+    }
     public static Person getCurrentUserInfo() {
         Person userInfo = SessionUtils.getCurrentUserInfo();
         //模拟登录

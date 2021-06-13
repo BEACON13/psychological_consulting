@@ -1,6 +1,7 @@
 package com.example.mybatisplus.common.utls;
 
 import com.example.mybatisplus.model.domain.Person;
+import com.example.mybatisplus.model.domain.Student;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -26,6 +27,10 @@ public class SessionUtils {
 
     public static Person getCurrentUserInfo() {
         return (Person) session().getAttribute(USERKEY);
+    }
+
+    public static Student getCurrentStudentInfo() {
+        return (Student) session().getAttribute(USERKEY);
     }
 
     public static void saveCurrentUserInfo(Person person) {
