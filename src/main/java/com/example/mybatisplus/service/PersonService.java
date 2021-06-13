@@ -1,9 +1,8 @@
 package com.example.mybatisplus.service;
 
+import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.Person;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>
@@ -15,5 +14,7 @@ import java.util.List;
  */
 public interface PersonService extends IService<Person> {
 
-    Person login(String username,String type);
+    JsonResponse login(String username, String type,String pwd);
+
+    JsonResponse modifyPwd(String newPwd);
 }

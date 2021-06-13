@@ -17,4 +17,5 @@ import org.springframework.stereotype.Repository;
 public interface PersonMapper extends BaseMapper<Person> {
 
     Person login(@Param("username")String username, @Param("type")String type);
+
 }
