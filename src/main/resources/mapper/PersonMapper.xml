@@ -21,4 +21,5 @@
         select * from person where p_id in (select p_id from person_type where type = #{type}) and username = #{username}
     </select>
 
+
 </mapper>
