@@ -27,4 +27,6 @@ public interface ConsultAppointmentRecordService extends IService<ConsultAppoint
     Map<String,List> getUnfinishedAndNotFilledIn(Long consultantId);
 
     int finishAppointment(Long consultAppointId);
+
+    int countConsultingNum(Long sId);
 }

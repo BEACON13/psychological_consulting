@@ -91,4 +91,12 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         return baseMapper.update(null,wrapper);
     }
 
+    @Override
+    public int countConsultingNum(Long sId) {
+        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getSId,sId)
+                .eq(ConsultAppointmentRecord::getIsFinished,1);
+        return baseMapper.selectCount(wrapper);
+    }
+
 }
