@@ -63,5 +63,15 @@ public class FirstVisitReportController {
     public JsonResponse showFVReportsByName(@RequestParam("stuName")String stuName){
         return firstVisitReportService.getFVReportsByName(stuName);
     }
+
+    /**
+     * 描述：学生查看自己的初访报告
+     *
+     */
+    @RequestMapping(value="/student/showFVReports",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getFVRecord(){
+        return firstVisitReportService.getFVReport();
+    }
 }
 

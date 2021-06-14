@@ -1,6 +1,7 @@
 package com.example.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.mapper.StudentMapper;
@@ -13,7 +14,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,9 +102,38 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
      */
     @Override
     public JsonResponse getFVRecord() {
-        Long id = SecurityUtils.getUserInfo().getId();
+        Long id = SecurityUtils.getCurrentStudentInfo().getSId();
         List<FirstVisitRecordVO> firstVisitRecordVOS = firstVisitRecordMapper.getFVRecord(id);
         return JsonResponse.success(firstVisitRecordVOS,"success!");
+    }
+
+    /**
+     * 描述：学生提前一天取消初访预约
+     *
+     */
+    @Override
+    public JsonResponse manageFVRecord(Long fvrId) {
+        FirstVisitRecord firstVisitRecord = firstVisitRecordMapper.selectById(fvrId);
+
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        date.format(formatter);
+
+        Period p = Period.between(date,firstVisitRecord.getDate());
+        long days = p.getDays();
+
+        if(days < 1){
+            return JsonResponse.failure("时间小于1天,不可取消预约!");
+        }else{
+            UpdateWrapper<FirstVisitRecord> wrapper = new UpdateWrapper<>();
+            wrapper.lambda().set(FirstVisitRecord::getIsDeleted,1).eq(FirstVisitRecord::getFvrId,fvrId);
+            firstVisitRecordMapper.update(null,wrapper);
+            /**
+             * 将初访员排班置为1
+             */
+        }
+
+        return JsonResponse.successMessage("取消预约成功!");
     }
 
     /**
