@@ -23,4 +23,6 @@ public interface FirstVisitRecordMapper extends BaseMapper<FirstVisitRecord> {
 
     List<FirstVisitRecordVO> getRecordsByName(Long id, String stuName);
 
+    List<FirstVisitRecordVO> getFVRecord(Long id);
+
 }

@@ -43,10 +43,11 @@
             <result column="problem_type" property="problemType" />
             <result column="consult_expectation" property="consultExpectation" />
             <result column="consult_history" property="consultHistory" />
+            <result column="is_finished" property="isFinished" />
         </association>
     </resultMap>
 
-    <!-- 搜索未完成的预约 -->
+    <!-- 初访员搜索未完成的预约 -->
     <select id="showRecords" resultMap="VOResultMap">
         select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
             from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
@@ -54,7 +55,7 @@
 						and fvr.fv_id = p.p_id and fvr.s_id = fa.s_id;
     </select>
 
-    <!-- 搜索所有预约 -->
+    <!-- 初访员搜索所有预约 -->
     <select id="showAllRecords" resultMap="VOResultMap">
         select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
             from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
@@ -62,11 +63,19 @@
 						and fvr.fv_id = p.p_id and fvr.s_id = fa.s_id;
     </select>
 
-    <!-- 根据学生姓名搜索预约 -->
+    <!-- 初访员根据学生姓名搜索预约 -->
     <select id="getRecordsByName" resultMap="VOResultMap">
         select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
             from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
             where fvr.fv_id = #{id} and fa.name = #{stuName} and is_deleted = 0 and fvr.tp_id = tp.tp_id and fvr.location_id = l.location_id
+						and fvr.fv_id = p.p_id and fvr.s_id = fa.s_id;
+    </select>
+
+    <!-- 学生查看自己的预约 -->
+    <select id="getFVRecord" resultMap="VOResultMap">
+        select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
+            from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
+            where fvr.s_id = #{id} and is_deleted = 0 and fvr.tp_id = tp.tp_id and fvr.location_id = l.location_id
 						and fvr.fv_id = p.p_id and fvr.s_id = fa.s_id;
     </select>
 </mapper>

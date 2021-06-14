@@ -92,5 +92,16 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         return JsonResponse.success(firstVisitRecordVOS,"success!");
     }
 
+    /**
+     * 描述：学生查看初访预约记录
+     *
+     */
+    @Override
+    public JsonResponse getFVRecord() {
+        Long id = SecurityUtils.getUserInfo().getId();
+        List<FirstVisitRecordVO> firstVisitRecordVOS = firstVisitRecordMapper.getFVRecord(id);
+        return JsonResponse.success(firstVisitRecordVOS,"success!");
+    }
+
 
 }

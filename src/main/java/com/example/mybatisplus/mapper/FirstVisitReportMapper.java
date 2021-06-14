@@ -2,7 +2,10 @@ package com.example.mybatisplus.mapper;
 
 import com.example.mybatisplus.model.domain.FirstVisitReport;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.mybatisplus.model.vo.FirstVisitReportVO;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,5 +18,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FirstVisitReportMapper extends BaseMapper<FirstVisitReport> {
+
+    List<FirstVisitReportVO> showAllFVReports(Long id);
 
 }
