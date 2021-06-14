@@ -43,7 +43,6 @@ public class FirstVisitReportController {
 
 
 
-
     /**
      * 描述：该初访员查看所有报告
      *
@@ -51,7 +50,17 @@ public class FirstVisitReportController {
     @RequestMapping(value = "/FirstVisitor/showAllFVReports", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showAllFVReports(){
-        return null;
+        return firstVisitReportService.showAllFVReports();
+    }
+
+
+    /**
+     * 描述：该初访员根据学生姓名搜索是否有属于自己的初访报告
+     */
+    @RequestMapping(value = "/FirstVisitor/searchFVReports", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showFVReportsByName(){
+        return firstVisitReportService.showAllFVReports();
     }
 }
 
