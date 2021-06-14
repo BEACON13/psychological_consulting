@@ -1,6 +1,7 @@
 package com.example.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.mapper.ConsultAppointmentRecordMapper;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
@@ -76,6 +77,18 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         map.put("未完成",getAllUnfinishedRecordByConsultantID(consultantId));
         map.put("未填报",getRecordNotFilledInByConsultantID(consultantId));
         return map;
+    }
+
+    /*
+    当填写报告之后，调用该service，将咨询记录设置为已完成
+     */
+    @Override
+    public int finishAppointment(Long consultAppointId) {
+        UpdateWrapper<ConsultAppointmentRecord> wrapper = new UpdateWrapper();
+        wrapper.lambda()
+                .eq(ConsultAppointmentRecord::getConsultAppointId,consultAppointId)
+                .set(ConsultAppointmentRecord::getIsFinished,1);
+        return baseMapper.update(null,wrapper);
     }
 
 }

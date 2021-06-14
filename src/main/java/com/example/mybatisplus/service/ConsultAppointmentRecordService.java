@@ -25,4 +25,6 @@ public interface ConsultAppointmentRecordService extends IService<ConsultAppoint
     List<ConsultAppointmentRecord> getRecordByConsultantAndStudent(Long CID,Long SID);
 
     Map<String,List> getUnfinishedAndNotFilledIn(Long consultantId);
+
+    int finishAppointment(Long consultAppointId);
 }
