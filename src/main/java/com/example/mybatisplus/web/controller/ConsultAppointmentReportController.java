@@ -16,7 +16,7 @@ import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
  *  前端控制器
  *
  *
- * @author Kristy
+ * @author Beacon
  * @since 2021-06-14
  * @version v1.0
  */
@@ -59,7 +59,7 @@ public class ConsultAppointmentReportController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResponse updateConsultAppointmentReport(@PathVariable("id") Long  id,ConsultAppointmentReport  consultAppointmentReport) throws Exception {
-        consultAppointmentReport.setId(id);
+        consultAppointmentReport.setCarId(id);
         consultAppointmentReportService.updateById(consultAppointmentReport);
         return JsonResponse.success(null);
     }

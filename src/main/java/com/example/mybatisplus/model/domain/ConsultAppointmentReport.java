@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * 
  * </p>
  *
- * @author Kristy
+ * @author Beacon
  * @since 2021-06-14
  */
 @Data
@@ -29,6 +29,8 @@ public class ConsultAppointmentReport extends Model<ConsultAppointmentReport> {
 
     @TableId(value = "car_id", type = IdType.AUTO)
     private Long carId;
+
+    private Long consultAppointId;
 
     private Long sId;
 

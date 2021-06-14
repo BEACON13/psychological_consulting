@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.ConsultAppointmentReport">
         <id column="car_id" property="carId" />
+        <result column="consult_appoint_id" property="consultAppointId" />
         <result column="s_id" property="sId" />
         <result column="tp_id" property="tpId" />
         <result column="c_id" property="cId" />
