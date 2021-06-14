@@ -69,5 +69,16 @@ public class FirstVisitRecordController {
     public JsonResponse getFVRecord(){
         return firstVisitRecordService.getFVRecord();
     }
+
+
+    /**
+     * 描述：学生提前一天取消初访预约
+     *
+     */
+    @RequestMapping(value="/student/manageFVRecord",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse manageFVRecord(@RequestParam("fvr_id")Long fvrId){
+        return firstVisitRecordService.manageFVRecord(fvrId);
+    }
 }
 

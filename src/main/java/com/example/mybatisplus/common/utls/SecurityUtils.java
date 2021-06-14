@@ -76,12 +76,16 @@ public class SecurityUtils {
             userInfo.setUsername("模拟用户");
             userInfoDTO.setId(1L);
             userInfoDTO.setUsername("模拟用户");
+            userInfoDTO.setUserType(1L);
         }else{
             userInfoDTO.setId(userInfo.getPId());
             userInfoDTO.setUsername(userInfo.getUsername());
             userInfoDTO.setPwd(userInfo.getPassword());
+            userInfoDTO.setUserType(1L);
         }
 
         return userInfoDTO;
     }
+
+
 }

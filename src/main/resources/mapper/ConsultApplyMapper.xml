@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.ConsultApplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.ConsultApply">
+        <id column="consult_apply_id" property="consultApplyId" />
+        <result column="s_id" property="sId" />
+        <result column="stu_name" property="stuName" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="emergency_phone" property="emergencyPhone" />
+        <result column="danger_level" property="dangerLevel" />
+        <result column="problem_type" property="problemType" />
+        <result column="tp_id_1" property="tpId1" />
+        <result column="tp_id_2" property="tpId2" />
+        <result column="tp_id_3" property="tpId3" />
+        <result column="num" property="num" />
+        <result column="is_finished" property="isFinished" />
+    </resultMap>
+
+</mapper>
