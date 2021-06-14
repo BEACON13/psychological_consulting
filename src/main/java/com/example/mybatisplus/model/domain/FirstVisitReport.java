@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-13
+ * @since 2021-06-14
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,6 +29,8 @@ public class FirstVisitReport extends Model<FirstVisitReport> {
 
     @TableId(value = "fvreport_id", type = IdType.AUTO)
     private Long fvreportId;
+
+    private Long fvrId;
 
     private Long sId;
 

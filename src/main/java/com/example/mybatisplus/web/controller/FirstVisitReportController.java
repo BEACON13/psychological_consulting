@@ -1,6 +1,5 @@
 package com.example.mybatisplus.web.controller;
 
-import com.example.mybatisplus.model.domain.FirstVisitRecord;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -18,11 +17,11 @@ import com.example.mybatisplus.model.domain.FirstVisitReport;
  *
  *
  * @author Kristy
- * @since 2021-06-13
+ * @since 2021-06-14
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/api/firstVisitReport")
 public class FirstVisitReportController {
 
     private final Logger logger = LoggerFactory.getLogger( FirstVisitReportController.class );

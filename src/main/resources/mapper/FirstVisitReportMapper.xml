@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.FirstVisitReport">
         <id column="fvreport_id" property="fvreportId" />
+        <result column="fvr_id" property="fvrId" />
         <result column="s_id" property="sId" />
         <result column="tp_id" property="tpId" />
         <result column="fv_id" property="fvId" />

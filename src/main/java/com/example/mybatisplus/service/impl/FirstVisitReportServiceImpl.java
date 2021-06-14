@@ -17,11 +17,10 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-13
+ * @since 2021-06-14
  */
 @Service
 public class FirstVisitReportServiceImpl extends ServiceImpl<FirstVisitReportMapper, FirstVisitReport> implements FirstVisitReportService {
-
     @Autowired
     private FirstVisitReportMapper firstVisitReportMapper;
     @Autowired
