@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.FirstVisitRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.FirstVisitRecord">
+        <id column="fvr_id" property="fvrId" />
+        <result column="s_id" property="sId" />
+        <result column="tp_id" property="tpId" />
+        <result column="location_id" property="locationId" />
+        <result column="fv_id" property="fvId" />
+        <result column="date" property="date" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="is_finished" property="isFinished" />
+    </resultMap>
+
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.FirstVisitRecordVO">
+        <id column="fvr_id" property="fvrId" />
+        <result column="s_id" property="sId" />
+        <result column="tp_id" property="tpId" />
+        <result column="location_id" property="locationId" />
+        <result column="fv_id" property="fvId" />
+        <result column="date" property="date" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="is_finished" property="isFinished" />
+
+        <result column="start_time" property="startTime"/>
+        <result column="duration" property="duration"/>
+        <result column="location_name" property="locationName"/>
+        <result column="fvname" property="fvName"/>
+        <association property="firstApply" javaType="com.example.mybatisplus.model.domain.FirstApply">
+            <id column="fa_id" property="faId" />
+            <result column="s_id" property="sId" />
+            <result column="tp_id" property="tpId" />
+            <result column="score" property="score" />
+            <result column="name" property="name" />
+            <result column="phone" property="phone" />
+            <result column="address" property="address" />
+            <result column="emergency_phone" property="emergencyPhone" />
+            <result column="physical_illness" property="physicalIllness" />
+            <result column="is_diagnosed" property="isDiagnosed" />
+            <result column="emergency_level" property="emergencyLevel" />
+            <result column="problem_type" property="problemType" />
+            <result column="consult_expectation" property="consultExpectation" />
+            <result column="consult_history" property="consultHistory" />
+            <result column="is_finished" property="isFinished" />
+        </association>
+    </resultMap>
+
+    <!-- 初访员搜索未完成的预约 -->
+    <select id="showRecords" resultMap="VOResultMap">
+        select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
+            from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
+            where fvr.fv_id = #{id} and is_finished = 0 and is_deleted = 0 and fvr.tp_id = tp.tp_id and fvr.location_id = l.location_id
+						and fvr.fv_id = p.p_id and fvr.s_id = fa.s_id;
+    </select>
+
+    <!-- 初访员搜索所有预约 -->
+    <select id="showAllRecords" resultMap="VOResultMap">
+        select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
+            from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
+            where fvr.fv_id = #{id} and is_deleted = 0 and fvr.tp_id = tp.tp_id and fvr.location_id = l.location_id
+						and fvr.fv_id = p.p_id and fvr.s_id = fa.s_id;
+    </select>
+
+    <!-- 初访员根据学生姓名搜索预约 -->
+    <select id="getRecordsByName" resultMap="VOResultMap">
+        select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
+            from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
+            where fvr.fv_id = #{id} and fa.name = #{stuName} and is_deleted = 0 and fvr.tp_id = tp.tp_id and fvr.location_id = l.location_id
+						and fvr.fv_id = p.p_id and fvr.s_id = fa.s_id;
+    </select>
+
+    <!-- 学生查看自己的预约 -->
+    <select id="getFVRecord" resultMap="VOResultMap">
+        select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
+            from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
+            where fvr.s_id = #{id} and is_deleted = 0 and fvr.tp_id = tp.tp_id and fvr.location_id = l.location_id
+						and fvr.fv_id = p.p_id and fvr.s_id = fa.s_id;
+    </select>
+</mapper>

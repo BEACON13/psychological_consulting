@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.ClosingReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.ClosingReport">
+        <id column="closing_report_id" property="closingReportId" />
+        <result column="s_id" property="sId" />
+        <result column="c_id" property="cId" />
+        <result column="problem_type" property="problemType" />
+        <result column="consult_num" property="consultNum" />
+        <result column="consult_effect_self" property="consultEffectSelf" />
+    </resultMap>
+
+</mapper>

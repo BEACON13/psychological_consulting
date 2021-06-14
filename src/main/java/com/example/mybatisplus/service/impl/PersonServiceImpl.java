@@ -1,0 +1,48 @@
+package com.example.mybatisplus.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.example.mybatisplus.common.JsonResponse;
+import com.example.mybatisplus.common.utls.SecurityUtils;
+import com.example.mybatisplus.common.utls.SessionUtils;
+import com.example.mybatisplus.model.domain.Person;
+import com.example.mybatisplus.mapper.PersonMapper;
+import com.example.mybatisplus.service.PersonService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+/**
+ * <p>
+ *  服务实现类
+ * </p>
+ *
+ * @author Kristy
+ * @since 2021-06-11
+ */
+@Service
+public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> implements PersonService {
+
+    @Autowired
+    private PersonMapper personMapper;
+
+    @Override
+    public JsonResponse login(String username,String type,String pwd) {
+        Person person = personMapper.login(username,type);
+        if (person == null)
+            return JsonResponse.failure("用户不存在");
+        else if(!person.getPassword().equals(pwd))
+            return JsonResponse.failure("密码错误");
+        SessionUtils.saveCurrentUserInfo(person);
+        return JsonResponse.success(person,"登录成功！");
+    }
+
+    @Override
+    public JsonResponse modifyPwd(String newPwd) {
+        Long id = SecurityUtils.getUserInfo().getId();
+        UpdateWrapper<Person> wrapper = new UpdateWrapper<>();
+        wrapper.set("password",newPwd).eq("p_id",id);
+        personMapper.update(null,wrapper);
+        return JsonResponse.successMessage("修改成功!");
+    }
+}
