@@ -104,7 +104,10 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         return JsonResponse.success(firstVisitRecordVOS,"success!");
     }
 
-
+    /**
+     * 描述：获取学生是否拥有申请初访资格
+     *
+     */
     @Override
     public List<FirstVisitRecord> getRecordByStudent(Long sId) {
         QueryWrapper<FirstVisitRecord> wrapper = new QueryWrapper<>();
