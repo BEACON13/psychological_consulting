@@ -58,7 +58,7 @@ public class StudentController {
     @ResponseBody
     public JsonResponse changePwd(@RequestParam("newPwd")String newPwd){
         Student student = SecurityUtils.getCurrentStudentInfo();
-        if(studentService.changePwd(student.getCode(),newPwd))
+        if(studentService.changePwd(student.getCode(),newPwd) > 0)
             return JsonResponse.success("修改成功");
         return JsonResponse.failure("修改出错，请重试");
     }
