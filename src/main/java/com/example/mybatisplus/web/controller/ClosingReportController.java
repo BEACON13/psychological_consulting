@@ -50,9 +50,6 @@ public class ClosingReportController {
                 .countConsultingNum((Long) info.get("sId"));
         report.setConsultNum(num);
 
-        consultAppointmentRecordService
-                .finishAppointment((Long) info.get("consultAppointId"));
-
         return create(report);
     }
     /**
