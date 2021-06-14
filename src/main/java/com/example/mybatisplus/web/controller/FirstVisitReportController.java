@@ -56,11 +56,12 @@ public class FirstVisitReportController {
 
     /**
      * 描述：该初访员根据学生姓名搜索是否有属于自己的初访报告
+     *
      */
     @RequestMapping(value = "/FirstVisitor/searchFVReports", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse showFVReportsByName(){
-        return firstVisitReportService.showAllFVReports();
+    public JsonResponse showFVReportsByName(@RequestParam("stuName")String stuName){
+        return firstVisitReportService.getFVReportsByName(stuName);
     }
 }
 

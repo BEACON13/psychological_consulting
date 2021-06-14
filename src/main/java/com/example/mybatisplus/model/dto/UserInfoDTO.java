@@ -7,4 +7,5 @@ public class UserInfoDTO {
     private Long id;
     private String username;
     private String pwd;
+    private Long userType;
 }
