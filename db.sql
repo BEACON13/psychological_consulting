@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 13/06/2021 17:08:22
+ Date: 14/06/2021 14:40:52
 */
 
 SET NAMES utf8mb4;
@@ -130,6 +130,7 @@ COMMIT;
 DROP TABLE IF EXISTS `consult_appointment_report`;
 CREATE TABLE `consult_appointment_report`  (
   `car_id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `consult_appoint_id` bigint(0) NULL DEFAULT NULL,
   `s_id` bigint(0) NULL DEFAULT NULL,
   `tp_id` smallint(0) NULL DEFAULT NULL,
   `c_id` bigint(0) NULL DEFAULT NULL,
@@ -139,16 +140,18 @@ CREATE TABLE `consult_appointment_report`  (
   INDEX `FK_Reference_39`(`s_id`) USING BTREE,
   INDEX `FK_Reference_40`(`tp_id`) USING BTREE,
   INDEX `FK_Reference_41`(`c_id`) USING BTREE,
+  INDEX `fk_consult_appoint_id`(`consult_appoint_id`) USING BTREE,
   CONSTRAINT `FK_Reference_39` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_40` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Reference_41` FOREIGN KEY (`c_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_Reference_41` FOREIGN KEY (`c_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_consult_appoint_id` FOREIGN KEY (`consult_appoint_id`) REFERENCES `consult_appointment_record` (`consult_appoint_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of consult_appointment_report
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_appointment_report` VALUES (1, 1, 5, 1, '完成咨询', '2020-06-08'), (2, 1, 5, 1, '完成咨询', '2020-06-15'), (3, 1, 5, 1, '完成咨询', '2020-06-22'), (4, 1, 5, 1, '完成咨询', '2020-06-29'), (5, 1, 5, 1, '完成咨询', '2020-07-06'), (6, 1, 5, 1, '完成咨询', '2020-07-13'), (7, 1, 5, 1, '完成咨询', '2020-07-20'), (8, 1, 5, 1, '完成咨询', '2020-07-27'), (9, 2, 8, 5, '完成咨询', '2021-05-17'), (10, 2, 8, 5, '完成咨询', '2021-05-24'), (11, 2, 8, 5, '完成咨询', '2021-05-31'), (12, 2, 8, 5, '完成咨询', '2021-06-07');
+INSERT INTO `consult_appointment_report` VALUES (1, 1, 1, 5, 1, '完成咨询', '2020-06-08'), (2, 2, 1, 5, 1, '完成咨询', '2020-06-15'), (3, 3, 1, 5, 1, '完成咨询', '2020-06-22'), (4, 4, 1, 5, 1, '完成咨询', '2020-06-29'), (5, 5, 1, 5, 1, '完成咨询', '2020-07-06'), (6, 6, 1, 5, 1, '完成咨询', '2020-07-13'), (7, 7, 1, 5, 1, '完成咨询', '2020-07-20'), (8, 8, 1, 5, 1, '完成咨询', '2020-07-27'), (9, 9, 2, 8, 5, '完成咨询', '2021-05-17'), (10, 10, 2, 8, 5, '完成咨询', '2021-05-24'), (11, 11, 2, 8, 5, '完成咨询', '2021-05-31'), (12, 12, 2, 8, 5, '完成咨询', '2021-06-07');
 COMMIT;
 
 -- ----------------------------
@@ -247,6 +250,7 @@ COMMIT;
 DROP TABLE IF EXISTS `first_visit_report`;
 CREATE TABLE `first_visit_report`  (
   `fvreport_id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `fvr_id` bigint(0) NULL DEFAULT NULL,
   `s_id` bigint(0) NULL DEFAULT NULL,
   `tp_id` smallint(0) NULL DEFAULT NULL,
   `fv_id` bigint(0) NULL DEFAULT NULL,
@@ -258,16 +262,18 @@ CREATE TABLE `first_visit_report`  (
   INDEX `FK_Reference_36`(`s_id`) USING BTREE,
   INDEX `FK_Reference_37`(`tp_id`) USING BTREE,
   INDEX `FK_Reference_38`(`fv_id`) USING BTREE,
+  INDEX `fk_fvr_id`(`fvr_id`) USING BTREE,
   CONSTRAINT `FK_Reference_36` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_37` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Reference_38` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_Reference_38` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_fvr_id` FOREIGN KEY (`fvr_id`) REFERENCES `first_visit_record` (`fvr_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of first_visit_report
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_visit_report` VALUES (1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-05'), (2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-04-30');
+INSERT INTO `first_visit_report` VALUES (1, 1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-05'), (2, 2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-04-30');
 COMMIT;
 
 -- ----------------------------
