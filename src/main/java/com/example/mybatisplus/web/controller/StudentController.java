@@ -1,5 +1,7 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.common.utls.SecurityUtils;
+import com.example.mybatisplus.common.utls.SessionUtils;
 import com.example.mybatisplus.model.domain.Person;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
@@ -30,7 +32,6 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-
     /**
      * 登录
      *
@@ -43,6 +44,9 @@ public class StudentController {
             return JsonResponse.failure("用户不存在");
         else if(!student.getPassword().equals(pwd))
             return JsonResponse.failure("密码错误");
+
+        SessionUtils.saveCurrentUserInfo(student);
+        System.out.println(student);
         return JsonResponse.success(student,"登录成功！");
     }
 
@@ -52,8 +56,9 @@ public class StudentController {
      */
     @RequestMapping(value = "/changePwd", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse changePwd(@RequestParam("username")String code,@RequestParam("newPwd")String newPwd){
-        if(studentService.changePwd(code,newPwd))
+    public JsonResponse changePwd(@RequestParam("newPwd")String newPwd){
+        Student student = SecurityUtils.getCurrentStudentInfo();
+        if(studentService.changePwd(student.getCode(),newPwd) > 0)
             return JsonResponse.success("修改成功");
         return JsonResponse.failure("修改出错，请重试");
     }

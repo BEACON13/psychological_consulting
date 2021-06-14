@@ -1,5 +1,7 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.common.utls.SecurityUtils;
+import com.example.mybatisplus.model.domain.Person;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -9,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -28,6 +33,75 @@ public class ConsultAppointmentRecordController {
 
     @Autowired
     private ConsultAppointmentRecordService consultAppointmentRecordService;
+
+
+    /**
+     * 描述：获得某咨询师的所有记录
+     *
+     */
+    @RequestMapping(value = "/appoint/record/all", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getAllRecord(){
+        Person consultant = SecurityUtils.getCurrentUserInfo();
+        List records = consultAppointmentRecordService
+                .getAllRecordByConsultantID(consultant.getPId());
+        return JsonResponse.success(records);
+    }
+
+    /**
+     * 描述：查看某心理咨询师已进行但未填写的所有咨询
+     * 即已经进行了咨询活动但是没有填写咨询报告的咨询记录
+     */
+    @RequestMapping(value = "/appoint/record/notfilled", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getRecordNotFilledIn(){
+        Person consultant = SecurityUtils.getCurrentUserInfo();
+        List records = consultAppointmentRecordService
+                .getRecordNotFilledInByConsultantID(consultant.getPId());
+        return JsonResponse.success(records);
+    }
+
+    /**
+     * 描述：查看某心理咨询师未完成的咨询
+     * 不论日期
+     */
+    @RequestMapping(value = "/appoint/record/unfinished", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getUnfinishedRecord(){
+        Person consultant = SecurityUtils.getCurrentUserInfo();
+        List records = consultAppointmentRecordService
+                .getAllUnfinishedRecordByConsultantID(consultant.getPId());
+        return JsonResponse.success(records);
+    }
+
+
+    /**
+     * 描述：查看某心理咨询师与某学生共同参与的咨询记录
+     * 不论日期
+     */
+    @RequestMapping(value = "/appoint/record/constu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getUnfinishedRecord(@RequestParam("studentId") Long sId){
+        Person consultant = SecurityUtils.getCurrentUserInfo();
+        List records = consultAppointmentRecordService
+                .getRecordByConsultantAndStudent(consultant.getPId(),sId);
+        return JsonResponse.success(records);
+    }
+
+    /**
+     * 描述：获取未完成的和未填写的
+     * 以map封装
+     */
+    @RequestMapping(value = "/appoint/record/show", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getUnfinishedAndNotFilled(){
+        Person consultant = SecurityUtils.getCurrentUserInfo();
+        Map map = consultAppointmentRecordService
+                .getUnfinishedAndNotFilledIn(consultant.getPId());
+        return JsonResponse.success(map);
+    }
+
+
 
     /**
     * 描述：根据Id 查询
