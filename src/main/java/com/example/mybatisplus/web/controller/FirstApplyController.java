@@ -1,5 +1,8 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.common.utls.SecurityUtils;
+import com.example.mybatisplus.model.domain.Student;
+import com.example.mybatisplus.service.StudentService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -31,6 +34,8 @@ public class FirstApplyController {
     @Autowired
     private FirstApplyService firstApplyService;
 
+    @Autowired
+    private StudentService studentService;
 
     /**
      * 描述：插入新预约申请
@@ -39,6 +44,12 @@ public class FirstApplyController {
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info) {
+
+        Student student = SecurityUtils.getCurrentStudentInfo();
+        if (studentService.isAllowedFirstApply(student)){
+            JsonResponse.failure("您没有资格预约初访");
+        }
+
         FirstApply firstApply=new FirstApply();
         firstApply.setSId((Long) info.get("sId"))
                 .setTpId((Integer) info.get("tpID"))
@@ -54,8 +65,10 @@ public class FirstApplyController {
                 .setConsultExpectation((String) info.get("consultExpectation"))
                 .setConsultHistory((String) info.get("consultHistory"))
                 .setIsFinished((Boolean) info.get("isFinished"));
+
         if(firstApplyService.insertFirstApply(firstApply)>0)
             return JsonResponse.success(null);
+
         return JsonResponse.failure("插入失败");
     }
 

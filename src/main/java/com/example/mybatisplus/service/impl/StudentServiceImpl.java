@@ -61,6 +61,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return baseMapper.update(null,wrapper);
     }
 
+    /*
+    检查学生是否允许申请初访
+     */
     @Override
     public boolean isAllowedFirstApply(Student student) {
 
@@ -71,6 +74,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         //如果学生具有未完成的初访申请，则不应该申请初访
         List<FirstApply> applies = firstApplyService.getFirstApplyByStu(student.getSId());
         for (FirstApply a: applies) {
+
             if (!a.getIsFinished())
                 return false;
         }
