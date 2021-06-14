@@ -19,7 +19,7 @@ import java.util.Map;
  *
  *
  * @author Beacon
- * @since 2021-06-13
+ * @since 2021-06-14
  * @version v1.0
  */
 @Controller
@@ -30,6 +30,7 @@ public class FirstApplyController {
 
     @Autowired
     private FirstApplyService firstApplyService;
+
 
     /**
      * 描述：插入新预约申请
@@ -51,8 +52,9 @@ public class FirstApplyController {
                 .setEmergencyLevel((String) info.get("emergencyLevel"))
                 .setProblemType((String) info.get("problemType"))
                 .setConsultExpectation((String) info.get("consultExpectation"))
-                .setConsultHistory((String) info.get("consultHistory"));
-        if(firstApplyService.insertFirstApply(firstApply))
+                .setConsultHistory((String) info.get("consultHistory"))
+                .setIsFinished((Boolean) info.get("isFinished"));
+        if(firstApplyService.insertFirstApply(firstApply)>0)
             return JsonResponse.success(null);
         return JsonResponse.failure("插入失败");
     }
@@ -87,7 +89,7 @@ public class FirstApplyController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResponse updateFirstApply(@PathVariable("id") Long  id,FirstApply  firstApply) throws Exception {
-        firstApply.setFaId(id);
+        firstApply.setSId(id);
         firstApplyService.updateById(firstApply);
         return JsonResponse.success(null);
     }

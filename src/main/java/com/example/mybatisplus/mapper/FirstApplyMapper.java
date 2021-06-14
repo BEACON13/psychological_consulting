@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Beacon
- * @since 2021-06-13
+ * @since 2021-06-14
  */
 public interface FirstApplyMapper extends BaseMapper<FirstApply> {
 

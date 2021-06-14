@@ -18,6 +18,7 @@
         <result column="problem_type" property="problemType" />
         <result column="consult_expectation" property="consultExpectation" />
         <result column="consult_history" property="consultHistory" />
+        <result column="is_finished" property="isFinished" />
     </resultMap>
 
 </mapper>

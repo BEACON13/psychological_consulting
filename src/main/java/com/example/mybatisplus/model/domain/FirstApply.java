@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Beacon
- * @since 2021-06-13
+ * @since 2021-06-14
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -54,6 +54,8 @@ public class FirstApply extends Model<FirstApply> {
     private String consultExpectation;
 
     private String consultHistory;
+
+    private Boolean isFinished;
 
 
     @Override

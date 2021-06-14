@@ -9,9 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Beacon
- * @since 2021-06-13
+ * @since 2021-06-14
  */
 public interface FirstApplyService extends IService<FirstApply> {
-
-    boolean insertFirstApply(FirstApply firstApply);
+    public int insertFirstApply(FirstApply firstApply);
 }

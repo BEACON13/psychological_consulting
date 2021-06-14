@@ -12,13 +12,12 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Beacon
- * @since 2021-06-13
+ * @since 2021-06-14
  */
 @Service
 public class FirstApplyServiceImpl extends ServiceImpl<FirstApplyMapper, FirstApply> implements FirstApplyService {
-
     @Override
-    public boolean insertFirstApply(FirstApply firstApply) {
-        return 1==baseMapper.insert(firstApply);
+    public int insertFirstApply(FirstApply firstApply) {
+        return baseMapper.insert(firstApply);
     }
 }
