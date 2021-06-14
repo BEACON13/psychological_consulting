@@ -10,6 +10,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.FirstVisitReportService;
 import com.example.mybatisplus.model.domain.FirstVisitReport;
 
+import java.util.Map;
+
 
 /**
  *
@@ -33,18 +35,23 @@ public class FirstVisitReportController {
      * 描述：初访员插入初访报告
      *
      */
-    @RequestMapping(value = "/FirstVisitor/insertReport", method = RequestMethod.GET)
+    @RequestMapping(value = "/FirstVisitor/insertFVReport", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse insertReport(@RequestBody FirstVisitReport firstVisitReport){
-        return firstVisitReportService.insertFVReport(firstVisitReport);
+    public JsonResponse insertFVReport(@RequestBody Map form){
+        return firstVisitReportService.insertFVReport(form);
     }
 
 
 
 
     /**
-     * 描述：初访员界面显示未完成报告
+     * 描述：该初访员查看所有报告
      *
      */
+    @RequestMapping(value = "/FirstVisitor/showAllFVReports", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showAllFVReports(){
+        return null;
+    }
 }
 
