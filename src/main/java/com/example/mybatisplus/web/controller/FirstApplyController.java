@@ -37,7 +37,7 @@ public class FirstApplyController {
      */
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info)throws Exception {
+    public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info) {
         FirstApply firstApply=new FirstApply();
         firstApply.setSId((Long) info.get("sId"))
                 .setTpId((Integer) info.get("tpID"))
