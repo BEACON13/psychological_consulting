@@ -2,9 +2,11 @@ package com.example.mybatisplus.model.vo;
 
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalTime;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ConsultAppointmentRecordVO extends ConsultAppointmentRecord {
 
