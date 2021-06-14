@@ -19,6 +19,8 @@ import java.util.List;
 @Repository
 public interface FirstVisitReportMapper extends BaseMapper<FirstVisitReport> {
 
+    List<FirstVisitReportVO> getFVReportsByName(Long id, String stuName);
+
     List<FirstVisitReportVO> showAllFVReports(Long id);
 
 }
