@@ -1,6 +1,8 @@
 package com.example.mybatisplus.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -40,6 +42,11 @@ public class FirstVisitRecord extends Model<FirstVisitRecord> {
 
     private LocalDate date;
 
+    /**
+     * 逻辑删除属性
+     */
+    @TableLogic
+    @TableField("is_deleted")
     private Boolean isDeleted;
 
     private Boolean isFinished;

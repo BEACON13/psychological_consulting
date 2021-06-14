@@ -4,6 +4,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -14,5 +16,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
 
-    public JsonResponse showRecord();
+
+    public JsonResponse showRecords();
+
+    public JsonResponse showAllRecords();
+
+    public JsonResponse getRecordsByName(String stuName);
 }

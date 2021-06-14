@@ -33,10 +33,41 @@ public class FirstVisitRecordController {
      * 描述：显示该初访员未完成的初访预约
      *
      */
-    @RequestMapping(value="/firstVisit",method = RequestMethod.GET)
+    @RequestMapping(value="/firstVisit/",method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse showFVRecord(){
-        return firstVisitRecordService.showRecord();
+    public JsonResponse showFVRecords(){
+        return firstVisitRecordService.showRecords();
+    }
+
+    /**
+     * 描述：显示该初访员所有的初访记录
+     *
+     */
+    @RequestMapping(value="/firstVisit/showAll",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showAllFVRecords(){
+        return firstVisitRecordService.showAllRecords();
+    }
+
+    /**
+     * 描述：该初访员根据学生姓名搜索是否有属于自己的初访记录
+     *
+     */
+    @RequestMapping(value="/firstVisit/search",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showFVRecordsByName(@RequestParam("stuName") String stuName){
+        return firstVisitRecordService.getRecordsByName(stuName);
+    }
+
+
+    /**
+     * 描述：学生查看初访预约记录
+     *
+     */
+    @RequestMapping(value="/student/show",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getFVRecord(){
+        return null;
     }
 }
 
