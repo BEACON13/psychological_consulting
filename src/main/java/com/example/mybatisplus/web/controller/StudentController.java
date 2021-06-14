@@ -39,15 +39,7 @@ public class StudentController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse login(@RequestParam("username")String code,@RequestParam("pwd")String pwd){
-        Student student=studentService.login(code);
-        if (student == null)
-            return JsonResponse.failure("用户不存在");
-        else if(!student.getPassword().equals(pwd))
-            return JsonResponse.failure("密码错误");
-
-        SessionUtils.saveCurrentUserInfo(student);
-        System.out.println(student);
-        return JsonResponse.success(student,"登录成功！");
+        return studentService.login(code,pwd);
     }
 
     /**
@@ -103,7 +95,7 @@ public class StudentController {
     * 描述:创建Student
     *
     */
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "/ds", method = RequestMethod.POST)
     @ResponseBody
     public JsonResponse create(Student  student) throws Exception {
         studentService.save(student);

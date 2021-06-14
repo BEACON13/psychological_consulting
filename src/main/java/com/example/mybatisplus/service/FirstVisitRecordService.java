@@ -23,5 +23,7 @@ public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
 
     public JsonResponse getRecordsByName(String stuName);
 
+    public List<FirstVisitRecord> getRecordByStudent(Long sId);
+
     public JsonResponse getFVRecord();
 }

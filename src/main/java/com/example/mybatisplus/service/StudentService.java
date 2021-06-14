@@ -18,4 +18,6 @@ public interface StudentService extends IService<Student> {
     JsonResponse login(String code,String pwd);
 
     int changePwd(String code,String newPwd);
+
+    boolean isAllowedFirstApply(Student student);
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.mapper.StudentMapper;
+import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
 import com.example.mybatisplus.mapper.FirstVisitRecordMapper;
 import com.example.mybatisplus.model.vo.FirstVisitRecordVO;
@@ -104,4 +105,10 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
     }
 
 
+    @Override
+    public List<FirstVisitRecord> getRecordByStudent(Long sId) {
+        QueryWrapper<FirstVisitRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(FirstVisitRecord::getSId,sId);
+        return baseMapper.selectList(wrapper);
+    }
 }

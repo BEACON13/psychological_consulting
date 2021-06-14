@@ -1,10 +1,13 @@
 package com.example.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mybatisplus.model.domain.FirstApply;
 import com.example.mybatisplus.mapper.FirstApplyMapper;
 import com.example.mybatisplus.service.FirstApplyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,5 +22,12 @@ public class FirstApplyServiceImpl extends ServiceImpl<FirstApplyMapper, FirstAp
     @Override
     public int insertFirstApply(FirstApply firstApply) {
         return baseMapper.insert(firstApply);
+    }
+
+    @Override
+    public List<FirstApply> getFirstApplyByStu(Long sId) {
+        QueryWrapper<FirstApply> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(FirstApply::getSId, sId);
+        return baseMapper.selectList(wrapper);
     }
 }
