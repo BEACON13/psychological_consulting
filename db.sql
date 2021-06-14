@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 14/06/2021 14:40:52
+ Date: 14/06/2021 15:55:12
 */
 
 SET NAMES utf8mb4;
@@ -71,6 +71,12 @@ DROP TABLE IF EXISTS `consult_apply`;
 CREATE TABLE `consult_apply`  (
   `consult_apply_id` bigint(0) NOT NULL AUTO_INCREMENT,
   `s_id` bigint(0) NOT NULL,
+  `stu_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `emergency_phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `danger_level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `problem_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `tp_id_1` smallint(0) NULL DEFAULT NULL,
   `tp_id_2` smallint(0) NULL DEFAULT NULL,
   `tp_id_3` smallint(0) NULL DEFAULT NULL,
@@ -90,7 +96,7 @@ CREATE TABLE `consult_apply`  (
 -- Records of consult_apply
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_apply` VALUES (1, 1, 5, 6, 7, 8), (2, 2, 8, 9, 10, 8);
+INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 5, 6, 7, 8), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8);
 COMMIT;
 
 -- ----------------------------
@@ -343,7 +349,6 @@ CREATE TABLE `person`  (
 -- Records of person
 -- ----------------------------
 BEGIN;
-INSERT INTO `person` VALUES (1, 'yanghl', '123', '杨慧林', '13278091782', '女', '心理咨询师', 43, '资深心理咨询师，从业15年，经验丰富', '四川省成都市双流区', '1089728@qq.com'), (2, 'admin', '123', '唐林', '18937092834', '男', '心理学教师', 35, '心理学教师，擅长管理', '四川省成都市郫都区润水花园', '927392739@126.com'), (3, 'wangq', '123', '王青青', '13290870832', '女', '心理学教师', 28, '心理学硕士毕业', '成都西路', '29073826@qq.com'), (4, 'sunwei', '123', '孙维', '18907832568', '男', '实习助理', 23, '心理学研究生在读', '成都春熙路', '2903263782@qq.com'), (5, 'taodn', '123', '陶大娘', '15589082764', '女', '心理咨询师', 50, '外聘心理咨询师，从业25年', '北京南路', '29083729@qq.com');
 COMMIT;
 
 -- ----------------------------
