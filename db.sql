@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 14/06/2021 15:55:12
+ Date: 14/06/2021 18:02:14
 */
 
 SET NAMES utf8mb4;
@@ -81,6 +81,7 @@ CREATE TABLE `consult_apply`  (
   `tp_id_2` smallint(0) NULL DEFAULT NULL,
   `tp_id_3` smallint(0) NULL DEFAULT NULL,
   `num` int(0) NULL DEFAULT NULL,
+  `is_finished` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`consult_apply_id`) USING BTREE,
   INDEX `FK_Reference_42`(`tp_id_1`) USING BTREE,
   INDEX `FK_Reference_43`(`tp_id_2`) USING BTREE,
@@ -96,7 +97,7 @@ CREATE TABLE `consult_apply`  (
 -- Records of consult_apply
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 5, 6, 7, 8), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8);
+INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 5, 6, 7, 8, 1), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8, 1);
 COMMIT;
 
 -- ----------------------------
@@ -147,10 +148,10 @@ CREATE TABLE `consult_appointment_report`  (
   INDEX `FK_Reference_40`(`tp_id`) USING BTREE,
   INDEX `FK_Reference_41`(`c_id`) USING BTREE,
   INDEX `fk_consult_appoint_id`(`consult_appoint_id`) USING BTREE,
+  CONSTRAINT `fk_consult_appoint_id` FOREIGN KEY (`consult_appoint_id`) REFERENCES `consult_appointment_record` (`consult_appoint_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_39` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_40` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Reference_41` FOREIGN KEY (`c_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_consult_appoint_id` FOREIGN KEY (`consult_appoint_id`) REFERENCES `consult_appointment_record` (`consult_appoint_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_Reference_41` FOREIGN KEY (`c_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
@@ -205,6 +206,7 @@ CREATE TABLE `first_apply`  (
   `problem_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `consult_expectation` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `consult_history` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `is_finished` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`fa_id`) USING BTREE,
   INDEX `FK_Reference_26`(`tp_id`) USING BTREE,
   INDEX `FK_stu_first_apply2`(`s_id`) USING BTREE,
@@ -216,7 +218,7 @@ CREATE TABLE `first_apply`  (
 -- Records of first_apply
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_apply` VALUES (1, 1, 1, 60, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '无', 1, '较紧急', '焦虑', '希望能让我内心平静', '无'), (2, 2, 2, 32, '王琳', '13256783961', '郫都西路', '18765097314', '无', 1, '轻度', '社恐', '克服社恐', '无'), (3, 3, 3, 45, '张达', '18976280862', '春熙路23号', '15609871265', '患有心脏病', 0, '较紧急', '经常性紧张', '希望克服紧张', '以前在第一医院做过咨询'), (4, 4, 4, 78, '李小萌', '19987209803', '江安小区', '15528907543', '无', 0, '紧急', '抑郁', '洗希望恢复正常生活', '无');
+INSERT INTO `first_apply` VALUES (1, 1, 1, 60, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '无', 1, '较紧急', '焦虑', '希望能让我内心平静', '无', 1), (2, 2, 2, 32, '王琳', '13256783961', '郫都西路', '18765097314', '无', 1, '轻度', '社恐', '克服社恐', '无', 1), (3, 3, 3, 45, '张达', '18976280862', '春熙路23号', '15609871265', '患有心脏病', 0, '较紧急', '经常性紧张', '希望克服紧张', '以前在第一医院做过咨询', 1), (4, 4, 4, 78, '李小萌', '19987209803', '江安小区', '15528907543', '无', 0, '紧急', '抑郁', '洗希望恢复正常生活', '无', 1);
 COMMIT;
 
 -- ----------------------------
@@ -269,10 +271,10 @@ CREATE TABLE `first_visit_report`  (
   INDEX `FK_Reference_37`(`tp_id`) USING BTREE,
   INDEX `FK_Reference_38`(`fv_id`) USING BTREE,
   INDEX `fk_fvr_id`(`fvr_id`) USING BTREE,
+  CONSTRAINT `fk_fvr_id` FOREIGN KEY (`fvr_id`) REFERENCES `first_visit_record` (`fvr_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_36` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_37` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Reference_38` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_fvr_id` FOREIGN KEY (`fvr_id`) REFERENCES `first_visit_record` (`fvr_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_Reference_38` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
@@ -349,6 +351,7 @@ CREATE TABLE `person`  (
 -- Records of person
 -- ----------------------------
 BEGIN;
+INSERT INTO `person` VALUES (1, 'yanghl', '123', '杨慧林', '13278091782', '女', '心理咨询师', 43, '资深心理咨询师，从业15年，经验丰富', '四川省成都市双流区', '1089728@qq.com'), (2, 'admin', '123', '唐林', '18937092834', '男', '心理学教师', 35, '心理学教师，擅长管理', '四川省成都市郫都区润水花园', '927392739@126.com'), (3, 'wangq', '123', '王青青', '13290870832', '女', '心理学教师', 28, '心理学硕士毕业', '成都西路', '29073826@qq.com'), (4, 'sunwei', '123', '孙维', '18907832568', '男', '实习助理', 23, '心理学研究生在读', '成都春熙路', '2903263782@qq.com'), (5, 'taodn', '123', '陶大娘', '15589082764', '女', '心理咨询师', 50, '外聘心理咨询师，从业25年', '北京南路', '29083729@qq.com');
 COMMIT;
 
 -- ----------------------------
