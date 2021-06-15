@@ -33,7 +33,7 @@ public class ConsultAppointmentReportController {
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
 
-    @RequestMapping(value = "/consultant/insert/consultReport", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultant/insert/consultReport")
     @ResponseBody
     public JsonResponse insertReport(@RequestParam("consultReport") Map<String,Object> info){
         ConsultAppointmentReport report = new ConsultAppointmentReport();

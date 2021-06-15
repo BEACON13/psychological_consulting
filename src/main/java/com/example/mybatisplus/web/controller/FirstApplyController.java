@@ -41,7 +41,7 @@ public class FirstApplyController {
      * 描述：插入新预约申请
      *
      */
-    @RequestMapping(value = "/student/insert/firstApply", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/insert/firstApply")
     @ResponseBody
     public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info) {
 
