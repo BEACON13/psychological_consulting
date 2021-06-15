@@ -14,10 +14,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 
-@EqualsAndHashCode(callSuper = true)
+
 @Accessors(chain = true)
 @Data
-public class ConsultAppointmentRecordVO extends ConsultAppointmentRecord {
+public class ConsultAppointmentRecordVO {
     private static final long serialVersionUID = 1L;
 
     private Long consultAppointId;
