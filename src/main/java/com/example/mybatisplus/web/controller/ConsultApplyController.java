@@ -21,7 +21,7 @@ import com.example.mybatisplus.model.domain.ConsultApply;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/consultApply")
+@RequestMapping("/api")
 public class ConsultApplyController {
 
     private final Logger logger = LoggerFactory.getLogger( ConsultApplyController.class );
@@ -30,50 +30,13 @@ public class ConsultApplyController {
     private ConsultApplyService consultApplyService;
 
     /**
-    * 描述：根据Id 查询
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+     * 描述：学生填写咨询申请
+     *
+     */
+    @RequestMapping(value="/student/applyConsult",method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        ConsultApply  consultApply =  consultApplyService.getById(id);
-        return JsonResponse.success(consultApply);
-    }
-
-    /**
-    * 描述：根据Id删除
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        consultApplyService.removeById(id);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述：根据Id 更新
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public JsonResponse updateConsultApply(@PathVariable("id") Long  id,ConsultApply  consultApply) throws Exception {
-        consultApply.setConsultApplyId(id);
-        consultApplyService.updateById(consultApply);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述:创建ConsultApply
-    *
-    */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse create(ConsultApply  consultApply) throws Exception {
-        consultApplyService.save(consultApply);
-        return JsonResponse.success(null);
+    public JsonResponse applyCon(@RequestParam("tp1")Integer tp1,@RequestParam("tp2")Integer tp2,@RequestParam("tp3")Integer tp3){
+        return null;
     }
 }
 

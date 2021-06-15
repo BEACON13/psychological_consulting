@@ -105,4 +105,16 @@ public class FirstVisitReportServiceImpl extends ServiceImpl<FirstVisitReportMap
 
         return JsonResponse.success(fvReportVOS,"success!");
     }
+
+
+    /**
+     * 描述：初访员根据记录查看相关报告
+     *
+     */
+    @Override
+    public JsonResponse getFVReportsByFvrId(Long fvrId) {
+        FirstVisitReportVO fvReportByFvrId = firstVisitReportMapper.getFVReportByFvrId(fvrId);
+
+        return JsonResponse.success(fvReportByFvrId,"success");
+    }
 }

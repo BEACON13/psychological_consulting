@@ -25,4 +25,6 @@ public interface FirstVisitReportMapper extends BaseMapper<FirstVisitReport> {
 
     List<FirstVisitReportVO> getFVReport(Long id);
 
+    FirstVisitReportVO getFVReportByFvrId(Long fvrId);
+
 }
