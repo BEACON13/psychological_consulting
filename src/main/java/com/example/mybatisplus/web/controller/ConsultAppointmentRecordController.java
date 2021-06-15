@@ -75,18 +75,36 @@ public class ConsultAppointmentRecordController {
     }
 
 
-    /**
+    /*
+     * ！！！！！学生id可能拿不到！！！！！
      * 描述：查看某心理咨询师与某学生共同参与的咨询记录
+     * 通过ID查询
+     * 不论日期
+     */
+    @RequestMapping(value = "/consultant/appointRecord/constuid", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getUnfinishedRecordByStuID(@RequestParam("studentId") Long sId){
+        Person consultant = SecurityUtils.getCurrentUserInfo();
+        List records = consultAppointmentRecordService
+                .getRecordByConsultantAndStudentID(consultant.getPId(),sId);
+        return JsonResponse.success(records);
+    }
+
+
+    /*
+     * 描述：查看某心理咨询师与某学生共同参与的咨询记录
+     * 通过咨询师ID和学生姓名查询
      * 不论日期
      */
     @RequestMapping(value = "/consultant/appointRecord/constu", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse getUnfinishedRecord(@RequestParam("studentId") Long sId){
+    public JsonResponse getUnfinishedRecord(@RequestParam("studentName") String stuName){
         Person consultant = SecurityUtils.getCurrentUserInfo();
         List records = consultAppointmentRecordService
-                .getRecordByConsultantAndStudent(consultant.getPId(),sId);
+                .getRecordByConsultantAndStudent(consultant.getPId(),stuName);
         return JsonResponse.success(records);
     }
+
 
     /**
      * 描述：获取未完成的和未填写的

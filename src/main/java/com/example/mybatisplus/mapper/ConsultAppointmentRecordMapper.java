@@ -18,11 +18,14 @@ import java.util.List;
  */
 @Repository
 public interface ConsultAppointmentRecordMapper extends BaseMapper<ConsultAppointmentRecord> {
-    List<ConsultAppointmentRecordVO> getRecordsByConsultant(Long c_id);
+    List<ConsultAppointmentRecordVO> getRecordsByConsultant(Long cId);
 
-    List<ConsultAppointmentRecordVO> getRecordNotFilledIn(@Param("id") Long c_id,@Param("date") String date);
+    List<ConsultAppointmentRecordVO> getRecordNotFilledIn(@Param("id") Long cId,@Param("date") String date);
 
-    List<ConsultAppointmentRecordVO> getUnfinishedRecords(Long c_id);
+    List<ConsultAppointmentRecordVO> getUnfinishedRecords(Long cId);
 
-    List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudent(@Param("c_id") Long c_id,@Param("s_id") Long s_id);
+    List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudentID(@Param("c_id") Long cId,@Param("s_id") Long sId);
+
+    List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudent(@Param("c_id") Long cId,@Param("stu_name") String stuName);
 }
+
