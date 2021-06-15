@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 15/06/2021 14:56:57
+ Date: 15/06/2021 15:44:24
 */
 
 SET NAMES utf8mb4;
@@ -25,6 +25,7 @@ CREATE TABLE `add_consult`  (
   `add_c_id` bigint(0) NOT NULL AUTO_INCREMENT,
   `s_id` bigint(0) NOT NULL,
   `c_id` bigint(0) NULL DEFAULT NULL,
+  `tp_id` smallint(0) NULL DEFAULT NULL,
   `times` int(0) NOT NULL,
   PRIMARY KEY (`add_c_id`) USING BTREE,
   INDEX `FK_Reference_35`(`c_id`) USING BTREE,
@@ -91,7 +92,7 @@ CREATE TABLE `consult_apply`  (
   CONSTRAINT `FK_Reference_43` FOREIGN KEY (`tp_id2`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_44` FOREIGN KEY (`tp_id3`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_stu_consult_apply` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of consult_apply
@@ -281,7 +282,7 @@ CREATE TABLE `first_visit_report`  (
 -- Records of first_visit_report
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_visit_report` VALUES (1, 1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-07'), (2, 2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-05-31'), (3, 4, 4, 4, 3, '中', '抑郁', '安排咨询', '2021-06-14');
+INSERT INTO `first_visit_report` VALUES (1, 1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-07'), (2, 2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-05-31'), (12, 4, 4, 4, 3, '中', '抑郁', '安排咨询', '2021-06-14');
 COMMIT;
 
 -- ----------------------------
@@ -396,6 +397,7 @@ CREATE TABLE `student`  (
 -- Records of student
 -- ----------------------------
 BEGIN;
+INSERT INTO `student` VALUES (1, '2018141411216', '范若曦', '15529080856', '软件学院', 2018, '女', '2000-05-16', 0, '123'), (2, '2017151638792', '王琳', '13256783961', '经济学院', 2017, '女', '1999-03-11', 1, '123456'), (3, '2019151663516', '张达', '18976280862', '数学学院', 2019, '男', '2001-06-10', 0, '123'), (4, '2020151637823', '李小萌', '19987209803', '计算机学院', 2020, '女', '2002-04-27', 1, '123'), (5, '2019151728901', '王鹏', '13289074892', '化学学院', 2019, '男', '2000-01-12', 0, '123'), (6, '2018141463095', '张锋', '15598370973', '电子信息学院', 2018, '男', '2000-11-22', 0, '123'), (7, '2017131878972', '李雯雯', '19878047823', '文学与新闻学院', 2017, '女', '1999-04-08', 0, '123');
 COMMIT;
 
 -- ----------------------------
@@ -408,7 +410,7 @@ CREATE TABLE `time_period`  (
   `duration` int(0) NULL DEFAULT NULL,
   `weekday` smallint(0) NULL DEFAULT NULL,
   PRIMARY KEY (`tp_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of time_period
