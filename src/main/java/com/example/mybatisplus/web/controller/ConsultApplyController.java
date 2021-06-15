@@ -29,14 +29,6 @@ public class ConsultApplyController {
     @Autowired
     private ConsultApplyService consultApplyService;
 
-    /**
-     * 描述：学生填写咨询申请
-     *
-     */
-    @RequestMapping(value="/student/applyConsult",method = RequestMethod.GET)
-    @ResponseBody
-    public JsonResponse applyCon(@RequestParam("tp1")Integer tp1,@RequestParam("tp2")Integer tp2,@RequestParam("tp3")Integer tp3){
-        return null;
-    }
+
 }
 
