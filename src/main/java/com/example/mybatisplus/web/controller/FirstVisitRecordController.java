@@ -33,7 +33,7 @@ public class FirstVisitRecordController {
      * 描述：显示该初访员未完成的初访预约
      *
      */
-    @RequestMapping(value="/firstVisit/showFVRecords",method = RequestMethod.GET)
+    @RequestMapping(value="/firstVisit/showFVRecords",method = RequestMethod.POST)
     @ResponseBody
     public JsonResponse showFVRecords(){
         return firstVisitRecordService.showRecords();

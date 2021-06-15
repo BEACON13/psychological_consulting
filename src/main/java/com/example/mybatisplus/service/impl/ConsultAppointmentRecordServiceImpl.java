@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.mapper.ConsultAppointmentRecordMapper;
+import com.example.mybatisplus.model.vo.ConsultAppointmentRecordVO;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -25,14 +27,21 @@ import java.util.Map;
 @Service
 public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppointmentRecordMapper, ConsultAppointmentRecord> implements ConsultAppointmentRecordService {
 
-    @Override
-    public List<ConsultAppointmentRecord> getAllRecordByConsultantID(Long consultantId) {
-        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId);
+    @Autowired
+    ConsultAppointmentRecordMapper cram;
 
-        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
-        return records;
+
+
+    /*
+    根据咨询师id获取其所有的咨询记录
+     */
+    @Override
+    public List<ConsultAppointmentRecordVO> getAllRecordByConsultantID(Long consultantId) {
+
+        return cram.getRecordsByConsultant(consultantId);
+
     }
+
 
     /*
     今天及之前
@@ -40,36 +49,31 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     即未填报
     */
     @Override
-    public List<ConsultAppointmentRecord> getRecordNotFilledInByConsultantID(Long consultantId) {
+    public List<ConsultAppointmentRecordVO> getRecordNotFilledInByConsultantID(Long consultantId) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
         String date=simpleDateFormat.format(new Date());
 
-        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId)
-                .le(ConsultAppointmentRecord::getDate,date)
-                .eq(ConsultAppointmentRecord::getIsFinished,0);
-
-        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
-        return records;
+        return cram.getRecordNotFilledIn(consultantId,date);
     }
 
     @Override
-    public List<ConsultAppointmentRecord> getAllUnfinishedRecordByConsultantID(Long consultantId) {
-        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId)
-                .eq(ConsultAppointmentRecord::getIsFinished,0);
-        List<ConsultAppointmentRecord> unfinishedRecords = baseMapper.selectList(wrapper);
-        return unfinishedRecords;
+    public List<ConsultAppointmentRecordVO> getAllUnfinishedRecordByConsultantID(Long consultantId) {
+
+        return cram.getUnfinishedRecords(consultantId);
+    }
+
+
+    @Override
+    public List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudent(Long cId, String stuName) {
+        return cram.getRecordByConsultantAndStudent(cId,stuName);
     }
 
     @Override
-    public List<ConsultAppointmentRecord> getRecordByConsultantAndStudent(Long CID, Long SID) {
-        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,CID)
-                .eq(ConsultAppointmentRecord::getSId,SID);
-        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
-        return records;
+    public List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudentID(Long cId, Long sId) {
+        return cram.getRecordByConsultantAndStudentID(cId,sId);
     }
+
+
 
     @Override
     public Map<String, List> getUnfinishedAndNotFilledIn(Long consultantId) {
@@ -91,6 +95,9 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         return baseMapper.update(null,wrapper);
     }
 
+    /*
+    获取特定学生咨询的数目
+    */
     @Override
     public int countConsultingNum(Long sId) {
         QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
@@ -98,5 +105,92 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
                 .eq(ConsultAppointmentRecord::getIsFinished,1);
         return baseMapper.selectCount(wrapper);
     }
+
+    @Override
+    public List<ConsultAppointmentRecordVO> getStuRecord(Long id) {
+
+        return cram.getRecordByStu(id);
+    }
+
+    /**
+     * 描述：根据学生ID获取记录，查看学生是否有资格申请咨询
+     *
+     */
+    @Override
+    public List<ConsultAppointmentRecord> getRecordsByStuId(Long SID) {
+        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getSId,SID).eq(ConsultAppointmentRecord::getIsFinished,0);
+        List<ConsultAppointmentRecord> consultAppointmentRecords = cram.selectList(wrapper);
+
+        return consultAppointmentRecords;
+    }
+
+    /*
+    删除某学生还没有进行的咨询记录
+     */
+    @Override
+    public void deleteUndoneRecords(Long sId) {
+        UpdateWrapper<ConsultAppointmentRecord> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getSId,sId)
+                .eq(ConsultAppointmentRecord::getIsFinished,0)
+                .set(ConsultAppointmentRecord::getIsDeleted,1);
+
+        baseMapper.update(null,wrapper);
+    }
+
+
+
+    /*
+    @Override
+    public List<ConsultAppointmentRecord> getAllRecordByConsultantID(Long consultantId) {
+        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId);
+
+        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
+        return records;
+    }
+     */
+
+
+    /*
+    @Override
+    public List<ConsultAppointmentRecord> getRecordNotFilledInByConsultantID(Long consultantId) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+        String date=simpleDateFormat.format(new Date());
+
+        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId)
+                .le(ConsultAppointmentRecord::getDate,date)
+                .eq(ConsultAppointmentRecord::getIsFinished,0);
+
+        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
+        return records;
+    }
+
+     */
+
+    /*
+    @Override
+    public List<ConsultAppointmentRecord> getAllUnfinishedRecordByConsultantID(Long consultantId) {
+        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId)
+                .eq(ConsultAppointmentRecord::getIsFinished,0);
+        List<ConsultAppointmentRecord> unfinishedRecords = baseMapper.selectList(wrapper);
+        return unfinishedRecords;
+    }
+
+     */
+
+    /*
+    @Override
+    public List<ConsultAppointmentRecord> getRecordByConsultantAndStudent(Long CID, Long SID) {
+        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,CID)
+                .eq(ConsultAppointmentRecord::getSId,SID);
+        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
+        return records;
+    }
+
+     */
 
 }

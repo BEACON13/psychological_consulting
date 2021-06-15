@@ -61,4 +61,71 @@
               and car.s_id=ca.s_id
     </select>
 
+
+    <!--获得咨询师未填报的预约-->
+    <!--即今天及之前的预约，但是is_finished字段为0-->
+    <select id="getRecordNotFilledIn" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=#{id}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+          and car.date &lt;= #{date}
+          and car.is_finished = 0
+    </select>
+
+    <!--通过咨询师获得所有未完成的预约-->
+    <select id="getUnfinishedRecords" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=#{id}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+          and car.is_finished = 0
+    </select>
+
+    <!--根据咨询师和学生ID获取咨询记录-->
+    <select id="getRecordByConsultantAndStudentID" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=#{c_id}
+          and car.s_id=#{s_id}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+    </select>
+
+    <!--根据咨询师和学生姓名获取咨询记录-->
+    <select id="getRecordByConsultantAndStudent" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=#{c_id}
+          and ca.stu_name=#{stu_name}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+    </select>
+
+    <!--根据学生id查询-->
+    <select id="getRecordByStu" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where ca.s_id=#{sId}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+    </select>
+
 </mapper>

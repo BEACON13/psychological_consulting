@@ -10,6 +10,10 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.ConsultAppointmentReportService;
 import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
 
 /**
  *
@@ -21,7 +25,7 @@ import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/consultAppointmentReport")
+@RequestMapping("/api")
 public class ConsultAppointmentReportController {
 
     private final Logger logger = LoggerFactory.getLogger( ConsultAppointmentReportController.class );
@@ -29,51 +33,23 @@ public class ConsultAppointmentReportController {
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
 
-    /**
-    * 描述：根据Id 查询
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultant/insert/consultReport")
     @ResponseBody
-    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        ConsultAppointmentReport  consultAppointmentReport =  consultAppointmentReportService.getById(id);
-        return JsonResponse.success(consultAppointmentReport);
-    }
+    public JsonResponse insertReport(@RequestParam("consultReport") Map<String,Object> info){
+        ConsultAppointmentReport report = new ConsultAppointmentReport();
+        report.setConsultAppointId(Long.parseLong(info.get("consult_appoint_id").toString()))
+                .setSId((Long.parseLong (info.get("sId").toString())))
+                .setTpId((int) info.get("tpId"))
+                .setConsultResult((String) info.get("consultResult"))
+                .setCId((Long.parseLong (info.get("cId").toString())));
 
-    /**
-    * 描述：根据Id删除
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        consultAppointmentReportService.removeById(id);
-        return JsonResponse.success(null);
-    }
+        LocalDate date = LocalDate.parse((String) info.get("date")
+                , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        report.setDate(date);
 
+        consultAppointmentReportService.insertReport(report);
 
-    /**
-    * 描述：根据Id 更新
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public JsonResponse updateConsultAppointmentReport(@PathVariable("id") Long  id,ConsultAppointmentReport  consultAppointmentReport) throws Exception {
-        consultAppointmentReport.setCarId(id);
-        consultAppointmentReportService.updateById(consultAppointmentReport);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述:创建ConsultAppointmentReport
-    *
-    */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse create(ConsultAppointmentReport  consultAppointmentReport) throws Exception {
-        consultAppointmentReportService.save(consultAppointmentReport);
-        return JsonResponse.success(null);
+        return JsonResponse.success("插入完成");
     }
 }
 

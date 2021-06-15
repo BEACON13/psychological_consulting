@@ -1,11 +1,36 @@
 package com.example.mybatisplus.model.vo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.example.mybatisplus.model.domain.FirstApply;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
+import lombok.Data;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class FirstVisitRecordVO extends FirstVisitRecord {
+@Data
+public class FirstVisitRecordVO {
+
+
+    private Long fvrId;
+
+    private Long sId;
+
+    private Integer tpId;
+
+    private Long locationId;
+
+    private Long fvId;
+
+    private LocalDate date;
+
+    private Boolean isDeleted;
+
+    private Boolean isFinished;
 
     private LocalTime startTime;
 
@@ -17,14 +42,4 @@ public class FirstVisitRecordVO extends FirstVisitRecord {
 
     private FirstApply firstApply;
 
-    @Override
-    public String toString() {
-        return super.toString() + "FirstVisitRecordVO{" +
-                "startTime=" + startTime +
-                ", duration=" + duration +
-                ", locationName='" + locationName + '\'' +
-                ", fvName='" + fvName + '\'' +
-                ", firstApply=" + firstApply +
-                '}';
-    }
 }

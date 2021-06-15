@@ -1,6 +1,8 @@
 package com.example.mybatisplus.web.controller;
 
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
+import com.example.mybatisplus.service.ConsultAppointmentReportService;
+import com.example.mybatisplus.service.StudentService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -24,7 +26,7 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/closingReport")
+@RequestMapping("/api")
 public class ClosingReportController {
 
     private final Logger logger = LoggerFactory.getLogger( ClosingReportController.class );
@@ -34,69 +36,61 @@ public class ClosingReportController {
 
     @Autowired
     private ConsultAppointmentRecordService consultAppointmentRecordService;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private ConsultAppointmentReportService consultAppointmentReportService;
+
     /*
-    插入
+     *插入结案报告
      */
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultant/insert/closingReport")
     @ResponseBody
     public JsonResponse insertClosingReport(@RequestParam("closingReport") Map<String,Object> info) throws Exception {
-        ClosingReport report = new ClosingReport();
-        report.setCId((Long) info.get("cId"))
-                .setConsultEffectSelf((String) info.get("consultEffectSelf"))
-                .setProblemType((String) info.get("problemType"))
-                .setSId((Long) info.get("sId"));
 
-        int num = consultAppointmentRecordService
-                .countConsultingNum((Long) info.get("sId"));
+        //获取sId
+        Long sId = Long.parseLong(info.get("sId").toString());
+
+        //检查最后一次record
+        if(!consultAppointmentReportService.checkLastRecordIsClosed(sId))
+            return JsonResponse.failure("最后一次咨询未结案");
+
+        //填写内容
+        ClosingReport report = new ClosingReport();
+        report.setCId(Long.parseLong(info.get("cId").toString()))
+                .setConsultEffectSelf((String) info.get("consultEffectSelf"))
+                .setProblemType((String) info.get("problemType"));
+
+        //计算学生完成的咨询次数
+        int num = consultAppointmentRecordService.countConsultingNum(sId);
         report.setConsultNum(num);
 
-        return create(report);
+        closingReportService.save(report);
+
+        //修改学生is_qualified字段
+        studentService.setUnQualified(sId);
+
+        //去除咨询record中没有finish的
+        consultAppointmentRecordService.deleteUndoneRecords(sId);
+
+        return JsonResponse.successMessage("插入完成");
     }
-    /**
-    * 描述：根据Id 查询
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+
+
+    /*
+     * 检查是否允许插入结案报告
+     * 检查方法是查看学生is_qualified字段是否为1
+     * 因为插入结案报告时会将该字段置为0
+     */
+    @RequestMapping(value = "/consultant/insert/closingReport/allow")
     @ResponseBody
-    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        ClosingReport  closingReport =  closingReportService.getById(id);
-        return JsonResponse.success(closingReport);
+    public JsonResponse insertClosingReport(@RequestParam("student_id") Long id){
+        return studentService.isQualified(id) ?
+                JsonResponse.successMessage("请填写") :
+                JsonResponse.failure("不满足填写要求");
     }
 
-    /**
-    * 描述：根据Id删除
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        closingReportService.removeById(id);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述：根据Id 更新
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public JsonResponse updateClosingReport(@PathVariable("id") Long  id,ClosingReport  closingReport) throws Exception {
-        closingReport.setClosingReportId(id);
-        closingReportService.updateById(closingReport);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述:创建ClosingReport
-    *
-    */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse create(ClosingReport  closingReport) throws Exception {
-        closingReportService.save(closingReport);
-        return JsonResponse.success(null);
-    }
 }
 

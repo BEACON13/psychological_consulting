@@ -23,7 +23,7 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/firstVisitReport")
+@RequestMapping("/api")
 public class FirstVisitReportController {
 
     private final Logger logger = LoggerFactory.getLogger( FirstVisitReportController.class );
@@ -35,7 +35,7 @@ public class FirstVisitReportController {
      * 描述：初访员插入初访报告
      *
      */
-    @RequestMapping(value = "/FirstVisitor/insertFVReport", method = RequestMethod.GET)
+    @RequestMapping(value = "/FirstVisitor/insertFVReport")
     @ResponseBody
     public JsonResponse insertFVReport(@RequestBody Map form){
         return firstVisitReportService.insertFVReport(form);
@@ -62,6 +62,16 @@ public class FirstVisitReportController {
     @ResponseBody
     public JsonResponse showFVReportsByName(@RequestParam("stuName")String stuName){
         return firstVisitReportService.getFVReportsByName(stuName);
+    }
+
+    /**
+     * 描述：初访员根据记录查看相关报告
+     *
+     */
+    @RequestMapping(value = "/FirstVisitor/showFVReportByRecord", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showFVReportsByFvrId(@RequestParam("fvrId")Long fvrId){
+        return firstVisitReportService.getFVReportsByFvrId(fvrId);
     }
 
     /**

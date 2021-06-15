@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 14/06/2021 20:52:19
+ Date: 15/06/2021 15:44:24
 */
 
 SET NAMES utf8mb4;
@@ -25,6 +25,7 @@ CREATE TABLE `add_consult`  (
   `add_c_id` bigint(0) NOT NULL AUTO_INCREMENT,
   `s_id` bigint(0) NOT NULL,
   `c_id` bigint(0) NULL DEFAULT NULL,
+  `tp_id` smallint(0) NULL DEFAULT NULL,
   `times` int(0) NOT NULL,
   PRIMARY KEY (`add_c_id`) USING BTREE,
   INDEX `FK_Reference_35`(`c_id`) USING BTREE,
@@ -77,27 +78,27 @@ CREATE TABLE `consult_apply`  (
   `emergency_phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `danger_level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `problem_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `tp_id_1` smallint(0) NULL DEFAULT NULL,
-  `tp_id_2` smallint(0) NULL DEFAULT NULL,
-  `tp_id_3` smallint(0) NULL DEFAULT NULL,
+  `tp_id1` smallint(0) NULL DEFAULT NULL,
+  `tp_id2` smallint(0) NULL DEFAULT NULL,
+  `tp_id3` smallint(0) NULL DEFAULT NULL,
   `num` int(0) NULL DEFAULT NULL,
   `is_finished` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`consult_apply_id`) USING BTREE,
-  INDEX `FK_Reference_42`(`tp_id_1`) USING BTREE,
-  INDEX `FK_Reference_43`(`tp_id_2`) USING BTREE,
-  INDEX `FK_Reference_44`(`tp_id_3`) USING BTREE,
+  INDEX `FK_Reference_42`(`tp_id1`) USING BTREE,
+  INDEX `FK_Reference_43`(`tp_id2`) USING BTREE,
+  INDEX `FK_Reference_44`(`tp_id3`) USING BTREE,
   INDEX `FK_stu_consult_apply`(`s_id`) USING BTREE,
-  CONSTRAINT `FK_Reference_42` FOREIGN KEY (`tp_id_1`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Reference_43` FOREIGN KEY (`tp_id_2`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Reference_44` FOREIGN KEY (`tp_id_3`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Reference_42` FOREIGN KEY (`tp_id1`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Reference_43` FOREIGN KEY (`tp_id2`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Reference_44` FOREIGN KEY (`tp_id3`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_stu_consult_apply` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of consult_apply
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 5, 6, 7, 8, 1), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8, 1);
+INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 1, 6, 7, 8, 1), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8, 1), (4, 4, '李小萌', '19987209803', '江安小区', '15528907543', '中', '抑郁', 1, 8, 15, 8, 0);
 COMMIT;
 
 -- ----------------------------
@@ -128,7 +129,7 @@ CREATE TABLE `consult_appointment_record`  (
 -- Records of consult_appointment_record
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_appointment_record` VALUES (1, 1, 5, 3, 1, 0, '2020-06-08', 1), (2, 1, 5, 3, 1, 0, '2020-06-15', 1), (3, 1, 5, 3, 1, 0, '2020-06-22', 1), (4, 1, 5, 3, 1, 0, '2020-06-29', 1), (5, 1, 5, 3, 1, 0, '2020-07-06', 1), (6, 1, 5, 3, 1, 0, '2020-07-13', 1), (7, 1, 5, 3, 1, 0, '2020-07-13', 1), (8, 1, 5, 3, 1, 0, '2020-07-20', 1), (9, 2, 8, 5, 5, 0, '2021-05-17', 1), (10, 2, 8, 5, 5, 0, '2021-05-24', 1), (11, 2, 8, 3, 5, 0, '2021-05-31', 1), (12, 2, 8, 5, 5, 0, '2021-06-07', 1), (13, 2, 8, 5, 5, 0, '2021-06-14', 0), (14, 2, 8, 3, 5, 0, '2021-06-21', 0), (15, 2, 8, 5, 5, 0, '2021-06-28', 0), (16, 2, 8, 5, 5, 0, '2021-07-05', 0);
+INSERT INTO `consult_appointment_record` VALUES (1, 1, 1, 3, 1, 0, '2020-06-08', 1), (2, 1, 1, 3, 1, 0, '2020-06-15', 1), (3, 1, 1, 3, 1, 0, '2020-06-22', 1), (4, 1, 1, 3, 1, 0, '2020-06-29', 1), (5, 1, 1, 3, 1, 0, '2020-07-06', 1), (6, 1, 1, 3, 1, 0, '2020-07-13', 1), (7, 1, 1, 3, 1, 0, '2020-07-13', 1), (8, 1, 1, 3, 1, 0, '2020-07-20', 1), (9, 2, 8, 5, 5, 0, '2021-05-17', 1), (10, 2, 8, 5, 5, 0, '2021-05-24', 1), (11, 2, 8, 3, 5, 0, '2021-05-31', 1), (12, 2, 8, 5, 5, 0, '2021-06-07', 1), (13, 2, 8, 5, 5, 0, '2021-06-14', 0), (14, 2, 8, 3, 5, 0, '2021-06-21', 0), (15, 2, 8, 5, 5, 0, '2021-06-28', 0), (16, 2, 8, 5, 5, 0, '2021-07-05', 0);
 COMMIT;
 
 -- ----------------------------
@@ -158,7 +159,7 @@ CREATE TABLE `consult_appointment_report`  (
 -- Records of consult_appointment_report
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_appointment_report` VALUES (1, 1, 1, 5, 1, '完成咨询', '2020-06-08'), (2, 2, 1, 5, 1, '完成咨询', '2020-06-15'), (3, 3, 1, 5, 1, '完成咨询', '2020-06-22'), (4, 4, 1, 5, 1, '完成咨询', '2020-06-29'), (5, 5, 1, 5, 1, '完成咨询', '2020-07-06'), (6, 6, 1, 5, 1, '完成咨询', '2020-07-13'), (7, 7, 1, 5, 1, '完成咨询', '2020-07-20'), (8, 8, 1, 5, 1, '完成咨询', '2020-07-27'), (9, 9, 2, 8, 5, '完成咨询', '2021-05-17'), (10, 10, 2, 8, 5, '完成咨询', '2021-05-24'), (11, 11, 2, 8, 5, '完成咨询', '2021-05-31'), (12, 12, 2, 8, 5, '完成咨询', '2021-06-07');
+INSERT INTO `consult_appointment_report` VALUES (1, 1, 1, 5, 1, '完成咨询', '2020-06-08'), (2, 2, 1, 5, 1, '完成咨询', '2020-06-15'), (3, 3, 1, 5, 1, '完成咨询', '2020-06-22'), (4, 4, 1, 5, 1, '完成咨询', '2020-06-29'), (5, 5, 1, 5, 1, '完成咨询', '2020-07-06'), (6, 6, 1, 5, 1, '完成咨询', '2020-07-13'), (7, 7, 1, 5, 1, '完成咨询', '2020-07-20'), (8, 8, 1, 5, 1, '结案', '2020-07-27'), (9, 9, 2, 8, 5, '完成咨询', '2021-05-17'), (10, 10, 2, 8, 5, '完成咨询', '2021-05-24'), (11, 11, 2, 8, 5, '完成咨询', '2021-05-31'), (12, 12, 2, 8, 5, '完成咨询', '2021-06-07');
 COMMIT;
 
 -- ----------------------------
@@ -184,7 +185,7 @@ CREATE TABLE `consultant_duty`  (
 -- Records of consultant_duty
 -- ----------------------------
 BEGIN;
-INSERT INTO `consultant_duty` VALUES (1, 5, 3, 1, '2021-06-14'), (2, 6, 3, 1, '2021-06-14'), (3, 7, 3, 1, '2021-06-14'), (4, 5, 4, 5, '2021-07-12'), (5, 6, 4, 5, '2021-07-12'), (6, 7, 4, 5, '2021-07-12'), (7, 8, 3, 1, '2021-06-14'), (8, 8, 4, 5, '2021-07-12'), (9, 9, 3, 1, '2021-06-15'), (10, 9, 4, 5, '2021-07-13');
+INSERT INTO `consultant_duty` VALUES (1, 1, 3, 1, '2021-06-14'), (2, 2, 3, 1, '2021-06-14'), (3, 3, 3, 1, '2021-06-14'), (4, 4, 3, 1, '2021-06-14'), (5, 1, 4, 5, '2021-06-14'), (6, 2, 4, 5, '2021-06-14'), (7, 3, 4, 5, '2021-06-14'), (8, 4, 4, 5, '2021-06-14'), (9, 5, 3, 1, '2021-06-15'), (10, 6, 3, 1, '2021-06-15'), (11, 7, 5, 5, '2021-06-15'), (12, 8, 5, 5, '2021-07-13'), (13, 9, 4, 5, '2021-06-16'), (14, 10, 4, 5, '2021-06-16'), (15, 11, 3, 1, '2021-06-16'), (16, 12, 3, 1, '2021-06-16'), (17, 13, 3, 1, '2021-06-17'), (18, 14, 3, 1, '2021-06-17'), (19, 15, 3, 1, '2021-06-17'), (20, 16, 3, 1, '2021-06-17'), (21, 15, 4, 5, '2021-06-17'), (22, 16, 4, 5, '2021-06-17'), (23, 17, 5, 5, '2021-06-18'), (24, 18, 5, 5, '2021-06-18'), (25, 19, 5, 5, '2021-06-18'), (26, 20, 5, 5, '2021-06-18'), (27, 19, 4, 1, '2021-06-18'), (28, 20, 4, 1, '2021-06-18');
 COMMIT;
 
 -- ----------------------------
@@ -249,7 +250,7 @@ CREATE TABLE `first_visit_record`  (
 -- Records of first_visit_record
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_visit_record` VALUES (1, 1, 1, 1, 2, '2021-06-05', 0, 1), (2, 2, 2, 2, 3, '2021-04-30', 0, 1), (3, 3, 3, 2, 2, '2021-07-09', 0, 0), (4, 4, 4, 1, 3, '2021-06-14', 0, 0);
+INSERT INTO `first_visit_record` VALUES (1, 1, 1, 1, 2, '2020-06-01', 0, 1), (2, 2, 2, 2, 3, '2021-05-31', 0, 1), (3, 3, 20, 1, 2, '2021-06-18', 0, 0), (4, 4, 4, 2, 3, '2021-06-14', 0, 1);
 COMMIT;
 
 -- ----------------------------
@@ -275,13 +276,13 @@ CREATE TABLE `first_visit_report`  (
   CONSTRAINT `FK_Reference_36` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_37` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_38` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of first_visit_report
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_visit_report` VALUES (1, 1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-05'), (2, 2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-04-30');
+INSERT INTO `first_visit_report` VALUES (1, 1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-07'), (2, 2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-05-31'), (12, 4, 4, 4, 3, '中', '抑郁', '安排咨询', '2021-06-14');
 COMMIT;
 
 -- ----------------------------
@@ -307,7 +308,7 @@ CREATE TABLE `first_visitor_duty`  (
 -- Records of first_visitor_duty
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_visitor_duty` VALUES (1, 1, 1, 2, 1), (2, 2, 2, 3, 1), (3, 3, 1, 2, 1), (4, 4, 1, 3, 1);
+INSERT INTO `first_visitor_duty` VALUES (1, 1, 1, 2, 1), (2, 2, 1, 2, 1), (3, 3, 1, 2, 1), (4, 4, 1, 2, 1), (5, 1, 2, 3, 1), (6, 2, 2, 3, 1), (7, 3, 2, 3, 1), (8, 4, 2, 3, 1), (9, 5, 6, 2, 1), (10, 6, 6, 2, 1), (11, 7, 2, 3, 1), (12, 8, 2, 3, 1), (13, 9, 2, 3, 1), (14, 10, 2, 3, 1), (15, 11, 1, 2, 1), (16, 12, 1, 2, 1), (17, 13, 6, 2, 1), (18, 14, 6, 2, 1), (19, 15, 1, 2, 1), (20, 16, 1, 2, 1), (21, 15, 6, 3, 1), (22, 16, 6, 3, 1), (23, 17, 2, 3, 1), (24, 18, 2, 3, 1), (25, 19, 2, 3, 1), (26, 20, 2, 3, 1), (27, 19, 1, 2, 1), (28, 20, 1, 2, 0);
 COMMIT;
 
 -- ----------------------------
@@ -396,7 +397,7 @@ CREATE TABLE `student`  (
 -- Records of student
 -- ----------------------------
 BEGIN;
-INSERT INTO `student` VALUES (1, '2018141411216', '范若曦', '15529080856', '软件学院', 2018, '女', '2000-05-16', 1, '123'), (2, '2017151638792', '王琳', '13256783961', '经济学院', 2017, '女', '1999-03-11', 1, '123456'), (3, '2019151663516', '张达', '18976280862', '数学学院', 2019, '男', '2001-06-10', 0, '123'), (4, '2020151637823', '李小萌', '19987209803', '计算机学院', 2020, '女', '2002-04-27', 0, '123'), (5, '2019151728901', '王鹏', '13289074892', '化学学院', 2019, '男', '2000-01-12', 0, '123'), (6, '2018141463095', '张锋', '15598370973', '电子信息学院', 2018, '男', '2000-11-22', 0, '123'), (7, '2017131878972', '李雯雯', '19878047823', '文学与新闻学院', 2017, '女', '1999-04-08', 0, '123');
+INSERT INTO `student` VALUES (1, '2018141411216', '范若曦', '15529080856', '软件学院', 2018, '女', '2000-05-16', 0, '123'), (2, '2017151638792', '王琳', '13256783961', '经济学院', 2017, '女', '1999-03-11', 1, '123456'), (3, '2019151663516', '张达', '18976280862', '数学学院', 2019, '男', '2001-06-10', 0, '123'), (4, '2020151637823', '李小萌', '19987209803', '计算机学院', 2020, '女', '2002-04-27', 1, '123'), (5, '2019151728901', '王鹏', '13289074892', '化学学院', 2019, '男', '2000-01-12', 0, '123'), (6, '2018141463095', '张锋', '15598370973', '电子信息学院', 2018, '男', '2000-11-22', 0, '123'), (7, '2017131878972', '李雯雯', '19878047823', '文学与新闻学院', 2017, '女', '1999-04-08', 0, '123');
 COMMIT;
 
 -- ----------------------------
@@ -409,13 +410,13 @@ CREATE TABLE `time_period`  (
   `duration` int(0) NULL DEFAULT NULL,
   `weekday` smallint(0) NULL DEFAULT NULL,
   PRIMARY KEY (`tp_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of time_period
 -- ----------------------------
 BEGIN;
-INSERT INTO `time_period` VALUES (1, '08:00:00', 60, 1), (2, '10:00:00', 60, 1), (3, '14:00:00', 60, 1), (4, '16:00:00', 60, 1), (5, '08:00:00', 60, 2), (6, '10:00:00', 60, 2), (7, '14:00:00', 60, 2), (8, '16:00:00', 60, 2), (9, '08:00:00', 60, 3), (10, '10:00:00', 60, 3), (11, '14:00:00', 60, 3), (12, '16:00:00', 60, 3), (13, '08:00:00', 60, 4), (14, '10:00:00', 60, 4), (15, '14:00:00', 60, 4), (16, '16:00:00', 60, 4);
+INSERT INTO `time_period` VALUES (1, '08:00:00', 60, 1), (2, '10:00:00', 60, 1), (3, '14:00:00', 60, 1), (4, '16:00:00', 60, 1), (5, '08:00:00', 60, 2), (6, '10:00:00', 60, 2), (7, '14:00:00', 60, 2), (8, '16:00:00', 60, 2), (9, '08:00:00', 60, 3), (10, '10:00:00', 60, 3), (11, '14:00:00', 60, 3), (12, '16:00:00', 60, 3), (13, '08:00:00', 60, 4), (14, '10:00:00', 60, 4), (15, '14:00:00', 60, 4), (16, '16:00:00', 60, 4), (17, '08:00:00', 60, 5), (18, '10:00:00', 60, 5), (19, '14:00:00', 60, 5), (20, '16:00:00', 60, 5);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

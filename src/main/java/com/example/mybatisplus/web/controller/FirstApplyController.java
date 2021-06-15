@@ -26,7 +26,7 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/firstApply")
+@RequestMapping("/api")
 public class FirstApplyController {
 
     private final Logger logger = LoggerFactory.getLogger( FirstApplyController.class );
@@ -41,17 +41,17 @@ public class FirstApplyController {
      * 描述：插入新预约申请
      *
      */
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/insert/firstApply")
     @ResponseBody
     public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info) {
 
         Student student = SecurityUtils.getCurrentStudentInfo();
-        if (studentService.isAllowedFirstApply(student)){
+        if (studentService.isAllowedFirstApply(student.getSId())){
             JsonResponse.failure("您没有资格预约初访");
         }
 
         FirstApply firstApply=new FirstApply();
-        firstApply.setSId((Long) info.get("sId"))
+        firstApply.setSId(Long.parseLong (info.get("sId").toString()))
                 .setTpId((Integer) info.get("tpID"))
                 .setScore((Integer) info.get("score"))
                 .setName((String) info.get("name"))
@@ -72,51 +72,6 @@ public class FirstApplyController {
         return JsonResponse.failure("插入失败");
     }
 
-    /**
-    * 描述：根据Id 查询
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        FirstApply  firstApply =  firstApplyService.getById(id);
-        return JsonResponse.success(firstApply);
-    }
 
-    /**
-    * 描述：根据Id删除
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        firstApplyService.removeById(id);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述：根据Id 更新
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public JsonResponse updateFirstApply(@PathVariable("id") Long  id,FirstApply  firstApply) throws Exception {
-        firstApply.setSId(id);
-        firstApplyService.updateById(firstApply);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述:创建FirstApply
-    *
-    */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse create(FirstApply  firstApply) throws Exception {
-        firstApplyService.save(firstApply);
-        return JsonResponse.success(null);
-    }
 }
 

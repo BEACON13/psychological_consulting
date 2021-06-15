@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service;
 
+import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.ConsultApply;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ConsultApplyService extends IService<ConsultApply> {
 
+    JsonResponse isAllowedtoApply();
+
+    JsonResponse applyConsult(Integer tp1, Integer tp2, Integer tp3);
 }
