@@ -2,8 +2,10 @@ package com.example.mybatisplus.service.impl;
 
 import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
 import com.example.mybatisplus.mapper.ConsultAppointmentReportMapper;
+import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import com.example.mybatisplus.service.ConsultAppointmentReportService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +18,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ConsultAppointmentReportServiceImpl extends ServiceImpl<ConsultAppointmentReportMapper, ConsultAppointmentReport> implements ConsultAppointmentReportService {
+
+    @Autowired
+    ConsultAppointmentRecordService cars;
+
+    @Override
+    public int insertReport(ConsultAppointmentReport report) {
+        save(report);
+        cars.finishAppointment(report.getConsultAppointId());
+        return 0;
+    }
+
 
 }

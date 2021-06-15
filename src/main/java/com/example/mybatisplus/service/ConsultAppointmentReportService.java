@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ConsultAppointmentReportService extends IService<ConsultAppointmentReport> {
 
+    public int insertReport(ConsultAppointmentReport report);
 }
