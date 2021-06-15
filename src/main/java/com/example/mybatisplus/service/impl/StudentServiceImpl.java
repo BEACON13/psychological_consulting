@@ -65,14 +65,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     检查学生是否允许申请初访
      */
     @Override
-    public boolean isAllowedFirstApply(Student student) {
+    public boolean isAllowedFirstApply(Long id) {
 
         //如果学生已经具有咨询资格，则不应该申请初访
-        if (student.getIsQualified())
-            return false;
+       if (isQualified(id))
+           return false;
 
         //如果学生具有未完成的初访申请，则不应该申请初访
-        List<FirstApply> applies = firstApplyService.getFirstApplyByStu(student.getSId());
+        List<FirstApply> applies = firstApplyService.getFirstApplyByStu(id);
         for (FirstApply a: applies) {
 
             if (!a.getIsFinished())
@@ -80,7 +80,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         }
 
         //如果学生具有未完成的初访预约，则不应该申请初访
-        List<FirstVisitRecord> records = firstVisitRecordService.getRecordByStudent(student.getSId());
+        List<FirstVisitRecord> records = firstVisitRecordService.getRecordByStudent(id);
         for (FirstVisitRecord r: records){
             if(!r.getIsFinished()){
                 return false;
@@ -89,4 +89,15 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
         return true;
     }
+
+    @Override
+    public boolean isQualified(Long id) {
+        QueryWrapper<Student> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Student::getSId,id);
+        Student stu = baseMapper.selectOne(wrapper);
+
+        return stu.getIsQualified();
+    }
+
+
 }
