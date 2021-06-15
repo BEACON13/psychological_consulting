@@ -1,5 +1,7 @@
 package com.example.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
 import com.example.mybatisplus.mapper.ConsultAppointmentReportMapper;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
@@ -29,5 +31,19 @@ public class ConsultAppointmentReportServiceImpl extends ServiceImpl<ConsultAppo
         return 0;
     }
 
+    /*
+     *检查学生的最后一次咨询的结果是结案
+     */
+    @Override
+    public Boolean checkLastRecordIsClosed(Long sId) {
+        QueryWrapper<ConsultAppointmentReport> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentReport::getSId,sId)
+                .orderByDesc(ConsultAppointmentReport::getDate)
+                .last("limit 1");
+
+        ConsultAppointmentReport report = baseMapper.selectOne(wrapper);
+
+        return report.getConsultResult().equals("结案");
+    }
 
 }

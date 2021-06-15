@@ -36,4 +36,6 @@ public interface ConsultAppointmentRecordService extends IService<ConsultAppoint
     List<ConsultAppointmentRecordVO> getStuRecord(Long id);
 
     List<ConsultAppointmentRecord> getRecordsByStuId(Long SID);
+
+    void deleteUndoneRecords(Long sId);
 }

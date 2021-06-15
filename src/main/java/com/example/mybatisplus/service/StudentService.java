@@ -22,4 +22,6 @@ public interface StudentService extends IService<Student> {
     boolean isAllowedFirstApply(Long id);
 
     boolean isQualified(Long id);
+
+    int setUnQualified(Long id);
 }
