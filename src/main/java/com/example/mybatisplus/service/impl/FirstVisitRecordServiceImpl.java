@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
+import com.example.mybatisplus.mapper.FirstVisitorDutyMapper;
 import com.example.mybatisplus.mapper.StudentMapper;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
 import com.example.mybatisplus.mapper.FirstVisitRecordMapper;
+import com.example.mybatisplus.model.domain.FirstVisitorDuty;
 import com.example.mybatisplus.model.vo.FirstVisitRecordVO;
 import com.example.mybatisplus.service.FirstVisitRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -36,7 +38,8 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
 
     @Autowired
     FirstVisitRecordMapper firstVisitRecordMapper;
-
+    @Autowired
+    FirstVisitorDutyMapper firstVisitorDutyMapper;
 
 
     /**
@@ -125,12 +128,19 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         if(days < 1){
             return JsonResponse.failure("时间小于1天,不可取消预约!");
         }else{
+            /**
+             * 预约信息被逻辑删除
+             */
             UpdateWrapper<FirstVisitRecord> wrapper = new UpdateWrapper<>();
             wrapper.lambda().set(FirstVisitRecord::getIsDeleted,1).eq(FirstVisitRecord::getFvrId,fvrId);
             firstVisitRecordMapper.update(null,wrapper);
             /**
              * 将初访员排班置为1
              */
+            UpdateWrapper<FirstVisitorDuty> wrapper2 = new UpdateWrapper<>();
+            wrapper2.lambda().set(FirstVisitorDuty::getIsAvailable,1).eq(FirstVisitorDuty::getFvId,firstVisitRecord.getFvId())
+                    .eq(FirstVisitorDuty::getTpId,firstVisitRecord.getTpId());
+            firstVisitorDutyMapper.update(null,wrapper2);
         }
 
         return JsonResponse.successMessage("取消预约成功!");
