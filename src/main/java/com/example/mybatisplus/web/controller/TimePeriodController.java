@@ -21,7 +21,7 @@ import com.example.mybatisplus.model.domain.TimePeriod;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/timePeriod")
+@RequestMapping("/api")
 public class TimePeriodController {
 
     private final Logger logger = LoggerFactory.getLogger( TimePeriodController.class );
