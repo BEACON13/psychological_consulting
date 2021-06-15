@@ -62,10 +62,18 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         return cram.getUnfinishedRecords(consultantId);
     }
 
+
     @Override
-    public List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudent(Long CID, Long SID) {
-        return cram.getRecordByConsultantAndStudent(CID,SID);
+    public List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudent(Long cId, String stuName) {
+        return cram.getRecordByConsultantAndStudent(cId,stuName);
     }
+
+    @Override
+    public List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudentID(Long cId, Long sId) {
+        return cram.getRecordByConsultantAndStudentID(cId,sId);
+    }
+
+
 
     @Override
     public Map<String, List> getUnfinishedAndNotFilledIn(Long consultantId) {
