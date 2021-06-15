@@ -2,6 +2,7 @@ package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.vo.ConsultAppointmentRecordVO;
 
 import java.util.List;
 import java.util.Map;
@@ -16,13 +17,13 @@ import java.util.Map;
  */
 public interface ConsultAppointmentRecordService extends IService<ConsultAppointmentRecord> {
 
-    List<ConsultAppointmentRecord> getAllRecordByConsultantID(Long consultantId);
+    List<ConsultAppointmentRecordVO> getAllRecordByConsultantID(Long consultantId);
 
-    List<ConsultAppointmentRecord> getRecordNotFilledInByConsultantID(Long consultantId);
+    List<ConsultAppointmentRecordVO> getRecordNotFilledInByConsultantID(Long consultantId);
 
-    List<ConsultAppointmentRecord> getAllUnfinishedRecordByConsultantID(Long consultantId);
+    List<ConsultAppointmentRecordVO> getAllUnfinishedRecordByConsultantID(Long consultantId);
 
-    List<ConsultAppointmentRecord> getRecordByConsultantAndStudent(Long CID,Long SID);
+    List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudent(Long CID,Long SID);
 
     Map<String,List> getUnfinishedAndNotFilledIn(Long consultantId);
 

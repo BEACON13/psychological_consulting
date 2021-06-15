@@ -14,4 +14,93 @@
         <result column="is_finished" property="isFinished" />
     </resultMap>
 
+
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.ConsultAppointmentRecordVO">
+        <!--原有列-->
+        <id column="consult_appoint_id" property="consultAppointId" />
+        <result column="s_id" property="sId" />
+        <result column="tp_id" property="tpId" />
+        <result column="location_id" property="locationId" />
+        <result column="c_id" property="cId" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="date" property="date" />
+        <result column="is_finished" property="isFinished" />
+
+        <!--VO特有列-->
+        <result column="name" property="consultantName"/>
+        <result column="start_time" property="startTime"/>
+        <result column="duration" property="duration"/>
+        <result column="location_name" property="locationName"/>
+        <association property="consultApply" javaType="com.example.mybatisplus.model.domain.ConsultApply">
+            <id column="consult_apply_id" property="consultApplyId" />
+            <result column="s_id" property="sId" />
+            <result column="stu_name" property="stuName" />
+            <result column="phone" property="phone" />
+            <result column="address" property="address" />
+            <result column="emergency_phone" property="emergencyPhone" />
+            <result column="danger_level" property="dangerLevel" />
+            <result column="problem_type" property="problemType" />
+            <result column="tp_id_1" property="tpId1" />
+            <result column="tp_id_2" property="tpId2" />
+            <result column="tp_id_3" property="tpId3" />
+            <result column="num" property="num" />
+            <result column="is_finished" property="isFinished" />
+        </association>
+    </resultMap>
+
+
+    <!--根据咨询师id查询报告-->
+    <select id="getRecordsByConsultant" resultMap="VOResultMap">
+            select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+            from consult_appointment_record car,person p,time_period tp
+               ,location l,consult_apply ca
+            where car.c_id=#{c_id}
+              and car.c_id=p.p_id
+              and car.tp_id=tp.tp_id
+              and car.location_id=l.location_id
+              and car.s_id=ca.s_id
+    </select>
+
+
+    <!--获得咨询师未填报的预约-->
+    <!--即今天及之前的预约，但是is_finished字段为0-->
+    <select id="getRecordNotFilledIn" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=#{id}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+          and car.date &lt;= #{date}
+          and car.is_finished = 0
+    </select>
+
+    <!--通过咨询师获得所有未完成的预约-->
+    <select id="getUnfinishedRecords" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=#{id}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+          and car.is_finished = 0
+    </select>
+
+    <!--根据咨询师和学生获取咨询记录-->
+    <select id="getRecordByConsultantAndStudent" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=#{c_id}
+          and car.s_id=#{s_id}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+    </select>
+
 </mapper>
