@@ -57,7 +57,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public int changePwd(String code,String newPwd) {
         UpdateWrapper<Student> wrapper = new UpdateWrapper();
-        wrapper.lambda().eq(Student::getCode,code).set(Student::getPassword,newPwd);
+        wrapper.lambda().eq(Student::getCode,code)
+                .set(Student::getPassword,newPwd);
         return baseMapper.update(null,wrapper);
     }
 
@@ -97,6 +98,22 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         Student stu = baseMapper.selectOne(wrapper);
 
         return stu.getIsQualified();
+    }
+
+
+    public Long getIdByName(String name) {
+        QueryWrapper<Student> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Student::getName,name);
+        Student student = baseMapper.selectOne(wrapper);
+        return student.getSId();
+    }
+
+    @Override
+    public int setUnQualified(Long id) {
+        UpdateWrapper<Student> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(Student::getSId,id)
+                .set(Student::getIsQualified,0);
+        return baseMapper.update(null,wrapper);
     }
 
 

@@ -125,6 +125,19 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         return consultAppointmentRecords;
     }
 
+    /*
+    删除某学生还没有进行的咨询记录
+     */
+    @Override
+    public void deleteUndoneRecords(Long sId) {
+        UpdateWrapper<ConsultAppointmentRecord> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getSId,sId)
+                .eq(ConsultAppointmentRecord::getIsFinished,0)
+                .set(ConsultAppointmentRecord::getIsDeleted,1);
+
+        baseMapper.update(null,wrapper);
+    }
+
 
 
     /*
