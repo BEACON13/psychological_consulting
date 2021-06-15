@@ -23,7 +23,7 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/addConsult")
+@RequestMapping("/api")
 public class AddConsultController {
 
     private final Logger logger = LoggerFactory.getLogger( AddConsultController.class );

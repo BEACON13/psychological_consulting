@@ -21,7 +21,7 @@ import com.example.mybatisplus.model.domain.FirstVisitorDuty;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/firstVisitorDuty")
+@RequestMapping("/api")
 public class FirstVisitorDutyController {
 
     private final Logger logger = LoggerFactory.getLogger( FirstVisitorDutyController.class );
