@@ -94,6 +94,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
                 .set(ConsultAppointmentRecord::getIsFinished,1);
         return baseMapper.update(null,wrapper);
     }
+
     /*
     获取特定学生咨询的数目
     */
@@ -103,6 +104,12 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         wrapper.lambda().eq(ConsultAppointmentRecord::getSId,sId)
                 .eq(ConsultAppointmentRecord::getIsFinished,1);
         return baseMapper.selectCount(wrapper);
+    }
+
+    @Override
+    public List<ConsultAppointmentRecordVO> getStuRecord(Long id) {
+
+        return cram.getRecordByStu(id);
     }
 
     /**

@@ -10,6 +10,10 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.ConsultAppointmentReportService;
 import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
 
 /**
  *
@@ -29,6 +33,23 @@ public class ConsultAppointmentReportController {
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
 
+    @RequestMapping(value = "/consultant/insert/consultReport", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse insertReport(@RequestParam("consultReport") Map<String,Object> info){
+        ConsultAppointmentReport report = new ConsultAppointmentReport();
+        report.setConsultAppointId((Long) info.get("consult_appoint_id"))
+                .setSId((Long) info.get("sId"))
+                .setTpId((int) info.get("tpId"))
+                .setConsultResult((String) info.get("consultResult"))
+                .setCId((Long) info.get("cId"));
 
+        LocalDate date = LocalDate.parse((String) info.get("date")
+                , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        report.setDate(date);
+
+        consultAppointmentReportService.insertReport(report);
+
+        return JsonResponse.success("插入完成");
+    }
 }
 

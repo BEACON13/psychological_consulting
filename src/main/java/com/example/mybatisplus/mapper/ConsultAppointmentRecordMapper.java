@@ -27,5 +27,7 @@ public interface ConsultAppointmentRecordMapper extends BaseMapper<ConsultAppoin
     List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudentID(@Param("c_id") Long cId,@Param("s_id") Long sId);
 
     List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudent(@Param("c_id") Long cId,@Param("stu_name") String stuName);
+
+    List<ConsultAppointmentRecordVO> getRecordByStu(Long sId);
 }
 

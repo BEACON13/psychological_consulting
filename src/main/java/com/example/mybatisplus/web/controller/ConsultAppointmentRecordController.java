@@ -2,6 +2,7 @@ package com.example.mybatisplus.web.controller;
 
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.model.domain.Person;
+import com.example.mybatisplus.model.domain.Student;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -106,7 +107,7 @@ public class ConsultAppointmentRecordController {
     }
 
 
-    /**
+    /*
      * 描述：获取未完成的和未填写的
      * 以map封装
      */
@@ -119,7 +120,17 @@ public class ConsultAppointmentRecordController {
         return JsonResponse.success(map);
     }
 
-
+    /*
+     * 描述：学生查看自己的咨询记录
+     * 包括进行和未进行的
+     */
+    @RequestMapping(value = "/student/appointRecord/show", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getStuRecord(){
+        Student stu = SecurityUtils.getCurrentStudentInfo();
+        List records = consultAppointmentRecordService.getStuRecord(stu.getSId());
+        return JsonResponse.success(records);
+    }
 
 
 }

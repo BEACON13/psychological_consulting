@@ -116,4 +116,16 @@
           and car.s_id=ca.s_id
     </select>
 
+    <!--根据学生id查询-->
+    <select id="getRecordByStu" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where ca.s_id=#{sId}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+    </select>
+
 </mapper>

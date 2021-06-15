@@ -46,7 +46,7 @@ public class FirstApplyController {
     public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info) {
 
         Student student = SecurityUtils.getCurrentStudentInfo();
-        if (studentService.isAllowedFirstApply(student)){
+        if (studentService.isAllowedFirstApply(student.getSId())){
             JsonResponse.failure("您没有资格预约初访");
         }
 
