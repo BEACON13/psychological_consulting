@@ -94,6 +94,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
                 .set(ConsultAppointmentRecord::getIsFinished,1);
         return baseMapper.update(null,wrapper);
     }
+
     /*
     获取特定学生咨询的数目
     */
