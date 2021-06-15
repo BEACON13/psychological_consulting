@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -45,14 +46,14 @@ public class FirstVisitReportServiceImpl extends ServiceImpl<FirstVisitReportMap
     public JsonResponse insertFVReport(Map form) {
         //插入初访报告
         FirstVisitReport firstVisitReport = new FirstVisitReport();
-        firstVisitReport.setFvrId((Long)form.get("fvr_id"))
-                .setSId((Long)form.get("s_id"))
+        firstVisitReport.setFvrId(Long.parseLong(form.get("fvr_id").toString()))
+                .setSId(Long.parseLong(form.get("s_id").toString()))
                 .setTpId((Integer) form.get("tp_id"))
-                .setFvId((Long)form.get("fv_id"))
+                .setFvId(Long.parseLong(form.get("fv_id").toString()))
                 .setDangerLevel((String)form.get("danger_level"))
                 .setProblemType((String)form.get("problem_type"))
                 .setConclusion((String)form.get("conclusion"))
-                .setDate((LocalDate)form.get("date"));
+                .setDate(LocalDate.parse((String)form.get("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         firstVisitReportMapper.insert(firstVisitReport);
 
         //更新初访预约is_finished字段

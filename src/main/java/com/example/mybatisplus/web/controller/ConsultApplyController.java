@@ -30,7 +30,7 @@ public class ConsultApplyController {
     private ConsultApplyService consultApplyService;
 
     /**
-     * 描述：学生填写咨询申请
+     * 描述：学生申请咨询
      *
      */
     @RequestMapping(value = "/student/applyConsult", method = RequestMethod.GET)

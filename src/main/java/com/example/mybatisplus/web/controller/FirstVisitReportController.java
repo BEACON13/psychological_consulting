@@ -35,7 +35,7 @@ public class FirstVisitReportController {
      * 描述：初访员插入初访报告
      *
      */
-    @RequestMapping(value = "/FirstVisitor/insertFVReport", method = RequestMethod.GET)
+    @RequestMapping(value = "/FirstVisitor/insertFVReport")
     @ResponseBody
     public JsonResponse insertFVReport(@RequestBody Map form){
         return firstVisitReportService.insertFVReport(form);
