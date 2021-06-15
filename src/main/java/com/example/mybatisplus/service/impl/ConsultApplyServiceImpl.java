@@ -43,8 +43,7 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
      *
      */
     @Override
-    public boolean isAllowedtoApply() {
-        Long id = SecurityUtils.getCurrentStudentInfo().getSId();
+    public boolean isAllowedtoApply(Long id) {
 
         //学生是否具备咨询资格，即is_qualified为1才能申请
         boolean flag1 = studentService.getById(id).getIsQualified();
@@ -69,10 +68,10 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
      */
     @Override
     public JsonResponse applyConsult(Integer tp1, Integer tp2, Integer tp3) {
-        if(!isAllowedtoApply())
-            return JsonResponse.failure("没有申请资格！");
-        
         Long id = SecurityUtils.getCurrentStudentInfo().getSId();
+        if(!isAllowedtoApply(id))
+            return JsonResponse.failure("没有申请资格！");
+
 
         List<FirstApply> firstApplyByStu = firstApplyService.getFirstApplyByStu(id);
         int n = firstApplyByStu.size();

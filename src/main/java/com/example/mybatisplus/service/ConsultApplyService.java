@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ConsultApplyService extends IService<ConsultApply> {
 
-    boolean isAllowedtoApply();
+    boolean isAllowedtoApply(Long id);
 
     JsonResponse applyConsult(Integer tp1, Integer tp2, Integer tp3);
 }
