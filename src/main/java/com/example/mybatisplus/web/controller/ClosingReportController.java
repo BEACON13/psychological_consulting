@@ -77,5 +77,19 @@ public class ClosingReportController {
         return JsonResponse.successMessage("插入完成");
     }
 
+
+    /*
+     * 检查是否允许插入结案报告
+     * 检查方法是查看学生is_qualified字段是否为1
+     * 因为插入结案报告时会将该字段置为0
+     */
+    @RequestMapping(value = "/consultant/insert/closingReport/allow")
+    @ResponseBody
+    public JsonResponse insertClosingReport(@RequestParam("student_id") Long id){
+        return studentService.isQualified(id) ?
+                JsonResponse.successMessage("请填写") :
+                JsonResponse.failure("不满足填写要求");
+    }
+
 }
 
