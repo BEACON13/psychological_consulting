@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 15/06/2021 11:17:28
+ Date: 15/06/2021 14:56:57
 */
 
 SET NAMES utf8mb4;
@@ -77,19 +77,19 @@ CREATE TABLE `consult_apply`  (
   `emergency_phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `danger_level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `problem_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `tp_id_1` smallint(0) NULL DEFAULT NULL,
-  `tp_id_2` smallint(0) NULL DEFAULT NULL,
-  `tp_id_3` smallint(0) NULL DEFAULT NULL,
+  `tp_id1` smallint(0) NULL DEFAULT NULL,
+  `tp_id2` smallint(0) NULL DEFAULT NULL,
+  `tp_id3` smallint(0) NULL DEFAULT NULL,
   `num` int(0) NULL DEFAULT NULL,
   `is_finished` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`consult_apply_id`) USING BTREE,
-  INDEX `FK_Reference_42`(`tp_id_1`) USING BTREE,
-  INDEX `FK_Reference_43`(`tp_id_2`) USING BTREE,
-  INDEX `FK_Reference_44`(`tp_id_3`) USING BTREE,
+  INDEX `FK_Reference_42`(`tp_id1`) USING BTREE,
+  INDEX `FK_Reference_43`(`tp_id2`) USING BTREE,
+  INDEX `FK_Reference_44`(`tp_id3`) USING BTREE,
   INDEX `FK_stu_consult_apply`(`s_id`) USING BTREE,
-  CONSTRAINT `FK_Reference_42` FOREIGN KEY (`tp_id_1`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Reference_43` FOREIGN KEY (`tp_id_2`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_Reference_44` FOREIGN KEY (`tp_id_3`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Reference_42` FOREIGN KEY (`tp_id1`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Reference_43` FOREIGN KEY (`tp_id2`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Reference_44` FOREIGN KEY (`tp_id3`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_stu_consult_apply` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -97,7 +97,7 @@ CREATE TABLE `consult_apply`  (
 -- Records of consult_apply
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 1, 6, 7, 8, 1), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8, 1), (3, 4, '李小萌', '19987209803', '江安小区', '15528907543', '中', '抑郁', 3, 8, 15, 8, 0);
+INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 1, 6, 7, 8, 1), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8, 1), (4, 4, '李小萌', '19987209803', '江安小区', '15528907543', '中', '抑郁', 1, 8, 15, 8, 0);
 COMMIT;
 
 -- ----------------------------
@@ -275,13 +275,13 @@ CREATE TABLE `first_visit_report`  (
   CONSTRAINT `FK_Reference_36` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_37` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_38` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of first_visit_report
 -- ----------------------------
 BEGIN;
-INSERT INTO `first_visit_report` VALUES (1, 1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-07'), (2, 2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-05-31'), (10, 4, 4, 4, 3, '中', '抑郁', '安排咨询', '2021-06-14');
+INSERT INTO `first_visit_report` VALUES (1, 1, 1, 1, 2, '中', '焦虑症', '安排咨询', '2021-06-07'), (2, 2, 2, 2, 3, '轻', '社交恐惧症', '安排咨询', '2021-05-31'), (3, 4, 4, 4, 3, '中', '抑郁', '安排咨询', '2021-06-14');
 COMMIT;
 
 -- ----------------------------
@@ -396,7 +396,6 @@ CREATE TABLE `student`  (
 -- Records of student
 -- ----------------------------
 BEGIN;
-INSERT INTO `student` VALUES (1, '2018141411216', '范若曦', '15529080856', '软件学院', 2018, '女', '2000-05-16', 0, '123'), (2, '2017151638792', '王琳', '13256783961', '经济学院', 2017, '女', '1999-03-11', 1, '123456'), (3, '2019151663516', '张达', '18976280862', '数学学院', 2019, '男', '2001-06-10', 0, '123'), (4, '2020151637823', '李小萌', '19987209803', '计算机学院', 2020, '女', '2002-04-27', 1, '123'), (5, '2019151728901', '王鹏', '13289074892', '化学学院', 2019, '男', '2000-01-12', 0, '123'), (6, '2018141463095', '张锋', '15598370973', '电子信息学院', 2018, '男', '2000-11-22', 0, '123'), (7, '2017131878972', '李雯雯', '19878047823', '文学与新闻学院', 2017, '女', '1999-04-08', 0, '123');
 COMMIT;
 
 -- ----------------------------

@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
@@ -105,4 +106,31 @@ public class FirstVisitReportServiceImpl extends ServiceImpl<FirstVisitReportMap
 
         return JsonResponse.success(fvReportVOS,"success!");
     }
+
+
+    /**
+     * 描述：根据学生id搜索初访报告
+     *
+     */
+    @Override
+    public List<FirstVisitReport> getFVReportsBySId(Long SID) {
+        QueryWrapper<FirstVisitReport> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(FirstVisitReport::getSId,SID);
+        List<FirstVisitReport> firstVisitReports = firstVisitReportMapper.selectList(wrapper);
+        return firstVisitReports;
+    }
+
+
+    /**
+     * 描述：初访员根据记录查看相关报告
+     *
+     */
+    @Override
+    public JsonResponse getFVReportsByFvrId(Long fvrId) {
+        FirstVisitReportVO fvReportByFvrId = firstVisitReportMapper.getFVReportByFvrId(fvrId);
+
+        return JsonResponse.success(fvReportByFvrId,"success");
+    }
+
+
 }

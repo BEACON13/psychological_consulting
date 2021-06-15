@@ -52,4 +52,11 @@
             from first_visit_report fvr,student s,time_period tp,person p
             where fvr.s_id = #{id} and fvr.s_id = s.s_id and tp.tp_id = fvr.tp_id and p_id = fvr.fv_id;
     </select>
+
+    <!-- 初访员根据初访预约记录搜索初访报告 -->
+    <select id="getFVReportByFvrId" resultMap="VOResultMap">
+        select fvr.*,s.name,tp.start_time,tp.duration,p.name fvname
+            from first_visit_report fvr,student s,time_period tp,person p
+            where fvr.fvr_id = #{fvrId} and fvr.s_id = s.s_id and tp.tp_id = fvr.tp_id and p_id = fvr.fv_id;
+    </select>
 </mapper>
