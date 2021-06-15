@@ -97,6 +97,19 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         return baseMapper.selectCount(wrapper);
     }
 
+    /**
+     * 描述：根据学生ID获取记录，查看学生是否有资格申请咨询
+     *
+     */
+    @Override
+    public List<ConsultAppointmentRecord> getRecordsByStuId(Long SID) {
+        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getSId,SID).eq(ConsultAppointmentRecord::getIsFinished,0);
+        List<ConsultAppointmentRecord> consultAppointmentRecords = cram.selectList(wrapper);
+
+        return consultAppointmentRecords;
+    }
+
 
 
     /*
