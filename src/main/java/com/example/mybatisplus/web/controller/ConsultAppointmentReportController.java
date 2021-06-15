@@ -37,11 +37,11 @@ public class ConsultAppointmentReportController {
     @ResponseBody
     public JsonResponse insertReport(@RequestParam("consultReport") Map<String,Object> info){
         ConsultAppointmentReport report = new ConsultAppointmentReport();
-        report.setConsultAppointId((Long) info.get("consult_appoint_id"))
-                .setSId((Long) info.get("sId"))
+        report.setConsultAppointId(Long.parseLong(info.get("consult_appoint_id").toString()))
+                .setSId((Long.parseLong (info.get("sId").toString())))
                 .setTpId((int) info.get("tpId"))
                 .setConsultResult((String) info.get("consultResult"))
-                .setCId((Long) info.get("cId"));
+                .setCId((Long.parseLong (info.get("cId").toString())));
 
         LocalDate date = LocalDate.parse((String) info.get("date")
                 , DateTimeFormatter.ofPattern("yyyy-MM-dd"));

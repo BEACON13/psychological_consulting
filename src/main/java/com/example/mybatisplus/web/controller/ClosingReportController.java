@@ -50,7 +50,8 @@ public class ClosingReportController {
     @ResponseBody
     public JsonResponse insertClosingReport(@RequestParam("closingReport") Map<String,Object> info) throws Exception {
 
-        Long sId = (Long) info.get("sId");
+        //获取sId
+        Long sId = Long.parseLong(info.get("sId").toString());
 
         //检查最后一次record
         if(!consultAppointmentReportService.checkLastRecordIsClosed(sId))
@@ -58,7 +59,7 @@ public class ClosingReportController {
 
         //填写内容
         ClosingReport report = new ClosingReport();
-        report.setCId((Long) info.get("cId"))
+        report.setCId(Long.parseLong(info.get("cId").toString()))
                 .setConsultEffectSelf((String) info.get("consultEffectSelf"))
                 .setProblemType((String) info.get("problemType"));
 

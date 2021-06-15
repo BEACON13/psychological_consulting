@@ -51,7 +51,7 @@ public class FirstApplyController {
         }
 
         FirstApply firstApply=new FirstApply();
-        firstApply.setSId((Long) info.get("sId"))
+        firstApply.setSId(Long.parseLong (info.get("sId").toString()))
                 .setTpId((Integer) info.get("tpID"))
                 .setScore((Integer) info.get("score"))
                 .setName((String) info.get("name"))
