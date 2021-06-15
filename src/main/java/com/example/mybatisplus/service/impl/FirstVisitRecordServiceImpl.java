@@ -65,8 +65,8 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         //System.out.println(firstVisitRecordVOS);
         //System.out.println(ids);
         Map<String,List> map = new HashMap();
-        map.put("未完成",firstVisitRecordVOS);
-        map.put("未填报",ids);
+        map.put("unfinished",firstVisitRecordVOS);
+        map.put("undo",ids);
 
         return JsonResponse.success(map,"success!");
 
