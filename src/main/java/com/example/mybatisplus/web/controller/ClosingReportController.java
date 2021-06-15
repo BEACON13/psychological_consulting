@@ -42,8 +42,9 @@ public class ClosingReportController {
 
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
+
     /*
-    插入
+     *插入结案报告
      */
     @RequestMapping(value = "/consultant/insert/closingReport")
     @ResponseBody
