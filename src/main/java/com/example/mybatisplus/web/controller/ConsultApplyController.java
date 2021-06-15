@@ -30,6 +30,17 @@ public class ConsultApplyController {
     private ConsultApplyService consultApplyService;
 
     /**
+     * 描述：学生点击申请咨询，查看是否有资格
+     *
+     */
+    @RequestMapping(value = "/student/isAllowedtoAC", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse isAllowed(){
+
+        return consultApplyService.isAllowedtoApply();
+    }
+
+    /**
      * 描述：学生申请咨询
      *
      */
