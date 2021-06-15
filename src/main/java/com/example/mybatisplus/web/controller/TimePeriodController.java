@@ -29,51 +29,6 @@ public class TimePeriodController {
     @Autowired
     private TimePeriodService timePeriodService;
 
-    /**
-    * 描述：根据Id 查询
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        TimePeriod  timePeriod =  timePeriodService.getById(id);
-        return JsonResponse.success(timePeriod);
-    }
 
-    /**
-    * 描述：根据Id删除
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        timePeriodService.removeById(id);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述：根据Id 更新
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public JsonResponse updateTimePeriod(@PathVariable("id") int  id,TimePeriod  timePeriod) throws Exception {
-        timePeriod.setTpId(id);
-        timePeriodService.updateById(timePeriod);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述:创建TimePeriod
-    *
-    */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse create(TimePeriod  timePeriod) throws Exception {
-        timePeriodService.save(timePeriod);
-        return JsonResponse.success(null);
-    }
 }
 

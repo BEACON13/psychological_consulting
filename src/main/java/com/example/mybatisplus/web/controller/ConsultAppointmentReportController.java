@@ -21,7 +21,7 @@ import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/consultAppointmentReport")
+@RequestMapping("/api")
 public class ConsultAppointmentReportController {
 
     private final Logger logger = LoggerFactory.getLogger( ConsultAppointmentReportController.class );
@@ -29,51 +29,6 @@ public class ConsultAppointmentReportController {
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
 
-    /**
-    * 描述：根据Id 查询
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        ConsultAppointmentReport  consultAppointmentReport =  consultAppointmentReportService.getById(id);
-        return JsonResponse.success(consultAppointmentReport);
-    }
 
-    /**
-    * 描述：根据Id删除
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        consultAppointmentReportService.removeById(id);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述：根据Id 更新
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public JsonResponse updateConsultAppointmentReport(@PathVariable("id") Long  id,ConsultAppointmentReport  consultAppointmentReport) throws Exception {
-        consultAppointmentReport.setCarId(id);
-        consultAppointmentReportService.updateById(consultAppointmentReport);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述:创建ConsultAppointmentReport
-    *
-    */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse create(ConsultAppointmentReport  consultAppointmentReport) throws Exception {
-        consultAppointmentReportService.save(consultAppointmentReport);
-        return JsonResponse.success(null);
-    }
 }
 

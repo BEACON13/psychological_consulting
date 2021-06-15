@@ -24,7 +24,7 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/closingReport")
+@RequestMapping("/api")
 public class ClosingReportController {
 
     private final Logger logger = LoggerFactory.getLogger( ClosingReportController.class );
@@ -37,7 +37,7 @@ public class ClosingReportController {
     /*
     插入
      */
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultant/insert/closingReport", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse insertClosingReport(@RequestParam("closingReport") Map<String,Object> info) throws Exception {
         ClosingReport report = new ClosingReport();
@@ -50,53 +50,9 @@ public class ClosingReportController {
                 .countConsultingNum((Long) info.get("sId"));
         report.setConsultNum(num);
 
-        return create(report);
-    }
-    /**
-    * 描述：根据Id 查询
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        ClosingReport  closingReport =  closingReportService.getById(id);
-        return JsonResponse.success(closingReport);
+        closingReportService.save(report);
+        return JsonResponse.successMessage("插入完成");
     }
 
-    /**
-    * 描述：根据Id删除
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        closingReportService.removeById(id);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述：根据Id 更新
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public JsonResponse updateClosingReport(@PathVariable("id") Long  id,ClosingReport  closingReport) throws Exception {
-        closingReport.setClosingReportId(id);
-        closingReportService.updateById(closingReport);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述:创建ClosingReport
-    *
-    */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse create(ClosingReport  closingReport) throws Exception {
-        closingReportService.save(closingReport);
-        return JsonResponse.success(null);
-    }
 }
 
