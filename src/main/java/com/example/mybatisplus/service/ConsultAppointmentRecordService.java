@@ -32,4 +32,6 @@ public interface ConsultAppointmentRecordService extends IService<ConsultAppoint
     int finishAppointment(Long consultAppointId);
 
     int countConsultingNum(Long sId);
+
+    List<ConsultAppointmentRecord> getStuRecord(Long id);
 }

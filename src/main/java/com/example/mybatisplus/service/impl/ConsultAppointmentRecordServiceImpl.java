@@ -105,6 +105,17 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         return baseMapper.selectCount(wrapper);
     }
 
+    /*
+    学生查看自己的记录，用学生id
+     */
+    @Override
+    public List<ConsultAppointmentRecord> getStuRecord(Long id) {
+        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getSId,id);
+        return baseMapper.selectList(wrapper);
+    }
+
+
 
 
     /*
