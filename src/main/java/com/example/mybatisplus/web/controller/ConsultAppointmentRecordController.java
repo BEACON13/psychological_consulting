@@ -36,7 +36,7 @@ public class ConsultAppointmentRecordController {
     private ConsultAppointmentRecordService consultAppointmentRecordService;
 
 
-    /**
+    /*
      * 描述：获得某咨询师的所有记录
      *
      */
@@ -49,7 +49,7 @@ public class ConsultAppointmentRecordController {
         return JsonResponse.success(records);
     }
 
-    /**
+    /*
      * 描述：查看某心理咨询师已进行但未填写的所有咨询
      * 即已经进行了咨询活动但是没有填写咨询报告的咨询记录
      */
@@ -62,7 +62,7 @@ public class ConsultAppointmentRecordController {
         return JsonResponse.success(records);
     }
 
-    /**
+    /*
      * 描述：查看某心理咨询师未完成的咨询
      * 不论日期
      */
@@ -132,6 +132,16 @@ public class ConsultAppointmentRecordController {
         return JsonResponse.success(records);
     }
 
+
+    /**
+     * 描述：心理助理查看所有预约记录（包括各咨询师、各学生）
+     *
+     */
+    @RequestMapping(value = "/assistant/showAll", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showAllRecords(){
+        return null;
+    }
 
 }
 

@@ -96,17 +96,6 @@ public class FirstVisitReportServiceImpl extends ServiceImpl<FirstVisitReportMap
     }
 
 
-    /**
-     * 描述：学生查看自己的初访报告
-     *
-     */
-    @Override
-    public JsonResponse getFVReport() {
-        Long id = SecurityUtils.getCurrentStudentInfo().getSId();
-        List<FirstVisitReportVO> fvReportVOS = firstVisitReportMapper.getFVReport(id);
-
-        return JsonResponse.success(fvReportVOS,"success!");
-    }
 
 
     /**
@@ -124,6 +113,7 @@ public class FirstVisitReportServiceImpl extends ServiceImpl<FirstVisitReportMap
 
     /**
      * 描述：初访员根据记录查看相关报告
+     * 描述：学生查根据记录查看对应的初访报告
      *
      */
     @Override

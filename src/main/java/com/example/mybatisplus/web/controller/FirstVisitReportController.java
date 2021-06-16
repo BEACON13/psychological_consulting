@@ -80,8 +80,8 @@ public class FirstVisitReportController {
      */
     @RequestMapping(value="/student/showFVReports",method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse getFVRecord(){
-        return firstVisitReportService.getFVReport();
+    public JsonResponse getFVRecord(@RequestParam("fvr_id")Long fvrID){
+        return firstVisitReportService.getFVReportsByFvrId(fvrID);
     }
 }
 
