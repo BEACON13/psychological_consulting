@@ -4,11 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
 import com.example.mybatisplus.mapper.ConsultAppointmentReportMapper;
+import com.example.mybatisplus.model.vo.ConsultAppointmentReportVO;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import com.example.mybatisplus.service.ConsultAppointmentReportService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,6 +26,9 @@ public class ConsultAppointmentReportServiceImpl extends ServiceImpl<ConsultAppo
 
     @Autowired
     ConsultAppointmentRecordService cars;
+
+    @Autowired
+    ConsultAppointmentReportMapper carm;
 
     @Override
     public int insertReport(ConsultAppointmentReport report) {
@@ -45,5 +51,22 @@ public class ConsultAppointmentReportServiceImpl extends ServiceImpl<ConsultAppo
 
         return report.getConsultResult().equals("结案");
     }
+
+    /*
+     * 通过咨询师ID和学生的姓名查询报告
+     */
+    @Override
+    public List<ConsultAppointmentReportVO> getRecordByConAndStu(Long cId, String stuName) {
+        return carm.getRecordByConAndStu(cId,stuName);
+    }
+
+    /*
+     * 通过咨询师ID查询报告
+     */
+    @Override
+    public List<ConsultAppointmentReportVO> getRecordByCon(Long cId) {
+        return carm.getRecordByCon(cId);
+    }
+
 
 }
