@@ -171,4 +171,45 @@
           and car.s_id=ca.s_id
           and car.is_deleted = 0
     </select>
+
+    <!--心理助理获取所有未完成的预约-->
+    <select id="showUnfinishedRecords" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+          and car.is_deleted = 0
+          and car.is_finished = 0
+    </select>
+
+    <!--心理助理根据咨询师姓名查看未完成的咨询预约-->
+    <select id="showUnfinishedRecordsByConName" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where p.name = #{ConName}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+          and car.is_deleted = 0
+          and car.is_finished = 0
+    </select>
+
+    <!--心理助理根据学生姓名查看未完成的咨询预约-->
+    <select id="showUnfinishedRecordsByStuName" resultMap="VOResultMap">
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where ca.stu_name = #{StuName}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
+          and car.is_deleted = 0
+          and car.is_finished = 0
+    </select>
 </mapper>

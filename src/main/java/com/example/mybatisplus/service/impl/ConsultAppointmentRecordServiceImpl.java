@@ -170,7 +170,41 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     @Override
     public JsonResponse showRecordsByStuName(String StuName) {
         List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showRecordsByStuName(StuName);
-        return null;
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
+    }
+
+
+
+    /**
+     * 描述：心理助理查看所有未完成的预约记录（包括各咨询师、各学生）
+     *
+     */
+    @Override
+    public JsonResponse showUnfinishedRecords() {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showUnfinishedRecords();
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
+    }
+
+
+    /**
+     * 描述：心理助理根据咨询师的姓名查看所有未完成的预约记录
+     *
+     */
+    @Override
+    public JsonResponse showUnfinishedRecordsByConName(String ConName) {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showUnfinishedRecordsByConName(ConName);
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
+    }
+
+
+    /**
+     * 描述：心理助理根据学生的姓名查看所有未完成的预约记录
+     *
+     */
+    @Override
+    public JsonResponse showUnfinishedRecordsByStuName(String StuName) {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showUnfinishedRecordsByStuName(StuName);
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
     }
 
 
