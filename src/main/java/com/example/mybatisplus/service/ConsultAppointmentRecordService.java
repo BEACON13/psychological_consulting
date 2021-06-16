@@ -41,4 +41,9 @@ public interface ConsultAppointmentRecordService extends IService<ConsultAppoint
     void deleteUndoneRecords(Long sId);
 
     JsonResponse showAllRecords();
+
+    JsonResponse showRecordsByConName(String ConName);
+
+    JsonResponse showRecordsByStuName(String StuName);
 }
+

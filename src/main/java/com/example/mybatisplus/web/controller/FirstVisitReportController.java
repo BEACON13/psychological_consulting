@@ -75,7 +75,7 @@ public class FirstVisitReportController {
     }
 
     /**
-     * 描述：学生查看自己的初访报告
+     * 描述：学生根据记录查看相应的初访报告
      *
      */
     @RequestMapping(value="/student/showFVReports",method = RequestMethod.GET)

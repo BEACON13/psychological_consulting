@@ -31,5 +31,10 @@ public interface ConsultAppointmentRecordMapper extends BaseMapper<ConsultAppoin
     List<ConsultAppointmentRecordVO> getRecordByStu(Long sId);
 
     List<ConsultAppointmentRecordVO> showAllRecords();
+
+    List<ConsultAppointmentRecordVO> showRecordsByConName(@Param("ConName") String ConName);
+
+    List<ConsultAppointmentRecordVO> showRecordsByStuName(@Param("StuName")String StuName);
+
 }
 

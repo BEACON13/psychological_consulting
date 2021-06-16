@@ -140,8 +140,29 @@ public class ConsultAppointmentRecordController {
     @RequestMapping(value = "/assistant/showAll", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showAllRecords(){
-        return null;
+        return consultAppointmentRecordService.showAllRecords();
     }
 
+
+    /**
+     * 描述：心理助理根据咨询师姓名查看咨询预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/showByCon", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showRecordsByConName(@RequestParam("ConName")String ConName){
+        return consultAppointmentRecordService.showRecordsByConName(ConName);
+    }
+
+
+    /**
+     * 描述：心理助理根据学生姓名查看咨询预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/showByStu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showRecordsByStuName(@RequestParam("StuName")String StuName){
+        return consultAppointmentRecordService.showRecordsByStuName(StuName);
+    }
 }
 
