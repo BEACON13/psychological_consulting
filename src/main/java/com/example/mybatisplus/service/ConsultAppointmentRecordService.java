@@ -45,5 +45,11 @@ public interface ConsultAppointmentRecordService extends IService<ConsultAppoint
     JsonResponse showRecordsByConName(String ConName);
 
     JsonResponse showRecordsByStuName(String StuName);
+
+    JsonResponse showUnfinishedRecords();
+
+    JsonResponse showUnfinishedRecordsByConName(String ConName);
+
+    JsonResponse showUnfinishedRecordsByStuName(String StuName);
 }
 

@@ -164,5 +164,38 @@ public class ConsultAppointmentRecordController {
     public JsonResponse showRecordsByStuName(@RequestParam("StuName")String StuName){
         return consultAppointmentRecordService.showRecordsByStuName(StuName);
     }
+
+
+    /**
+     * 描述：心理助理查看所有未完成的预约记录（包括各咨询师、各学生）
+     *
+     */
+    @RequestMapping(value = "/assistant/showUnfinished", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedRecords(){
+        return consultAppointmentRecordService.showUnfinishedRecords();
+    }
+
+
+    /**
+     * 描述：心理助理根据咨询师的姓名查看所有未完成的预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/showUnfinishedByCon", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedRecordsByConName(@RequestParam("ConName")String ConName){
+        return consultAppointmentRecordService.showUnfinishedRecordsByConName(ConName);
+    }
+
+
+    /**
+     * 描述：心理助理根据学生的姓名查看所有未完成的预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/showUnfinishedByStu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedRecordsByStuName(@RequestParam("StuName")String StuName){
+        return consultAppointmentRecordService.showUnfinishedRecordsByStuName(StuName);
+    }
 }
 
