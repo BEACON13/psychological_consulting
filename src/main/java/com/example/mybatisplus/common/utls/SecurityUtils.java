@@ -15,36 +15,6 @@ public class SecurityUtils {
      *
      * @return
      */
-    /*
-    public static Admin getCurrentUserInfo() {
-        Admin userInfo = SessionUtils.getCurrentUserInfo();
-        //模拟登录
-        if (userInfo == null) {
-            userInfo = new Admin();
-            userInfo.setLoginName("模拟");
-        }
-
-        return userInfo;
-    }
-    public static UserInfoDTO getUserInfo() {
-        Admin userInfo = SessionUtils.getCurrentUserInfo();
-        UserInfoDTO userInfoDTO = new UserInfoDTO();
-        //模拟登录
-        if (userInfo == null) {
-            userInfo = new Admin();
-            userInfo.setLoginName("模拟用户");
-            userInfoDTO.setId(1L);
-            userInfoDTO.setName("模拟用户");
-            userInfoDTO.setUserType(1L);
-        }else{
-            userInfoDTO.setId(1L);
-            userInfoDTO.setName("模拟用户");
-            userInfoDTO.setUserType(1L);
-        }
-
-        return userInfoDTO;
-    }
-     */
 
     public static Student getCurrentStudentInfo() {
         Student studentInfo = SessionUtils.getCurrentStudentInfo();
@@ -56,6 +26,7 @@ public class SecurityUtils {
 
         return studentInfo;
     }
+
     public static Person getCurrentUserInfo() {
         Person userInfo = SessionUtils.getCurrentUserInfo();
         //模拟登录

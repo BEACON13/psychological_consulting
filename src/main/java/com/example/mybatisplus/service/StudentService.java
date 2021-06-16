@@ -1,7 +1,6 @@
 package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.common.JsonResponse;
-import com.example.mybatisplus.model.domain.Person;
 import com.example.mybatisplus.model.domain.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
 

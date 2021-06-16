@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-11
+ * @since 2021-06-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -48,6 +48,8 @@ public class Person extends Model<Person> {
     private String address;
 
     private String email;
+
+    private Boolean isDeleted;
 
 
     @Override

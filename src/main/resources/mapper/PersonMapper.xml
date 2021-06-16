@@ -15,11 +15,10 @@
         <result column="info" property="info" />
         <result column="address" property="address" />
         <result column="email" property="email" />
+        <result column="is_deleted" property="isDeleted" />
     </resultMap>
 
     <select id="login" resultMap="BaseResultMap">
-        select * from person where p_id in (select p_id from person_type where type = #{type}) and username = #{username}
+        select * from person where p_id in (select p_id from person_type where type = #{type}) and username = #{username} and is_deleted = 0
     </select>
-
-
 </mapper>

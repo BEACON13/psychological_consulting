@@ -11,11 +11,9 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-11
+ * @since 2021-06-16
  */
 @Repository
 public interface PersonMapper extends BaseMapper<Person> {
-
     Person login(@Param("username")String username, @Param("type")String type);
-
 }

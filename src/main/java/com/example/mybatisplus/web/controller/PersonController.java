@@ -17,7 +17,7 @@ import com.example.mybatisplus.model.domain.Person;
  *
  *
  * @author Kristy
- * @since 2021-06-11
+ * @since 2021-06-16
  * @version v1.0
  */
 @Controller
@@ -51,7 +51,5 @@ public class PersonController {
     public JsonResponse modifyPwd(@RequestParam("newPwd")String newPwd){
         return personService.modifyPwd(newPwd);
     }
-
-
 }
 

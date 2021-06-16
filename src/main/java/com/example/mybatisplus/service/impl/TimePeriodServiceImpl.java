@@ -31,8 +31,7 @@ public class TimePeriodServiceImpl extends ServiceImpl<TimePeriodMapper, TimePer
      */
     @Override
     public JsonResponse getTimePeriod() {
-        QueryWrapper<TimePeriod> wrapper = new QueryWrapper<>();
-        List<TimePeriod> timePeriods = timePeriodMapper.selectList(wrapper);
+        List<TimePeriod> timePeriods = timePeriodMapper.selectList(null);
         return JsonResponse.success(timePeriods,"success!");
     }
 }

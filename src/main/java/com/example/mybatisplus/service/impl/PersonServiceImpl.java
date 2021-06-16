@@ -11,23 +11,21 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 /**
  * <p>
  *  服务实现类
  * </p>
  *
  * @author Kristy
- * @since 2021-06-11
+ * @since 2021-06-16
  */
 @Service
 public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> implements PersonService {
-
     @Autowired
-    private PersonMapper personMapper;
+    PersonMapper personMapper;
 
     @Override
-    public JsonResponse login(String username,String type,String pwd) {
+    public JsonResponse login(String username, String type, String pwd) {
         Person person = personMapper.login(username,type);
         if (person == null)
             return JsonResponse.failure("用户不存在");

@@ -25,6 +25,7 @@ public class SessionUtils {
     }
     */
 
+
     public static Person getCurrentUserInfo() {
         return (Person) session().getAttribute(USERKEY);
     }
