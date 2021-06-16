@@ -63,8 +63,8 @@ public class FirstApplyController {
                 .setEmergencyLevel((String) info.get("emergencyLevel"))
                 .setProblemType((String) info.get("problemType"))
                 .setConsultExpectation((String) info.get("consultExpectation"))
-                .setConsultHistory((String) info.get("consultHistory"))
-                .setIsFinished((Boolean) info.get("isFinished"));
+                .setConsultHistory((String) info.get("consultHistory"));
+
 
         if(firstApplyService.insertFirstApply(firstApply)>0)
             return JsonResponse.success(null);

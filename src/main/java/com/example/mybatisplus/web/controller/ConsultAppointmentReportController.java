@@ -61,7 +61,7 @@ public class ConsultAppointmentReportController {
     /*
      * 咨询师查看自己的所有咨询报告
      */
-    @RequestMapping(value = "/consultant/report/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultant/show/report/all", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse consultantGetAllReport(){
         List reports =consultAppointmentReportService
@@ -72,7 +72,7 @@ public class ConsultAppointmentReportController {
     /*
      * 咨询师查看自己与某学生的咨询报告
      */
-    @RequestMapping(value = "/consultant/report/stu", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultant/show/report/stu", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse consultantGetReportByStu(@RequestParam("stuName") String stuName){
         List reports =consultAppointmentReportService
