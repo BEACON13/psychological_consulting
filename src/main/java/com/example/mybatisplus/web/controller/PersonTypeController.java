@@ -59,7 +59,7 @@ public class PersonTypeController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResponse updatePersonType(@PathVariable("id") Long  id,PersonType  personType) throws Exception {
-        personType.setId(id);
+        personType.setPtId(id);
         personTypeService.updateById(personType);
         return JsonResponse.success(null);
     }
