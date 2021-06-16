@@ -21,4 +21,10 @@
     <select id="login" resultMap="BaseResultMap">
         select * from person where p_id in (select p_id from person_type where type = #{type}) and username = #{username} and is_deleted = 0
     </select>
+
+    <!--插入新Person，并且返回id-->
+    <insert id="insertPerson" parameterType="com.example.mybatisplus.model.domain.Person" useGeneratedKeys="true" keyProperty="pId">
+        insert into person(username, password, name, phone, gender, job, age, info, address, email)
+            values(#{username},#{password},#{name},#{phone},#{gender},#{job},#{age},#{info},#{address},#{email})
+    </insert>
 </mapper>

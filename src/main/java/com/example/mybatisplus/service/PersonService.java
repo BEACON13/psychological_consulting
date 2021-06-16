@@ -16,4 +16,6 @@ public interface PersonService extends IService<Person> {
     JsonResponse login(String username, String type,String pwd);
 
     JsonResponse modifyPwd(String newPwd);
+
+    void insertPerson(Person person);
 }

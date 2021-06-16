@@ -43,4 +43,12 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
         personMapper.update(null,wrapper);
         return JsonResponse.successMessage("修改成功!");
     }
+
+    /*
+     * 插入Person
+     */
+    @Override
+    public void insertPerson(Person person) {
+        personMapper.insertPerson(person);
+    }
 }
