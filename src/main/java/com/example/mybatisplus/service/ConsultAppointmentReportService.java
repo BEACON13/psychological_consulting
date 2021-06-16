@@ -2,6 +2,9 @@ package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.vo.ConsultAppointmentReportVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,7 +16,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ConsultAppointmentReportService extends IService<ConsultAppointmentReport> {
 
-    public int insertReport(ConsultAppointmentReport report);
+    int insertReport(ConsultAppointmentReport report);
 
-    public Boolean checkLastRecordIsClosed(Long sId);
+    Boolean checkLastRecordIsClosed(Long sId);
+
+    List<ConsultAppointmentReportVO> getRecordByConAndStu(Long cId, String stuName);
+
+    List<ConsultAppointmentReportVO> getRecordByCon(Long cId);
 }

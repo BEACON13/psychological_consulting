@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.common.utls.SecurityUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -10,8 +11,10 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.ConsultAppointmentReportService;
 import com.example.mybatisplus.model.domain.ConsultAppointmentReport;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +36,9 @@ public class ConsultAppointmentReportController {
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
 
+    /*
+     * 咨询师插入咨询报告
+     */
     @RequestMapping(value = "/consultant/insert/consultReport")
     @ResponseBody
     public JsonResponse insertReport(@RequestParam("consultReport") Map<String,Object> info){
@@ -51,5 +57,28 @@ public class ConsultAppointmentReportController {
 
         return JsonResponse.success("插入完成");
     }
+
+    /*
+     * 咨询师查看自己的所有咨询报告
+     */
+    @RequestMapping(value = "/consultant/report/all", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse consultantGetAllReport(){
+        List reports =consultAppointmentReportService
+                .getRecordByCon(SecurityUtils.getCurrentUserInfo().getPId());
+        return JsonResponse.success(reports);
+    }
+
+    /*
+     * 咨询师查看自己与某学生的咨询报告
+     */
+    @RequestMapping(value = "/consultant/report/stu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse consultantGetReportByStu(@RequestParam("stuName") String stuName){
+        List reports =consultAppointmentReportService
+                .getRecordByConAndStu(SecurityUtils.getCurrentUserInfo().getPId(),stuName);
+        return JsonResponse.success(reports);
+    }
+
 }
 

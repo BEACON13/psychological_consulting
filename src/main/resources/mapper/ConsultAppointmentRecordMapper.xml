@@ -51,14 +51,14 @@
 
     <!--根据咨询师id查询报告-->
     <select id="getRecordsByConsultant" resultMap="VOResultMap">
-            select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
-            from consult_appointment_record car,person p,time_period tp
-               ,location l,consult_apply ca
-            where car.c_id=#{c_id}
-              and car.c_id=p.p_id
-              and car.tp_id=tp.tp_id
-              and car.location_id=l.location_id
-              and car.s_id=ca.s_id
+        select car.*,p.name,tp.start_time,tp.duration,l.location_name,ca.*
+        from consult_appointment_record car,person p,time_period tp
+           ,location l,consult_apply ca
+        where car.c_id=#{c_id}
+          and car.c_id=p.p_id
+          and car.tp_id=tp.tp_id
+          and car.location_id=l.location_id
+          and car.s_id=ca.s_id
               and car.is_deleted = 0
     </select>
 
