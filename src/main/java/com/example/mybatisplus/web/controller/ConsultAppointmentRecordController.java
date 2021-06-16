@@ -36,7 +36,7 @@ public class ConsultAppointmentRecordController {
     private ConsultAppointmentRecordService consultAppointmentRecordService;
 
 
-    /**
+    /*
      * 描述：获得某咨询师的所有记录
      *
      */
@@ -49,7 +49,7 @@ public class ConsultAppointmentRecordController {
         return JsonResponse.success(records);
     }
 
-    /**
+    /*
      * 描述：查看某心理咨询师已进行但未填写的所有咨询
      * 即已经进行了咨询活动但是没有填写咨询报告的咨询记录
      */
@@ -62,7 +62,7 @@ public class ConsultAppointmentRecordController {
         return JsonResponse.success(records);
     }
 
-    /**
+    /*
      * 描述：查看某心理咨询师未完成的咨询
      * 不论日期
      */
@@ -133,5 +133,69 @@ public class ConsultAppointmentRecordController {
     }
 
 
+    /**
+     * 描述：心理助理查看所有预约记录（包括各咨询师、各学生）
+     *
+     */
+    @RequestMapping(value = "/assistant/showAll", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showAllRecords(){
+        return consultAppointmentRecordService.showAllRecords();
+    }
+
+
+    /**
+     * 描述：心理助理根据咨询师姓名查看咨询预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/showByCon", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showRecordsByConName(@RequestParam("ConName")String ConName){
+        return consultAppointmentRecordService.showRecordsByConName(ConName);
+    }
+
+
+    /**
+     * 描述：心理助理根据学生姓名查看咨询预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/showByStu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showRecordsByStuName(@RequestParam("StuName")String StuName){
+        return consultAppointmentRecordService.showRecordsByStuName(StuName);
+    }
+
+
+    /**
+     * 描述：心理助理查看所有未完成的预约记录（包括各咨询师、各学生）
+     *
+     */
+    @RequestMapping(value = "/assistant/showUnfinished", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedRecords(){
+        return consultAppointmentRecordService.showUnfinishedRecords();
+    }
+
+
+    /**
+     * 描述：心理助理根据咨询师的姓名查看所有未完成的预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/showUnfinishedByCon", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedRecordsByConName(@RequestParam("ConName")String ConName){
+        return consultAppointmentRecordService.showUnfinishedRecordsByConName(ConName);
+    }
+
+
+    /**
+     * 描述：心理助理根据学生的姓名查看所有未完成的预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/showUnfinishedByStu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedRecordsByStuName(@RequestParam("StuName")String StuName){
+        return consultAppointmentRecordService.showUnfinishedRecordsByStuName(StuName);
+    }
 }
 

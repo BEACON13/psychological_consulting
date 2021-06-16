@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service;
 
+import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mybatisplus.model.vo.ConsultAppointmentRecordVO;
@@ -38,4 +39,17 @@ public interface ConsultAppointmentRecordService extends IService<ConsultAppoint
     List<ConsultAppointmentRecord> getRecordsByStuId(Long SID);
 
     void deleteUndoneRecords(Long sId);
+
+    JsonResponse showAllRecords();
+
+    JsonResponse showRecordsByConName(String ConName);
+
+    JsonResponse showRecordsByStuName(String StuName);
+
+    JsonResponse showUnfinishedRecords();
+
+    JsonResponse showUnfinishedRecordsByConName(String ConName);
+
+    JsonResponse showUnfinishedRecordsByStuName(String StuName);
 }
+

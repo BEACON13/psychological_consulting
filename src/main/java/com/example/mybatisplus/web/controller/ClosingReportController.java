@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import com.example.mybatisplus.service.ConsultAppointmentReportService;
 import com.example.mybatisplus.service.StudentService;
@@ -84,12 +85,33 @@ public class ClosingReportController {
      * 检查方法是查看学生is_qualified字段是否为1
      * 因为插入结案报告时会将该字段置为0
      */
-    @RequestMapping(value = "/consultant/insert/closingReport/allow")
+    @RequestMapping(value = "/consultant/insert/closingReport/allow",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse insertClosingReport(@RequestParam("student_id") Long id){
         return studentService.isQualified(id) ?
                 JsonResponse.successMessage("请填写") :
                 JsonResponse.failure("不满足填写要求");
+    }
+
+    /*
+     * 咨询师获得自己和某个学生咨询的结案报告
+     */
+    @RequestMapping(value = "/consultant/show/closingReport/stu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getClosingReportByConAndStu(@RequestParam("stu_name") String stuName){
+        Long cId= SecurityUtils.getCurrentUserInfo().getPId();
+        return JsonResponse.success(closingReportService
+                .getClosingReportByConAndStu(stuName,cId));
+    }
+
+    /*
+     * 咨询师获得自己撰写的结案报告
+     */
+    @RequestMapping(value = "/consultant/show/closingReport/all", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getClosingReportByCon(){
+        return JsonResponse.success(closingReportService
+                .getClosingReportByCon(SecurityUtils.getCurrentUserInfo().getPId()));
     }
 
 }

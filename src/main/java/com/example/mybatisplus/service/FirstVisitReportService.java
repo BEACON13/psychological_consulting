@@ -22,7 +22,6 @@ public interface FirstVisitReportService extends IService<FirstVisitReport> {
 
     JsonResponse getFVReportsByName(String stuName);
 
-    JsonResponse getFVReport();
 
     List<FirstVisitReport> getFVReportsBySId(Long SID);
 

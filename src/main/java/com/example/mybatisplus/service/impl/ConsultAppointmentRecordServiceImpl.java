@@ -2,6 +2,7 @@ package com.example.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.mapper.ConsultAppointmentRecordMapper;
 import com.example.mybatisplus.model.vo.ConsultAppointmentRecordVO;
@@ -139,58 +140,72 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     }
 
 
-
-    /*
-    @Override
-    public List<ConsultAppointmentRecord> getAllRecordByConsultantID(Long consultantId) {
-        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId);
-
-        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
-        return records;
-    }
+    /**
+     * 描述：心理助理查看所有预约记录（包括各咨询师、各学生）
+     *
      */
-
-
-    /*
     @Override
-    public List<ConsultAppointmentRecord> getRecordNotFilledInByConsultantID(Long consultantId) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
-        String date=simpleDateFormat.format(new Date());
+    public JsonResponse showAllRecords() {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showAllRecords();
 
-        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId)
-                .le(ConsultAppointmentRecord::getDate,date)
-                .eq(ConsultAppointmentRecord::getIsFinished,0);
-
-        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
-        return records;
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
     }
 
-     */
 
-    /*
+    /**
+     * 描述：心理助理根据咨询师姓名查看咨询预约记录
+     *
+     */
     @Override
-    public List<ConsultAppointmentRecord> getAllUnfinishedRecordByConsultantID(Long consultantId) {
-        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,consultantId)
-                .eq(ConsultAppointmentRecord::getIsFinished,0);
-        List<ConsultAppointmentRecord> unfinishedRecords = baseMapper.selectList(wrapper);
-        return unfinishedRecords;
+    public JsonResponse showRecordsByConName(String ConName) {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showRecordsByConName(ConName);
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
     }
 
-     */
 
-    /*
+    /**
+     * 描述：心理助理根据学生姓名查看咨询预约记录
+     *
+     */
     @Override
-    public List<ConsultAppointmentRecord> getRecordByConsultantAndStudent(Long CID, Long SID) {
-        QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(ConsultAppointmentRecord::getCId,CID)
-                .eq(ConsultAppointmentRecord::getSId,SID);
-        List<ConsultAppointmentRecord> records = baseMapper.selectList(wrapper);
-        return records;
+    public JsonResponse showRecordsByStuName(String StuName) {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showRecordsByStuName(StuName);
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
     }
 
+
+
+    /**
+     * 描述：心理助理查看所有未完成的预约记录（包括各咨询师、各学生）
+     *
      */
+    @Override
+    public JsonResponse showUnfinishedRecords() {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showUnfinishedRecords();
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
+    }
+
+
+    /**
+     * 描述：心理助理根据咨询师的姓名查看所有未完成的预约记录
+     *
+     */
+    @Override
+    public JsonResponse showUnfinishedRecordsByConName(String ConName) {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showUnfinishedRecordsByConName(ConName);
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
+    }
+
+
+    /**
+     * 描述：心理助理根据学生的姓名查看所有未完成的预约记录
+     *
+     */
+    @Override
+    public JsonResponse showUnfinishedRecordsByStuName(String StuName) {
+        List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showUnfinishedRecordsByStuName(StuName);
+        return JsonResponse.success(consultAppointmentRecordVOS,"success!");
+    }
+
 
 }

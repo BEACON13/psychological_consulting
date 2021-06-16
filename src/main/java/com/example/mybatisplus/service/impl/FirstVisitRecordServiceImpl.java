@@ -84,7 +84,7 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         Long id = SecurityUtils.getUserInfo().getId();
         List<FirstVisitRecordVO> firstVisitRecordVOS = firstVisitRecordMapper.showAllRecords(id);
 
-        System.out.println(firstVisitRecordVOS);
+        //System.out.println(firstVisitRecordVOS);
         return JsonResponse.success(firstVisitRecordVOS,"success!");
     }
 
