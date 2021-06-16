@@ -10,8 +10,9 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author Beacon
- * @since 2021-06-15
+ * @since 2021-06-16
  */
+
 @Repository
 public interface TimePeriodMapper extends BaseMapper<TimePeriod> {
 

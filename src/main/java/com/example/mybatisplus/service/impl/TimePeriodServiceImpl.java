@@ -1,6 +1,5 @@
 package com.example.mybatisplus.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.TimePeriod;
 import com.example.mybatisplus.mapper.TimePeriodMapper;
@@ -17,7 +16,7 @@ import java.util.List;
  * </p>
  *
  * @author Beacon
- * @since 2021-06-15
+ * @since 2021-06-16
  */
 @Service
 public class TimePeriodServiceImpl extends ServiceImpl<TimePeriodMapper, TimePeriod> implements TimePeriodService {

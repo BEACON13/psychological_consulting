@@ -17,11 +17,11 @@ import com.example.mybatisplus.model.domain.TimePeriod;
  *
  *
  * @author Beacon
- * @since 2021-06-15
+ * @since 2021-06-16
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/api/timePeriod")
 public class TimePeriodController {
 
     private final Logger logger = LoggerFactory.getLogger( TimePeriodController.class );
