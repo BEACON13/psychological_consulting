@@ -43,7 +43,7 @@ public class FirstApplyController {
      */
     @RequestMapping(value = "/student/insert/firstApply")
     @ResponseBody
-    public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info) {
+    public JsonResponse insertApply(@RequestBody Map<String,Object> info) {
 
         Student student = SecurityUtils.getCurrentStudentInfo();
         if (studentService.isAllowedFirstApply(student.getSId())){

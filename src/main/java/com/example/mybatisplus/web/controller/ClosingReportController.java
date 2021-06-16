@@ -49,7 +49,7 @@ public class ClosingReportController {
      */
     @RequestMapping(value = "/consultant/insert/closingReport")
     @ResponseBody
-    public JsonResponse insertClosingReport(@RequestParam("closingReport") Map<String,Object> info) throws Exception {
+    public JsonResponse insertClosingReport(@RequestBody Map<String,Object> info) throws Exception {
 
         //获取sId
         Long sId = Long.parseLong(info.get("sId").toString());

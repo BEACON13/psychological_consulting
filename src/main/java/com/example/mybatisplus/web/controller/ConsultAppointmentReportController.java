@@ -41,7 +41,7 @@ public class ConsultAppointmentReportController {
      */
     @RequestMapping(value = "/consultant/insert/consultReport")
     @ResponseBody
-    public JsonResponse insertReport(@RequestParam("consultReport") Map<String,Object> info){
+    public JsonResponse insertReport(@RequestBody Map<String,Object> info){
         ConsultAppointmentReport report = new ConsultAppointmentReport();
         report.setConsultAppointId(Long.parseLong(info.get("consult_appoint_id").toString()))
                 .setSId((Long.parseLong (info.get("sId").toString())))
