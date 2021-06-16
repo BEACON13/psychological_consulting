@@ -12,4 +12,38 @@
         <result column="consult_effect_self" property="consultEffectSelf" />
     </resultMap>
 
+    <!--VO查询映射结果-->
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.ClosingReportVO">
+        <!--原有字段-->
+        <id column="closing_report_id" property="closingReportId" />
+        <result column="s_id" property="sId" />
+        <result column="c_id" property="cId" />
+        <result column="problem_type" property="problemType" />
+        <result column="consult_num" property="consultNum" />
+        <result column="consult_effect_self" property="consultEffectSelf" />
+
+        <!--VO字段-->
+        <result column="stu_name" property="stuName" />
+        <result column="consultant_name" property="consultantName" />
+    </resultMap>
+
+    <!--咨询师获取自己和某个学生的结案报告-->
+    <select id="getClosingReportByConAndStu" resultMap="VOResultMap">
+        select cr.*,stu.name stu_name,p.name consultant_name
+        from closing_report cr, person p,student stu
+        where cr.s_id = stu.s_id
+          and cr.c_id = p.p_id
+          and stu.name = #{stu_name}
+          and p.p_id = #{c_id}
+    </select>
+
+    <!--咨询师获取自己所有的结案报告-->
+    <select id="getClosingReportByCon" resultMap="VOResultMap">
+        select cr.*,stu.name stu_name,p.name consultant_name
+        from closing_report cr, person p,student stu
+        where cr.s_id = stu.s_id
+          and cr.c_id = p.p_id
+          and p.p_id = #{c_id}
+    </select>
+
 </mapper>
