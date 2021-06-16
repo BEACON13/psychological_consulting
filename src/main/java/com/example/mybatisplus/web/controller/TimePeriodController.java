@@ -29,6 +29,14 @@ public class TimePeriodController {
     @Autowired
     private TimePeriodService timePeriodService;
 
-
+    /**
+     * 描述：返回时间段安排
+     *
+     */
+    @RequestMapping(value="/getTimePeriod",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getTimePeriod(){
+        return timePeriodService.getTimePeriod();
+    }
 }
 
