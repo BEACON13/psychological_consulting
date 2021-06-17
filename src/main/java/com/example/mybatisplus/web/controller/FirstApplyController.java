@@ -37,18 +37,28 @@ public class FirstApplyController {
     @Autowired
     private StudentService studentService;
 
-    /**
+    /*
+     * 描述：检查学生是否有预约申请的资格
+     *
+     */
+    @RequestMapping(value = "/student/firstApply/qualification")
+    @ResponseBody
+    public JsonResponse checkStudentFirstApplyQualification(){
+
+        Student student = SecurityUtils.getCurrentStudentInfo();
+
+        return JsonResponse.success(
+                studentService.isAllowedFirstApply(student.getSId()));
+
+    }
+
+    /*
      * 描述：插入新预约申请
      *
      */
     @RequestMapping(value = "/student/insert/firstApply")
     @ResponseBody
     public JsonResponse insertApply(@RequestBody Map<String,Object> info) {
-
-        Student student = SecurityUtils.getCurrentStudentInfo();
-        if (studentService.isAllowedFirstApply(student.getSId())){
-            JsonResponse.failure("您没有资格预约初访");
-        }
 
         FirstApply firstApply=new FirstApply();
         firstApply.setSId(Long.parseLong (info.get("sId").toString()))
@@ -67,7 +77,7 @@ public class FirstApplyController {
 
 
         if(firstApplyService.insertFirstApply(firstApply)>0)
-            return JsonResponse.success(null);
+            return JsonResponse.successMessage("插入成功");
 
         return JsonResponse.failure("插入失败");
     }

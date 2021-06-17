@@ -72,7 +72,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
        if (isQualified(id))
            return false;
 
-        //如果学生具有未完成的初访申请，则不应该申请初访
+        //如果学生具有未完成的初访申请(firstApply)，则不应该申请初访
         List<FirstApply> applies = firstApplyService.getFirstApplyByStu(id);
         for (FirstApply a: applies) {
 
@@ -80,12 +80,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 return false;
         }
 
-        //如果学生具有未完成的初访预约，则不应该申请初访
+        //如果学生具有未完成的初访预约(firstApplyRecord)，则不应该申请初访
         List<FirstVisitRecord> records = firstVisitRecordService.getRecordByStudent(id);
         for (FirstVisitRecord r: records){
-            if(!r.getIsFinished()){
+            if(!r.getIsFinished())
                 return false;
-            }
+
         }
 
         return true;
