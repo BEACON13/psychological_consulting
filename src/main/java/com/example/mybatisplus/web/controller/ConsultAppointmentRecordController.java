@@ -207,5 +207,8 @@ public class ConsultAppointmentRecordController {
     public JsonResponse manageRecords(@RequestBody Map form){
         return consultAppointmentRecordService.manageRecords(form);
     }
+
+
+
 }
 

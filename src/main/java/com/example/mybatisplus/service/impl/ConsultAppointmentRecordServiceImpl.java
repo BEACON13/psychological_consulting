@@ -231,7 +231,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
                 .set(ConsultAppointmentRecord::getCId,cID)
                 .set(ConsultAppointmentRecord::getDate,date);
         cram.update(null,wrapper);
-        return null;
+        return JsonResponse.successMessage("修改成功!");
     }
 
 
