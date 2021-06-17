@@ -21,4 +21,42 @@
         <result column="is_finished" property="isFinished" />
     </resultMap>
 
+    <!--VO查询结果-->
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.FirstApplyVO">
+        <!--原有字段-->
+        <id column="fa_id" property="faId" />
+        <result column="s_id" property="sId" />
+        <result column="tp_id" property="tpId" />
+        <result column="score" property="score" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="emergency_phone" property="emergencyPhone" />
+        <result column="physical_illness" property="physicalIllness" />
+        <result column="is_diagnosed" property="isDiagnosed" />
+        <result column="emergency_level" property="emergencyLevel" />
+        <result column="problem_type" property="problemType" />
+        <result column="consult_expectation" property="consultExpectation" />
+        <result column="consult_history" property="consultHistory" />
+        <result column="is_finished" property="isFinished" />
+
+        <!--VO字段-->
+        <result column="start_time" property="startTime"/>
+        <result column="duration" property="duration"/>
+    </resultMap>
+
+    <select id="getUrgentApply" resultMap="VOResultMap">
+        select fa.*,tp.start_time,tp.duration
+        from first_apply fa,time_period tp
+        where fa.tp_id = tp.tp_id
+          and fa.score &gt; 75
+    </select>
+
+    <select id="getNormalApply" resultMap="VOResultMap">
+        select fa.*,tp.start_time,tp.duration
+        from first_apply fa,time_period tp
+        where fa.tp_id = tp.tp_id
+          and fa.score &lt;= 75
+    </select>
+
 </mapper>

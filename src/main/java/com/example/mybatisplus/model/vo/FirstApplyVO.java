@@ -1,7 +1,14 @@
 package com.example.mybatisplus.model.vo;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 import java.time.LocalTime;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class FirstApplyVO {
 
     //原有字段
