@@ -45,7 +45,7 @@ public class ConsultAppointmentReportController {
         ConsultAppointmentReport report = new ConsultAppointmentReport();
         report.setConsultAppointId(Long.parseLong(info.get("consult_appoint_id").toString()))
                 .setSId((Long.parseLong (info.get("sId").toString())))
-                .setTpId((int) info.get("tpId"))
+                .setTpId((Integer) info.get("tpId"))
                 .setConsultResult((String) info.get("consultResult"))
                 .setCId((Long.parseLong (info.get("cId").toString())));
 
