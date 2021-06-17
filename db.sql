@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 15/06/2021 15:44:24
+ Date: 16/06/2021 17:55:34
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `add_consult`  (
   INDEX `FK_stu_add_consult`(`s_id`) USING BTREE,
   CONSTRAINT `FK_Reference_35` FOREIGN KEY (`c_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_stu_add_consult` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of add_consult
@@ -179,7 +179,7 @@ CREATE TABLE `consultant_duty`  (
   CONSTRAINT `FK_consultant_loc` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_33` FOREIGN KEY (`c_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_time_cd` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of consultant_duty
@@ -276,7 +276,7 @@ CREATE TABLE `first_visit_report`  (
   CONSTRAINT `FK_Reference_36` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_37` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_38` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of first_visit_report
@@ -302,7 +302,7 @@ CREATE TABLE `first_visitor_duty`  (
   CONSTRAINT `FK_fv_loc` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_fvd_time` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_31` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of first_visitor_duty
@@ -345,6 +345,7 @@ CREATE TABLE `person`  (
   `info` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `is_deleted` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`p_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -352,7 +353,7 @@ CREATE TABLE `person`  (
 -- Records of person
 -- ----------------------------
 BEGIN;
-INSERT INTO `person` VALUES (1, 'yanghl', '123', '杨慧林', '13278091782', '女', '心理咨询师', 43, '资深心理咨询师，从业15年，经验丰富', '四川省成都市双流区', '1089728@qq.com'), (2, 'admin', '12345678', '唐林', '18937092834', '男', '心理学教师', 35, '心理学教师，擅长管理', '四川省成都市郫都区润水花园', '927392739@126.com'), (3, 'wangq', '123', '王青青', '13290870832', '女', '心理学教师', 28, '心理学硕士毕业', '成都西路', '29073826@qq.com'), (4, 'sunwei', '123', '孙维', '18907832568', '男', '实习助理', 23, '心理学研究生在读', '成都春熙路', '2903263782@qq.com'), (5, 'taodn', '123', '陶大娘', '15589082764', '女', '心理咨询师', 50, '外聘心理咨询师，从业25年', '北京南路', '29083729@qq.com');
+INSERT INTO `person` VALUES (1, 'yanghl', '123', '杨慧林', '13278091782', '女', '心理咨询师', 43, '资深心理咨询师，从业15年，经验丰富', '四川省成都市双流区', '1089728@qq.com', 0), (2, 'admin', '12345678', '唐林', '18937092834', '男', '心理学教师', 35, '心理学教师，擅长管理', '四川省成都市郫都区润水花园', '927392739@126.com', 0), (3, 'wangq', '123', '王青青', '13290870832', '女', '心理学教师', 28, '心理学硕士毕业', '成都西路', '29073826@qq.com', 0), (4, 'sunwei', '123', '孙维', '18907832568', '男', '实习助理', 23, '心理学研究生在读', '成都春熙路', '2903263782@qq.com', 0), (5, 'taodn', '123', '陶大娘', '15589082764', '女', '心理咨询师', 50, '外聘心理咨询师，从业25年', '北京南路', '29083729@qq.com', 0);
 COMMIT;
 
 -- ----------------------------
@@ -409,6 +410,7 @@ CREATE TABLE `time_period`  (
   `start_time` time(0) NULL DEFAULT NULL,
   `duration` int(0) NULL DEFAULT NULL,
   `weekday` smallint(0) NULL DEFAULT NULL,
+  `is_deleted` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`tp_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -416,7 +418,7 @@ CREATE TABLE `time_period`  (
 -- Records of time_period
 -- ----------------------------
 BEGIN;
-INSERT INTO `time_period` VALUES (1, '08:00:00', 60, 1), (2, '10:00:00', 60, 1), (3, '14:00:00', 60, 1), (4, '16:00:00', 60, 1), (5, '08:00:00', 60, 2), (6, '10:00:00', 60, 2), (7, '14:00:00', 60, 2), (8, '16:00:00', 60, 2), (9, '08:00:00', 60, 3), (10, '10:00:00', 60, 3), (11, '14:00:00', 60, 3), (12, '16:00:00', 60, 3), (13, '08:00:00', 60, 4), (14, '10:00:00', 60, 4), (15, '14:00:00', 60, 4), (16, '16:00:00', 60, 4), (17, '08:00:00', 60, 5), (18, '10:00:00', 60, 5), (19, '14:00:00', 60, 5), (20, '16:00:00', 60, 5);
+INSERT INTO `time_period` VALUES (1, '08:00:00', 60, 1, 0), (2, '10:00:00', 60, 1, 0), (3, '14:00:00', 60, 1, 0), (4, '16:00:00', 60, 1, 0), (5, '08:00:00', 60, 2, 0), (6, '10:00:00', 60, 2, 0), (7, '14:00:00', 60, 2, 0), (8, '16:00:00', 60, 2, 0), (9, '08:00:00', 60, 3, 0), (10, '10:00:00', 60, 3, 0), (11, '14:00:00', 60, 3, 0), (12, '16:00:00', 60, 3, 0), (13, '08:00:00', 60, 4, 0), (14, '10:00:00', 60, 4, 0), (15, '14:00:00', 60, 4, 0), (16, '16:00:00', 60, 4, 0), (17, '08:00:00', 60, 5 ,0), (18, '10:00:00', 60, 5, 0), (19, '14:00:00', 60, 5, 0), (20, '16:00:00', 60, 5, 0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

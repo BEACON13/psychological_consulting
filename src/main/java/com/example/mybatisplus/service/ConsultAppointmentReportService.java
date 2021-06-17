@@ -18,7 +18,7 @@ public interface ConsultAppointmentReportService extends IService<ConsultAppoint
 
     int insertReport(ConsultAppointmentReport report);
 
-    Boolean checkLastRecordIsClosed(Long sId);
+    Boolean isLastRecordClosed(Long sId);
 
     List<ConsultAppointmentReportVO> getRecordByConAndStu(Long cId, String stuName);
 

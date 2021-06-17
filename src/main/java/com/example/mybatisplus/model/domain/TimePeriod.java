@@ -1,6 +1,8 @@
 package com.example.mybatisplus.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalTime;
@@ -17,7 +19,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Beacon
- * @since 2021-06-15
+ * @since 2021-06-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,6 +37,10 @@ public class TimePeriod extends Model<TimePeriod> {
     private Integer duration;
 
     private Integer weekday;
+
+    @TableLogic
+    @TableField("is_deleted")
+    private Boolean isDeleted;
 
 
     @Override

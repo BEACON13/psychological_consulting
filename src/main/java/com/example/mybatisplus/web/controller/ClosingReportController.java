@@ -44,19 +44,16 @@ public class ClosingReportController {
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
 
+
     /*
      *插入结案报告
      */
     @RequestMapping(value = "/consultant/insert/closingReport")
     @ResponseBody
-    public JsonResponse insertClosingReport(@RequestParam("closingReport") Map<String,Object> info) throws Exception {
+    public JsonResponse insertClosingReport(@RequestBody Map<String,Object> info) throws Exception {
 
         //获取sId
         Long sId = Long.parseLong(info.get("sId").toString());
-
-        //检查最后一次record
-        if(!consultAppointmentReportService.checkLastRecordIsClosed(sId))
-            return JsonResponse.failure("最后一次咨询未结案");
 
         //填写内容
         ClosingReport report = new ClosingReport();
@@ -82,14 +79,17 @@ public class ClosingReportController {
 
     /*
      * 检查是否允许插入结案报告
-     * 检查方法是查看学生is_qualified字段是否为1
-     * 因为插入结案报告时会将该字段置为0
+     * 检查内容:
+     *     1.查看学生is_qualified字段是否为1
+     *       因为插入结案报告时会将该字段置为0
+     *     2.检查学生最后一次咨询报告的内容是否为“结案”
      */
     @RequestMapping(value = "/consultant/insert/closingReport/allow",method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse insertClosingReport(@RequestParam("student_id") Long id){
-        return studentService.isQualified(id) ?
-                JsonResponse.successMessage("请填写") :
+    public JsonResponse insertClosingReportQualification(@RequestParam("student_id") Long id){
+        return (studentService.isQualified(id) &&
+                consultAppointmentReportService.isLastRecordClosed(id)) ?
+                JsonResponse.successMessage("可以填写！") :
                 JsonResponse.failure("不满足填写要求");
     }
 

@@ -17,7 +17,7 @@ import java.util.List;
  * </p>
  *
  * @author Beacon
- * @since 2021-06-15
+ * @since 2021-06-16
  */
 @Service
 public class TimePeriodServiceImpl extends ServiceImpl<TimePeriodMapper, TimePeriod> implements TimePeriodService {
@@ -32,6 +32,7 @@ public class TimePeriodServiceImpl extends ServiceImpl<TimePeriodMapper, TimePer
     @Override
     public JsonResponse getTimePeriod() {
         QueryWrapper<TimePeriod> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(TimePeriod::getIsDeleted,0);
         List<TimePeriod> timePeriods = timePeriodMapper.selectList(wrapper);
         return JsonResponse.success(timePeriods,"success!");
     }

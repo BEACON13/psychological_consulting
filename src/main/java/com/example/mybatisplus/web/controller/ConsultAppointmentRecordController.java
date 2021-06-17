@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
-import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 
 import java.util.List;
 import java.util.Map;
@@ -196,6 +195,17 @@ public class ConsultAppointmentRecordController {
     @ResponseBody
     public JsonResponse showUnfinishedRecordsByStuName(@RequestParam("StuName")String StuName){
         return consultAppointmentRecordService.showUnfinishedRecordsByStuName(StuName);
+    }
+
+
+    /**
+     * 描述：心理助理修改某条预约记录
+     *
+     */
+    @RequestMapping(value = "/assistant/manageRecords")
+    @ResponseBody
+    public JsonResponse manageRecords(@RequestBody Map form){
+        return consultAppointmentRecordService.manageRecords(form);
     }
 }
 

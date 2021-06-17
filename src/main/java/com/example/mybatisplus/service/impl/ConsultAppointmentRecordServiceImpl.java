@@ -8,10 +8,13 @@ import com.example.mybatisplus.mapper.ConsultAppointmentRecordMapper;
 import com.example.mybatisplus.model.vo.ConsultAppointmentRecordVO;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -205,6 +208,30 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     public JsonResponse showUnfinishedRecordsByStuName(String StuName) {
         List<ConsultAppointmentRecordVO> consultAppointmentRecordVOS = cram.showUnfinishedRecordsByStuName(StuName);
         return JsonResponse.success(consultAppointmentRecordVOS,"success!");
+    }
+
+
+    /**
+     * 描述：心理助理修改某条预约记录
+     *
+     */
+    @Override
+    public JsonResponse manageRecords(Map form) {
+        Long carID = Long.parseLong(form.get("car_id").toString());
+        Long sID = Long.parseLong(form.get("s_id").toString());
+        Integer tpID = (Integer)form.get("tp_id");
+        Long lID = Long.parseLong(form.get("l_id").toString());
+        Long cID = Long.parseLong(form.get("c_id").toString());
+        LocalDate date = LocalDate.parse((String)form.get("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        UpdateWrapper<ConsultAppointmentRecord> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(ConsultAppointmentRecord::getConsultAppointId,carID)
+                .set(ConsultAppointmentRecord::getSId,sID)
+                .set(ConsultAppointmentRecord::getTpId,tpID)
+                .set(ConsultAppointmentRecord::getLocationId,lID)
+                .set(ConsultAppointmentRecord::getCId,cID)
+                .set(ConsultAppointmentRecord::getDate,date);
+        cram.update(null,wrapper);
+        return null;
     }
 
 

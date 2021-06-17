@@ -1,8 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
 import com.example.mybatisplus.common.utls.SecurityUtils;
-import com.example.mybatisplus.common.utls.SessionUtils;
-import com.example.mybatisplus.model.domain.Person;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;

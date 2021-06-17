@@ -1,6 +1,8 @@
 package com.example.mybatisplus.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -16,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-11
+ * @since 2021-06-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -48,6 +50,13 @@ public class Person extends Model<Person> {
     private String address;
 
     private String email;
+
+    /*
+     * 逻辑删除属性
+     */
+    @TableLogic
+    @TableField("is_deleted")
+    private Boolean isDeleted;
 
 
     @Override
