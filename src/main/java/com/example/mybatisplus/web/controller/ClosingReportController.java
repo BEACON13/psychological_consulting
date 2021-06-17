@@ -89,7 +89,7 @@ public class ClosingReportController {
     public JsonResponse insertClosingReportQualification(@RequestParam("student_id") Long id){
         return (studentService.isQualified(id) &&
                 consultAppointmentReportService.isLastRecordClosed(id)) ?
-                JsonResponse.successMessage("请填写") :
+                JsonResponse.successMessage("可以填写！") :
                 JsonResponse.failure("不满足填写要求");
     }
 

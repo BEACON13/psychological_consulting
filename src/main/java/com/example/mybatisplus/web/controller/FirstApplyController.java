@@ -47,9 +47,9 @@ public class FirstApplyController {
 
         Student student = SecurityUtils.getCurrentStudentInfo();
 
-        return JsonResponse.success(
-                studentService.isAllowedFirstApply(student.getSId()));
-
+        return studentService.isAllowedFirstApply(student.getSId()) ?
+                JsonResponse.successMessage("可以申请") :
+                JsonResponse.failure("没有申请资格！");
     }
 
     /*
