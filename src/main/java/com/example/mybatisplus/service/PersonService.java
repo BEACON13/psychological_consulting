@@ -24,4 +24,6 @@ public interface PersonService extends IService<Person> {
     List<Person> showAllPerson();
 
     List<Person> showPersonByType(String type);
+
+    int updatePerson(Person person);
 }

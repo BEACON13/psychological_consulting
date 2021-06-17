@@ -97,7 +97,7 @@ public class PersonController {
     /*
      * 中心管理员查看所有的初访员
      */
-    @RequestMapping(value = "admin/show/firstvisitor")
+    @RequestMapping(value = "admin/show/firstvisitor",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showFirstVisitors(){
 
@@ -107,7 +107,7 @@ public class PersonController {
     /*
      * 中心管理员查看所有的咨询师
      */
-    @RequestMapping(value = "admin/show/consultant")
+    @RequestMapping(value = "admin/show/consultant",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showConsultants(){
 
@@ -117,7 +117,7 @@ public class PersonController {
     /*
      * 中心管理员查看所有的心理助理
      */
-    @RequestMapping(value = "admin/show/assistant")
+    @RequestMapping(value = "admin/show/assistant",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showAssistants(){
 

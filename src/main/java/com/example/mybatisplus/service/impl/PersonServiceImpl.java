@@ -74,4 +74,14 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
         return personMapper.getPersonByType(type);
     }
 
+    /*
+     * 修改Person信息
+     */
+    @Override
+    public int updatePerson(Person person) {
+        UpdateWrapper<Person> wrapper = new UpdateWrapper<>();
+
+        return 0;
+    }
+
 }
