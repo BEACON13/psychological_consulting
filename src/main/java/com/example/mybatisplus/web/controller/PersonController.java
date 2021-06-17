@@ -148,6 +148,21 @@ public class PersonController {
                 JsonResponse.failure("修改出错，请重试");
     }
 
+    /*
+     * 删除Person
+     */
+    @RequestMapping(value = "admin/delete/person",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse deletePerson(@RequestParam("pId") Long pId){
+
+        //删除personType
+        personTypeService.deletePersonType(pId);
+
+        //删除person
+        int i = personService.deletePerson(pId);
+
+        return i>0 ? JsonResponse.successMessage("删除成功") : JsonResponse.failure("删除出错");
+    }
 
     /*
      * 展示所有Person

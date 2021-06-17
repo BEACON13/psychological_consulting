@@ -84,4 +84,15 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
         return baseMapper.updateById(p);
     }
 
+    /*
+     * 删除用户
+     */
+    @Override
+    public int deletePerson(Long pId) {
+        UpdateWrapper<Person> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(Person::getPId,pId)
+                .set(Person::getIsDeleted,1);
+        return baseMapper.update(null,wrapper);
+    }
+
 }
