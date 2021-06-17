@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.ConsultantDutyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.ConsultantDuty">
+        <id column="cd_id" property="cdId" />
+        <result column="tp_id" property="tpId" />
+        <result column="location_id" property="locationId" />
+        <result column="c_id" property="cId" />
+        <result column="free_time" property="freeTime" />
+    </resultMap>
+
+
+    <!--VO查询映射结果-->
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.ConsultantDutyVO">
+        <id column="cd_id" property="cdId" />
+        <result column="tp_id" property="tpId" />
+        <result column="location_id" property="locationId" />
+        <result column="c_id" property="cId" />
+        <result column="free_time" property="freeTime" />
+
+        <result column="start_time" property="startTime"/>
+        <result column="duration" property="duration"/>
+        <result column="location_name" property="locationName"/>
+        <result column="name" property="cName"/>
+    </resultMap>
+
+
+    <!--显示该tp下，排班咨询师姓名及free_time-->
+    <select id="showFreeTime" resultMap="VOResultMap">
+        select cd.*,tp.start_time,tp.duration,l.location_name,p.name
+        from consultant_duty cd,time_period tp,location l,person p
+        where cd.tp_id = #{tpID}
+            and cd.tp_id = tp.tp_id
+            and cd.location_id = l.location_id
+            and cd.c_id = p.p_id
+    </select>
+</mapper>

@@ -8,6 +8,7 @@ import com.example.mybatisplus.mapper.ConsultApplyMapper;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.model.domain.FirstApply;
 import com.example.mybatisplus.model.domain.FirstVisitReport;
+import com.example.mybatisplus.model.vo.ConsultApplyVO;
 import com.example.mybatisplus.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,4 +97,51 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
         consultApplyMapper.insert(consultApply);
         return JsonResponse.successMessage("提交成功!");
     }
+
+
+    /**
+     * 描述：心理助理查看所有申请
+     *
+     */
+    @Override
+    public JsonResponse showAllApplies() {
+        List<ConsultApplyVO> consultApplyVOS = consultApplyMapper.showAllApplies();
+
+        return JsonResponse.success(consultApplyVOS,"success!");
+    }
+
+
+    /**
+     * 描述：心理助理根据学生姓名查看申请
+     *
+     */
+    @Override
+    public JsonResponse showApplyByStuName(String stuName) {
+        List<ConsultApplyVO> consultApplyVOS = consultApplyMapper.showApplyByStuName(stuName);
+        return JsonResponse.success(consultApplyVOS,"success!");
+    }
+
+
+    /**
+     * 描述：心理助理查看所有未完成的申请
+     *
+     */
+    @Override
+    public JsonResponse showUnfinishedApplies() {
+        List<ConsultApplyVO> consultApplyVOS = consultApplyMapper.showUnfinishedApplies();
+        return JsonResponse.success(consultApplyVOS,"success!");
+    }
+
+
+    /**
+     * 描述：心理助理根据学生姓名查看未完成申请
+     *
+     */
+    @Override
+    public JsonResponse showUnfinishedApplyByStuName(String stuName) {
+        List<ConsultApplyVO> consultApplyVOS = consultApplyMapper.showUnfinishedApplyByStuName(stuName);
+        return JsonResponse.success(consultApplyVOS,"success!");
+    }
+
+
 }
