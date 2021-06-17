@@ -82,7 +82,7 @@ public class PersonController {
         personService.insertPerson(person);
 
         //在PersonType中插入
-        //由于一个用户可能具有多个type，所有map中的type应该是一个String链表
+        //由于一个用户可能具有多个type，所有map中的type最好是一个String链表
         Long pId = person.getPId();
 
         for (String type: (List<String>) info.get("type")) {
@@ -97,7 +97,7 @@ public class PersonController {
     /*
      * 中心管理员查看所有的初访员
      */
-    @RequestMapping(value = "admin/show/firstvisitor")
+    @RequestMapping(value = "admin/show/firstvisitor",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showFirstVisitors(){
 
@@ -107,7 +107,7 @@ public class PersonController {
     /*
      * 中心管理员查看所有的咨询师
      */
-    @RequestMapping(value = "admin/show/consultant")
+    @RequestMapping(value = "admin/show/consultant",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showConsultants(){
 
@@ -117,11 +117,51 @@ public class PersonController {
     /*
      * 中心管理员查看所有的心理助理
      */
-    @RequestMapping(value = "admin/show/assistant")
+    @RequestMapping(value = "admin/show/assistant",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showAssistants(){
 
         return JsonResponse.success(personService.showPersonByType("心理助理"));
+    }
+
+    /*
+     * 修改Person信息
+     * info中只需要包括需要修改的信息和id即可
+     */
+    @RequestMapping(value = "admin/change/personInfo")
+    @ResponseBody
+    public JsonResponse changePersonInfo(@RequestBody Map<String,Object> info){
+        Person person = new Person();
+        person.setUsername((String) info.get("username"))
+                .setPassword((String) info.get("password"))
+                .setName((String) info.get("name"))
+                .setPhone((String) info.get("phone"))
+                .setGender((String) info.get("gender"))
+                .setJob((String) info.get("job"))
+                .setAge((Integer) info.get("age"))
+                .setInfo((String) info.get("info"))
+                .setAddress((String) info.get("address"))
+                .setEmail((String) info.get("email"));
+
+        return personService.changePersonInfo(person)>0 ?
+                JsonResponse.successMessage("修改成功") :
+                JsonResponse.failure("修改出错，请重试");
+    }
+
+    /*
+     * 删除Person
+     */
+    @RequestMapping(value = "admin/delete/person",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse deletePerson(@RequestParam("pId") Long pId){
+
+        //删除personType
+        personTypeService.deletePersonType(pId);
+
+        //删除person
+        int i = personService.deletePerson(pId);
+
+        return i>0 ? JsonResponse.successMessage("删除成功") : JsonResponse.failure("删除出错");
     }
 
     /*
