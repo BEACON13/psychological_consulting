@@ -141,7 +141,8 @@ public class PersonController {
                 .setAge((Integer) info.get("age"))
                 .setInfo((String) info.get("info"))
                 .setAddress((String) info.get("address"))
-                .setEmail((String) info.get("email"));
+                .setEmail((String) info.get("email"))
+                .setPId(Long.parseLong(info.get("s_id").toString()));
 
         return personService.changePersonInfo(person)>0 ?
                 JsonResponse.successMessage("修改成功") :
