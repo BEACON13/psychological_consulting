@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
@@ -10,6 +11,8 @@ import com.example.mybatisplus.service.PersonService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -50,5 +53,14 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     @Override
     public void insertPerson(Person person) {
         personMapper.insertPerson(person);
+    }
+
+    /*
+     * 展示所有Person
+     */
+    @Override
+    public List<Person> showAllPerson() {
+        QueryWrapper<Person> wrapper = new QueryWrapper<>();
+        return baseMapper.selectList(wrapper);
     }
 }

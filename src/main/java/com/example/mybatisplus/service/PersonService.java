@@ -4,6 +4,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.Person;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -18,4 +20,6 @@ public interface PersonService extends IService<Person> {
     JsonResponse modifyPwd(String newPwd);
 
     void insertPerson(Person person);
+
+    List<Person> showAllPerson();
 }

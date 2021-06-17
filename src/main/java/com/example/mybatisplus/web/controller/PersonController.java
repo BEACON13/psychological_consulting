@@ -93,5 +93,14 @@ public class PersonController {
 
         return JsonResponse.successMessage("插入成功");
     }
+
+    /*
+     * 展示所有Person
+     */
+    @RequestMapping(value = "admin/show/user/all")
+    @ResponseBody
+    public JsonResponse showAllPerson(){
+        return JsonResponse.success(personService.showAllPerson());
+    }
 }
 
