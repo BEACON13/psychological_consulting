@@ -27,4 +27,14 @@
         insert into person(username, password, name, phone, gender, job, age, info, address, email)
             values(#{username},#{password},#{name},#{phone},#{gender},#{job},#{age},#{info},#{address},#{email})
     </insert>
+
+    <!--查找所有type人员-->
+    <!--e.g. type=”初访员“ 则返回所有初访员Person信息-->
+    <select id="getPersonByType" resultMap="BaseResultMap">
+        select person.*
+        from person,person_type
+        where person.p_id = person_type.p_id
+          and person_type.type = #{type}
+    </select>
+
 </mapper>

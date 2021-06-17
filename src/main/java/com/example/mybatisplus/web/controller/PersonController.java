@@ -95,9 +95,40 @@ public class PersonController {
     }
 
     /*
-     * 展示所有Person
+     * 中心管理员查看所有的初访员
      */
-    @RequestMapping(value = "admin/show/user/all")
+    @RequestMapping(value = "admin/show/firstvisitor")
+    @ResponseBody
+    public JsonResponse showFirstVisitors(){
+
+        return JsonResponse.success(personService.showPersonByType("初访员"));
+    }
+
+    /*
+     * 中心管理员查看所有的咨询师
+     */
+    @RequestMapping(value = "admin/show/consultant")
+    @ResponseBody
+    public JsonResponse showConsultants(){
+
+        return JsonResponse.success(personService.showPersonByType("咨询师"));
+    }
+
+    /*
+     * 中心管理员查看所有的心理助理
+     */
+    @RequestMapping(value = "admin/show/assistant")
+    @ResponseBody
+    public JsonResponse showAssistants(){
+
+        return JsonResponse.success(personService.showPersonByType("心理助理"));
+    }
+
+    /*
+     * 展示所有Person
+     * !!!!!!!!!!可能不需要此功能!!!!!!!!!!!!
+     */
+    @RequestMapping(value = "admin/show/alluser",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showAllPerson(){
         return JsonResponse.success(personService.showAllPerson());

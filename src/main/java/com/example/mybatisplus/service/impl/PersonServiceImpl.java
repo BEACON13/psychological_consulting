@@ -63,4 +63,15 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
         QueryWrapper<Person> wrapper = new QueryWrapper<>();
         return baseMapper.selectList(wrapper);
     }
+
+    /*
+     * 展示所有type人员
+     * e.g. type=”初访员“ 则返回所有初访员Person信息
+     */
+    @Override
+    public List<Person> showPersonByType(String type) {
+
+        return personMapper.getPersonByType(type);
+    }
+
 }
