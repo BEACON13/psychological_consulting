@@ -17,4 +17,12 @@ public interface ConsultApplyService extends IService<ConsultApply> {
     JsonResponse isAllowedtoApply();
 
     JsonResponse applyConsult(Integer tp1, Integer tp2, Integer tp3);
+
+    JsonResponse showAllApplies();
+
+    JsonResponse showApplyByStuName(String stuName);
+
+    JsonResponse showUnfinishedApplies();
+
+    JsonResponse showUnfinishedApplyByStuName(String stuName);
 }

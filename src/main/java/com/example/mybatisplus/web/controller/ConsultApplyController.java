@@ -51,5 +51,53 @@ public class ConsultApplyController {
 
         return consultApplyService.applyConsult(tp1,tp2,tp3);
     }
+
+
+    /**
+     * 描述：心理助理查看所有申请
+     *
+     */
+    @RequestMapping(value = "/assistant/showAllApplies", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showAllApplies(){
+
+        return consultApplyService.showAllApplies();
+    }
+
+
+    /**
+     * 描述：心理助理根据学生姓名查看申请
+     *
+     */
+    @RequestMapping(value = "/assistant/showApplyByStu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showApplyByStuName(@RequestParam("stuName")String stuName){
+
+        return consultApplyService.showApplyByStuName(stuName);
+    }
+
+
+    /**
+     * 描述：心理助理查看所有未完成的申请
+     *
+     */
+    @RequestMapping(value = "/assistant/showUnfinishedApplies", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedApplies(){
+
+        return consultApplyService.showUnfinishedApplies();
+    }
+
+
+    /**
+     * 描述：心理助理根据学生姓名查看未完成申请
+     *
+     */
+    @RequestMapping(value = "/assistant/showUnfinishedApplyByStu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedApplyByStuName(@RequestParam("stuName")String stuName){
+
+        return consultApplyService.showUnfinishedApplyByStuName(stuName);
+    }
 }
 
