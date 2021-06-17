@@ -10,8 +10,9 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-15
+ * @since 2021-06-17
  */
+
 @Repository
 public interface AddConsultMapper extends BaseMapper<AddConsult> {
 

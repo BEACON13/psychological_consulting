@@ -1,15 +1,11 @@
 package com.example.mybatisplus.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
-import com.example.mybatisplus.mapper.StudentMapper;
 import com.example.mybatisplus.model.domain.AddConsult;
 import com.example.mybatisplus.mapper.AddConsultMapper;
-import com.example.mybatisplus.model.domain.Student;
 import com.example.mybatisplus.service.AddConsultService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.mybatisplus.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +17,11 @@ import java.util.Map;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-15
+ * @since 2021-06-17
  */
 @Service
 public class AddConsultServiceImpl extends ServiceImpl<AddConsultMapper, AddConsult> implements AddConsultService {
 
-    @Autowired
-    StudentService studentService;
     @Autowired
     AddConsultMapper addConsultMapper;
     /**

@@ -19,11 +19,11 @@ import java.util.Map;
  *
  *
  * @author Kristy
- * @since 2021-06-15
+ * @since 2021-06-17
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/api/addConsult")
 public class AddConsultController {
 
     private final Logger logger = LoggerFactory.getLogger( AddConsultController.class );

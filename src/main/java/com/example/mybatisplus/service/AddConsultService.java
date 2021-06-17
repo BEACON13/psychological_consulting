@@ -12,7 +12,7 @@ import java.util.Map;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-15
+ * @since 2021-06-17
  */
 public interface AddConsultService extends IService<AddConsult> {
     JsonResponse addConsultTP(Map form);

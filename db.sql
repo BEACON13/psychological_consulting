@@ -27,6 +27,7 @@ CREATE TABLE `add_consult`  (
   `c_id` bigint(0) NULL DEFAULT NULL,
   `tp_id` smallint(0) NULL DEFAULT NULL,
   `times` int(0) NOT NULL,
+  `is_finished` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`add_c_id`) USING BTREE,
   INDEX `FK_Reference_35`(`c_id`) USING BTREE,
   INDEX `FK_stu_add_consult`(`s_id`) USING BTREE,

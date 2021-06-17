@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-15
+ * @since 2021-06-17
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -36,6 +36,8 @@ public class AddConsult extends Model<AddConsult> {
     private Integer tpId;
 
     private Integer times;
+
+    private Boolean isFinished;
 
 
     @Override
