@@ -10,6 +10,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.ConsultApplyService;
 import com.example.mybatisplus.model.domain.ConsultApply;
 
+import java.util.Map;
+
 
 /**
  *
@@ -98,6 +100,18 @@ public class ConsultApplyController {
     public JsonResponse showUnfinishedApplyByStuName(@RequestParam("stuName")String stuName){
 
         return consultApplyService.showUnfinishedApplyByStuName(stuName);
+    }
+
+
+    /**
+     * 描述：心理助理处理咨询预约申请
+     *
+     */
+    @RequestMapping(value = "/assistant/handleApply")
+    @ResponseBody
+    public JsonResponse handleApply(@RequestBody Map form){
+
+        return null;
     }
 }
 
