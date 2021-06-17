@@ -26,4 +26,5 @@ public interface FirstVisitRecordMapper extends BaseMapper<FirstVisitRecord> {
 
     List<FirstVisitRecordVO> getFVRecord(@Param("id") Long id);
 
+    List<FirstVisitRecordVO> getAllRecordAdmin();
 }

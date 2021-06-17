@@ -80,5 +80,14 @@ public class FirstVisitRecordController {
     public JsonResponse manageFVRecord(@RequestParam("fvr_id")Long fvrId){
         return firstVisitRecordService.manageFVRecord(fvrId);
     }
+
+    /*
+     * 中心管理员查看所有的预约记录
+     */
+    @RequestMapping(value="/admin/show/FVRecords",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse adminShowAllFirstVisitRecords(){
+        return JsonResponse.success(firstVisitRecordService.getAllRecordsAdmin());
+    }
 }
 
