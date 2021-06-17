@@ -2,6 +2,9 @@ package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.model.domain.FirstVisitorDuty;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.vo.FirstVisitorDutyVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-06-15
  */
 public interface FirstVisitorDutyService extends IService<FirstVisitorDuty> {
+
+    List<FirstVisitorDutyVO> getAllFVDuty();
+
+    List<FirstVisitorDutyVO> getAvailableFVDuty();
 
 }

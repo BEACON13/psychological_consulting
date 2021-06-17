@@ -11,4 +11,39 @@
         <result column="is_available" property="isAvailable" />
     </resultMap>
 
+    <!--FirstVisitorDutyVO查询结果-->
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.FirstVisitorDutyVO">
+        <!--原有列-->
+        <id column="fvd_id" property="fvdId" />
+        <result column="tp_id" property="tpId" />
+        <result column="location_id" property="locationId" />
+        <result column="fv_id" property="fvId" />
+        <result column="is_available" property="isAvailable" />
+
+        <!--VO特有列-->
+        <result column="start_time" property="startTime"/>
+        <result column="duration" property="duration"/>
+        <result column="location_name" property="locationName"/>
+        <result column="name" property="firstVisitorName"/>
+    </resultMap>
+
+    <!--查看所有排班记录-->
+    <select id="getAllFVDuty" resultMap="VOResultMap">
+        select fvd.*,tp.start_time,tp.duration,loc.location_name,p.name
+        from first_visitor_duty fvd,time_period tp,location loc,person p
+        where fvd.tp_id = tp.tp_id
+          and fvd.location_id = loc.location_id
+          and fvd.fv_id = p.p_id
+    </select>
+
+    <!--查看空闲排班记录-->
+    <select id="getAvailableFVDuty" resultMap="VOResultMap">
+        select fvd.*,tp.start_time,tp.duration,loc.location_name,p.name
+        from first_visitor_duty fvd,time_period tp,location loc,person p
+        where fvd.tp_id = tp.tp_id
+          and fvd.location_id = loc.location_id
+          and fvd.fv_id = p.p_id
+          and fvd.is_available = 1
+    </select>
+
 </mapper>
