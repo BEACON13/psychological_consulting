@@ -1,0 +1,44 @@
+package com.example.mybatisplus.model.vo;
+
+import java.time.LocalTime;
+
+public class FirstApplyVO {
+
+    //原有字段
+    private Long faId;
+
+    private Long sId;
+
+    private Integer tpId;
+
+    private Integer score;
+
+    private String name;
+
+    private String phone;
+
+    private String address;
+
+    private String emergencyPhone;
+
+    private String physicalIllness;
+
+    private Boolean isDiagnosed;
+
+    private String emergencyLevel;
+
+    private String problemType;
+
+    private String consultExpectation;
+
+    private String consultHistory;
+
+    private Boolean isFinished;
+
+    //VO字段
+
+    private LocalTime startTime;
+
+    private Integer duration;
+
+}
