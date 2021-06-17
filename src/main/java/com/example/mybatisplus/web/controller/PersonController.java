@@ -82,7 +82,7 @@ public class PersonController {
         personService.insertPerson(person);
 
         //在PersonType中插入
-        //由于一个用户可能具有多个type，所有map中的type应该是一个String链表
+        //由于一个用户可能具有多个type，所有map中的type最好是一个String链表
         Long pId = person.getPId();
 
         for (String type: (List<String>) info.get("type")) {
@@ -143,9 +143,11 @@ public class PersonController {
                 .setAddress((String) info.get("address"))
                 .setEmail((String) info.get("email"));
 
-        personService.changePersonInfo(person);
-        return null;
+        return personService.changePersonInfo(person)>0 ?
+                JsonResponse.successMessage("修改成功") :
+                JsonResponse.failure("修改出错，请重试");
     }
+
 
     /*
      * 展示所有Person
