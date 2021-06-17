@@ -59,7 +59,8 @@ public class ClosingReportController {
         ClosingReport report = new ClosingReport();
         report.setCId(Long.parseLong(info.get("cId").toString()))
                 .setConsultEffectSelf((String) info.get("consultEffectSelf"))
-                .setProblemType((String) info.get("problemType"));
+                .setProblemType((String) info.get("problemType"))
+                .setSId(sId);
 
         //计算学生完成的咨询次数
         int num = consultAppointmentRecordService.countConsultingNum(sId);
