@@ -34,6 +34,7 @@
         select person.*
         from person,person_type
         where person.p_id = person_type.p_id
+          and person.is_deleted = 0
           and person_type.type = #{type}
     </select>
 
