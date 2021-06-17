@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.TimePeriod;
 import com.example.mybatisplus.mapper.TimePeriodMapper;
@@ -30,7 +31,9 @@ public class TimePeriodServiceImpl extends ServiceImpl<TimePeriodMapper, TimePer
      */
     @Override
     public JsonResponse getTimePeriod() {
-        List<TimePeriod> timePeriods = timePeriodMapper.selectList(null);
+        QueryWrapper<TimePeriod> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(TimePeriod::getIsDeleted,0);
+        List<TimePeriod> timePeriods = timePeriodMapper.selectList(wrapper);
         return JsonResponse.success(timePeriods,"success!");
     }
 }
