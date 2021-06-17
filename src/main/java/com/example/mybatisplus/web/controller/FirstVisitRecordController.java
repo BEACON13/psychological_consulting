@@ -10,6 +10,10 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.FirstVisitRecordService;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
 
 /**
  *
@@ -88,6 +92,26 @@ public class FirstVisitRecordController {
     @ResponseBody
     public JsonResponse adminShowAllFirstVisitRecords(){
         return JsonResponse.success(firstVisitRecordService.getAllRecordsAdmin());
+    }
+
+    /*
+     * 中心管理员修改预约记录
+     * info中只需要给出被修改信息和record的id
+     */
+    @RequestMapping(value="/admin/change/FVRecords")
+    @ResponseBody
+    public JsonResponse adminChangeFVRecords(@RequestBody Map<String,Object> info){
+        FirstVisitRecord record = new FirstVisitRecord();
+        record.setFvrId(Long.parseLong(info.get("fvrId").toString()))
+                .setSId(Long.parseLong(info.get("sId").toString()))
+                .setTpId((Integer) info.get("tpId"))
+                .setLocationId(Long.parseLong(info.get("locationId").toString()))
+                .setFvId(Long.parseLong(info.get("fvId").toString()))
+                .setDate(LocalDate.parse((String)info.get("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        return firstVisitRecordService.updateById(record)?
+                JsonResponse.successMessage("修改成功"):
+                JsonResponse.failure("修改出错");
     }
 }
 
