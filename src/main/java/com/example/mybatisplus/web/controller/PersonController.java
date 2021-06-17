@@ -125,6 +125,29 @@ public class PersonController {
     }
 
     /*
+     * 修改Person信息
+     * info中只需要包括需要修改的信息和id即可
+     */
+    @RequestMapping(value = "admin/change/personInfo")
+    @ResponseBody
+    public JsonResponse changePersonInfo(@RequestBody Map<String,Object> info){
+        Person person = new Person();
+        person.setUsername((String) info.get("username"))
+                .setPassword((String) info.get("password"))
+                .setName((String) info.get("name"))
+                .setPhone((String) info.get("phone"))
+                .setGender((String) info.get("gender"))
+                .setJob((String) info.get("job"))
+                .setAge((Integer) info.get("age"))
+                .setInfo((String) info.get("info"))
+                .setAddress((String) info.get("address"))
+                .setEmail((String) info.get("email"));
+
+        personService.changePersonInfo(person);
+        return null;
+    }
+
+    /*
      * 展示所有Person
      * !!!!!!!!!!可能不需要此功能!!!!!!!!!!!!
      */

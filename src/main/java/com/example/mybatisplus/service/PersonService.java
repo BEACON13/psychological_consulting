@@ -5,6 +5,7 @@ import com.example.mybatisplus.model.domain.Person;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -25,5 +26,5 @@ public interface PersonService extends IService<Person> {
 
     List<Person> showPersonByType(String type);
 
-    int updatePerson(Person person);
+    int changePersonInfo(Person person);
 }

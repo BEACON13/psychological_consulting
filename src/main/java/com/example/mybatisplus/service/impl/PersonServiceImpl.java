@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -78,10 +79,9 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
      * 修改Person信息
      */
     @Override
-    public int updatePerson(Person person) {
-        UpdateWrapper<Person> wrapper = new UpdateWrapper<>();
+    public int changePersonInfo(Person p) {
 
-        return 0;
+        return baseMapper.updateById(p);
     }
 
 }
