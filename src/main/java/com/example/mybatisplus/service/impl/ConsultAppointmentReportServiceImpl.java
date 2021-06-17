@@ -41,7 +41,7 @@ public class ConsultAppointmentReportServiceImpl extends ServiceImpl<ConsultAppo
      *检查学生的最后一次咨询的结果是结案
      */
     @Override
-    public Boolean checkLastRecordIsClosed(Long sId) {
+    public Boolean isLastRecordClosed(Long sId) {
         QueryWrapper<ConsultAppointmentReport> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(ConsultAppointmentReport::getSId,sId)
                 .orderByDesc(ConsultAppointmentReport::getDate)
