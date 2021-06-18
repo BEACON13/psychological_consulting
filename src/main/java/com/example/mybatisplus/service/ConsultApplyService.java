@@ -31,6 +31,6 @@ public interface ConsultApplyService extends IService<ConsultApply> {
 
     JsonResponse handleApply(Map form);
 
-    void sendMessage();
+    void sendMessage(String toUser,String text);
 }
 
