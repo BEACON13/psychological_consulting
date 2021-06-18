@@ -96,6 +96,24 @@ public class FirstVisitRecordController {
     }
 
     /*
+     * 中心管理员查看根据咨询师姓名查看预约记录
+     */
+    @RequestMapping(value="/admin/show/FVRecords/firstVisitor",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showFirstVisitRecordsByFirstVisitor(@RequestParam("fv_name")String name){
+        return JsonResponse.success(firstVisitRecordService.getRecordByFirstVisitorName(name));
+    }
+
+    /*
+     * 中心管理员查看根据咨询师姓名查看预约记录
+     */
+    @RequestMapping(value="/admin/show/FVRecords/firstVisitor/unfinished",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showFirstVisitRecordsByFirstVisitorUnfinished(@RequestParam("fv_name")String name){
+        return JsonResponse.success(firstVisitRecordService.getRecordByFirstVisitorNameUnfinished(name));
+    }
+
+    /*
      * 中心管理员修改预约记录
      * info中只需要给出被修改信息和record的id
      */

@@ -33,4 +33,8 @@ public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
     List<FirstVisitRecordVO> getAllRecordsAdmin();
 
     int insertFVRecord(FirstVisitRecord record);
+
+    List<FirstVisitRecordVO> getRecordByFirstVisitorName(String name);
+
+    List<FirstVisitRecordVO> getRecordByFirstVisitorNameUnfinished(String name);
 }
