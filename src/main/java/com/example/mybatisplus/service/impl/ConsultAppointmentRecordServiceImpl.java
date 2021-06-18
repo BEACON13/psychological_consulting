@@ -46,6 +46,8 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     TimePeriodService timePeriodService;
     @Autowired
     LocationService locationService;
+    @Autowired
+    ConsultApplyService consultApplyService;
 
     /*
     根据咨询师id获取其所有的咨询记录
@@ -317,6 +319,8 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         String toUser = stu.getCode() + "@stu.scu.edu.cn";
         String text = stu.getName() + "同学你好，你已成功追加心理咨询，请于"+date.toString()+"起，每周"+tp.getWeekday().toString()
                 +"的"+tp.getStartTime().toString()+"到达"+l.getLocationName()+"进行咨询,一共"+times.toString()+"周。请准时参加，谢谢！";
+        consultApplyService.sendMessage(toUser,text);
+
         return flag;
     }
 
