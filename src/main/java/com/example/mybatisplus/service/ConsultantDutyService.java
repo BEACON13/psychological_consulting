@@ -21,6 +21,8 @@ public interface ConsultantDutyService extends IService<ConsultantDuty> {
 
     JsonResponse showConsultantDuty();
 
+    Boolean isConflic(Integer tpID,Long lID);
+
     JsonResponse alterConsultantDuty(Integer tpID,Long cID,Long lID);
 
     JsonResponse deleteConsultantDuty(Long cdID, Integer tpID, Long cID);
@@ -30,4 +32,6 @@ public interface ConsultantDutyService extends IService<ConsultantDuty> {
     Long getLocation(Integer tpId,Long cId);
 
     int updateFreeTime(Integer tpId,Long cId,LocalDate newFreeDate);
+
+    JsonResponse insertConsultantDuty(Integer tpID, Integer weekday, Long cID, Long lID);
 }
