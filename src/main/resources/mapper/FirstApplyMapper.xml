@@ -43,7 +43,7 @@
         <!--VO字段-->
         <result column="start_time" property="startTime"/>
         <result column="duration" property="duration"/>
-        <result column="weekday" property="weekday"
+        <result column="weekday" property="weekday"/>
     </resultMap>
 
     <select id="getUrgentApply" resultMap="VOResultMap">
