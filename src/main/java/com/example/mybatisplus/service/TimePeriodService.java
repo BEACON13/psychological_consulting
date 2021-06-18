@@ -19,4 +19,6 @@ public interface TimePeriodService extends IService<TimePeriod> {
     boolean insertTimePeriod(TimePeriod tp);
 
     boolean updateTimePeriod(TimePeriod tp);
+
+    int deleteTimePeriod(Long tpId);
 }

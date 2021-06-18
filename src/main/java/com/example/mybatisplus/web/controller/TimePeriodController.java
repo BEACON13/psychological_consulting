@@ -81,5 +81,17 @@ public class TimePeriodController {
                 JsonResponse.failure("修改失败");
     }
 
+    /*
+     * 删除时间段
+     *
+     */
+    @RequestMapping(value="admin/delete/timePeriod")
+    @ResponseBody
+    public JsonResponse deleteTimePeriod(@RequestParam("tp_id")Long tpId){
+        return timePeriodService.deleteTimePeriod(tpId)>0?
+                JsonResponse.successMessage("删除成功"):
+                JsonResponse.failure("删除失败");
+    }
+
 }
 
