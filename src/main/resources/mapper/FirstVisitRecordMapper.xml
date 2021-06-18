@@ -126,4 +126,16 @@
           and fvr.s_id = fa.s_id
           and fa.name = #{name}
     </select>
+
+    <!--中心管理员查看所有未完成-->
+    <select id="getUnfinishedRecord" resultMap="VOResultMap">
+        select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
+        from first_visit_record fvr,time_period tp,location l,person p,first_apply fa
+        where  fvr.is_deleted = 0
+          and fvr.tp_id = tp.tp_id
+          and fvr.location_id = l.location_id
+          and fvr.fv_id = p.p_id
+          and fvr.s_id = fa.s_id
+          and fvr.is_finished=0
+    </select>
 </mapper>

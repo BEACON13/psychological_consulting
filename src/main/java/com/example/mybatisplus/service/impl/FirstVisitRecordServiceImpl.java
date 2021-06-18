@@ -169,7 +169,9 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         Student stu = studentService.getById(record.getSId());
         TimePeriod tp = timePeriodService.getById(record.getTpId());
         Location l = locationService.getById(record.getLocationId());
-        LocalDate date = record.getDate();
+
+        LocalDate date = this.getFirstVisitDate(record.getTpId());
+
         String toUser = stu.getCode() + "@stu.scu.edu.cn";
         String text = stu.getName() + "同学你好，你已成功预约初访，请于"+date.toString()+"，即周"+tp.getWeekday().toString()
                 +"的"+tp.getStartTime().toString()+"到达"+l.getLocationName()+"进行初访咨询。请准时参加，谢谢！";
@@ -204,6 +206,43 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
     @Override
     public List<FirstVisitRecordVO> getRecordByStuName(String name) {
         return firstVisitRecordMapper.getRecordByStuName(name);
+    }
+
+    /*
+     * 计算初访日期
+     */
+    @Override
+    public LocalDate getFirstVisitDate(int tpId) {
+        //获取当前日期
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        date.format(formatter);
+
+        //获取初访预约的时间段信息
+        TimePeriod timePeriod = timePeriodService.getById(tpId);
+
+        //预约在星期几
+        int FVWeekday=timePeriod.getWeekday();
+
+        //今天是星期几
+        int todayWeekday = date.getDayOfWeek().getValue();
+
+        //计算初访日期
+        LocalDate firstVisitDate;
+        if(FVWeekday > todayWeekday)
+            firstVisitDate = date.plusDays(FVWeekday - todayWeekday);
+        else
+            firstVisitDate = date.plusDays(7 - todayWeekday + FVWeekday);
+
+        return firstVisitDate;
+    }
+
+    /*
+     * 中心管理员获得是所有的未完成记录
+     */
+    @Override
+    public List<FirstVisitRecordVO> getUnfinishedRecord() {
+        return firstVisitRecordMapper.getUnfinishedRecord();
     }
 
     /**

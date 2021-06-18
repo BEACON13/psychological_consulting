@@ -96,7 +96,7 @@ public class FirstVisitRecordController {
     }
 
     /*
-     * 中心管理员查看根据咨询师姓名查看预约记录
+     * 中心管理员查看根据初访员姓名查看预约记录
      */
     @RequestMapping(value="/admin/show/FVRecords/firstVisitor",method = RequestMethod.GET)
     @ResponseBody
@@ -105,7 +105,7 @@ public class FirstVisitRecordController {
     }
 
     /*
-     * 中心管理员查看根据咨询师姓名查看未完成的预约记录
+     * 中心管理员查看根据初访员姓名查看未完成的预约记录
      */
     @RequestMapping(value="/admin/show/FVRecords/firstVisitor/unfinished",method = RequestMethod.GET)
     @ResponseBody
@@ -121,6 +121,7 @@ public class FirstVisitRecordController {
     public JsonResponse showFirstVisitRecordsByStudentName(@RequestParam("stu_name")String name){
         return JsonResponse.success(firstVisitRecordService.getRecordByStuName(name));
     }
+
 
     /*
      * 中心管理员修改预约记录
@@ -153,9 +154,9 @@ public class FirstVisitRecordController {
         record.setSId(Long.parseLong(info.get("sId").toString()))
                 .setTpId((Integer) info.get("tpId"))
                 .setLocationId(Long.parseLong(info.get("locationId").toString()))
-                .setFvId(Long.parseLong(info.get("fvId").toString()))
-                .setDate(LocalDate.parse((String)info.get("date"),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                .setFvId(Long.parseLong(info.get("fvId").toString()));
+                //.setDate(LocalDate.parse((String)info.get("date"),
+                //        DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         return firstVisitRecordService.insertFVRecord(record)>0?
                 JsonResponse.successMessage("插入完成"):
