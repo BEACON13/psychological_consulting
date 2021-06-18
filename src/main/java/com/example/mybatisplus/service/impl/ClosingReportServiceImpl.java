@@ -49,4 +49,9 @@ public class ClosingReportServiceImpl extends ServiceImpl<ClosingReportMapper, C
     public List<ClosingReportVO> getAllClosingReportByConName(String conName) {
         return crm.getAllClosingReportByConName(conName);
     }
+
+    @Override
+    public List<ClosingReportVO> getAllClosingReportByStuName(String stuName) {
+        return crm.getAllClosingReportByStuName(stuName);
+    }
 }
