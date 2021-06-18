@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.FirstVisitRecordService;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
+import org.springframework.web.context.request.async.TimeoutCallableProcessingInterceptor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -112,6 +113,26 @@ public class FirstVisitRecordController {
         return firstVisitRecordService.updateById(record)?
                 JsonResponse.successMessage("修改成功"):
                 JsonResponse.failure("修改出错");
+    }
+
+
+    /*
+     * 中心管理员审核初访申请后，进行插入操作
+     */
+    @RequestMapping(value="/admin/insert/FVRecord")
+    @ResponseBody
+    public JsonResponse insertFVRecord(@RequestBody Map<String,Object> info){
+        FirstVisitRecord record = new FirstVisitRecord();
+        record.setSId(Long.parseLong(info.get("sId").toString()))
+                .setTpId((Integer) info.get("tpId"))
+                .setLocationId(Long.parseLong(info.get("locationId").toString()))
+                .setFvId(Long.parseLong(info.get("fvId").toString()))
+                .setDate(LocalDate.parse((String)info.get("date"),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        return firstVisitRecordService.insertFVRecord(record)>0?
+                JsonResponse.successMessage("插入完成"):
+                JsonResponse.failure("插入出错");
     }
 }
 

@@ -31,4 +31,6 @@ public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
     JsonResponse manageFVRecord(Long fvrId);
 
     List<FirstVisitRecordVO> getAllRecordsAdmin();
+
+    int insertFVRecord(FirstVisitRecord record);
 }
