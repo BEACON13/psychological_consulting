@@ -1,6 +1,7 @@
 package com.example.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.model.domain.ConsultApply;
@@ -14,7 +15,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -142,6 +147,50 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
         List<ConsultApplyVO> consultApplyVOS = consultApplyMapper.showUnfinishedApplyByStuName(stuName);
         return JsonResponse.success(consultApplyVOS,"success!");
     }
+
+
+    /**
+     * 描述：心理助理处理咨询预约申请
+     *
+     */
+    @Override
+    public JsonResponse handleApply(Map form) {
+        //该条申请记录ID
+        Long caID = Long.parseLong(form.get("ca_id").toString());
+        Long sID = Long.parseLong(form.get("s_id").toString());
+        Integer tpID = (Integer)form.get("tp_id");
+        Long lID = Long.parseLong(form.get("l_id").toString());
+        Long cID = Long.parseLong(form.get("c_id").toString());
+        LocalDate date = LocalDate.parse((String)form.get("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        List<ConsultAppointmentRecord> c = new ArrayList<>(8);
+        for(int i = 0;i < 8;i++){
+            c.get(i).setSId(sID)
+                    .setTpId(tpID)
+                    .setLocationId(lID)
+                    .setCId(cID)
+                    .setDate(date.plusDays(7*i));
+        }
+
+        UpdateWrapper<ConsultApply> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(ConsultApply::getConsultApplyId,caID)
+                .set(ConsultApply::getIsFinished,1);
+        consultApplyMapper.update(null,wrapper);
+
+        cars.saveBatch(c);
+        return JsonResponse.successMessage("处理成功!");
+    }
+
+
+    /**
+     * 描述：成功预约之后，发送短信
+     *
+     */
+    @Override
+    public void sendMessage() {
+
+    }
+
 
 
 }

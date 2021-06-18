@@ -111,7 +111,7 @@ public class ConsultApplyController {
     @ResponseBody
     public JsonResponse handleApply(@RequestBody Map form){
 
-        return null;
+        return consultApplyService.handleApply(form);
     }
 }
 
