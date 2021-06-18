@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
-@Accessors
+@Accessors(chain=true)
 public class ConsultantDutyVO {
 
     private Long cdId;

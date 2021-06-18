@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
-import com.example.mybatisplus.service.TimePeriodService;
-import com.example.mybatisplus.model.domain.TimePeriod;
+import com.example.mybatisplus.service.LocationService;
+import com.example.mybatisplus.model.domain.Location;
 
 
 /**
@@ -16,27 +16,27 @@ import com.example.mybatisplus.model.domain.TimePeriod;
  *  前端控制器
  *
  *
- * @author Beacon
- * @since 2021-06-16
+ * @author Kristy
+ * @since 2021-06-18
  * @version v1.0
  */
 @Controller
 @RequestMapping("/api")
-public class TimePeriodController {
+public class LocationController {
 
-    private final Logger logger = LoggerFactory.getLogger( TimePeriodController.class );
+    private final Logger logger = LoggerFactory.getLogger( LocationController.class );
 
     @Autowired
-    private TimePeriodService timePeriodService;
+    private LocationService locationService;
 
     /**
-     * 描述：返回时间段安排
+     * 描述：返回地点安排
      *
      */
-    @RequestMapping(value="/getTimePeriod",method = RequestMethod.GET)
+    @RequestMapping(value="/getLocation",method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse getTimePeriod(){
-        return timePeriodService.getTimePeriod();
+    public JsonResponse getLocation(@RequestParam("type")Integer type){
+        return locationService.getLocation(type);
     }
 }
 

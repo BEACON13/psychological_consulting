@@ -54,7 +54,7 @@ public class ConsultantDutyController {
 
 
     /**
-     * 描述：中心管理员更改咨询师排版地点
+     * 描述：中心管理员更改咨询师排班地点
      *
      */
 }
