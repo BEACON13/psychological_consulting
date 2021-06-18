@@ -73,5 +73,16 @@ public class ConsultantDutyController {
     public JsonResponse deleteConsultantDuty(@RequestParam("cd_id")Long cdID,@RequestParam("tp_id")Integer tpID,@RequestParam("c_id")Long cID){
         return consultantDutyService.deleteConsultantDuty(cdID,tpID,cID);
     }
+
+
+    /**
+     * 描述：中心管理员新增咨询师排班
+     *
+     */
+    @RequestMapping(value = "/admin/insertConDuty", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse insertConsultantDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("weekday")Integer weekday,@RequestParam("c_id")Long cID,@RequestParam("l_id")Long lID){
+        return consultantDutyService.insertConsultantDuty(tpID,weekday,cID,lID);
+    }
 }
 
