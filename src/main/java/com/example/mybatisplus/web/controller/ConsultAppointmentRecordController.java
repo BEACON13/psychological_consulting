@@ -207,5 +207,71 @@ public class ConsultAppointmentRecordController {
     public JsonResponse manageRecords(@RequestBody Map form){
         return consultAppointmentRecordService.manageRecords(form);
     }
+
+
+    /**
+     * 描述：中心管理员查看所有预约（包括各咨询师、各学生）
+     *
+     */
+    @RequestMapping(value = "/admin/showAll", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse AshowAllRecords(){
+        return consultAppointmentRecordService.showAllRecords();
+    }
+
+
+    /**
+     * 描述：中心管理员根据咨询师姓名查看咨询预约记录
+     *
+     */
+    @RequestMapping(value = "/admin/showByCon", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse AshowRecordsByConName(@RequestParam("ConName")String ConName){
+        return consultAppointmentRecordService.showRecordsByConName(ConName);
+    }
+
+
+    /**
+     * 描述：中心管理员根据学生姓名查看咨询预约记录
+     *
+     */
+    @RequestMapping(value = "/admin/showByStu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse AshowRecordsByStuName(@RequestParam("StuName")String StuName){
+        return consultAppointmentRecordService.showRecordsByStuName(StuName);
+    }
+
+
+    /**
+     * 描述：中心管理员查看所有未完成的预约记录（包括各咨询师、各学生）
+     *
+     */
+    @RequestMapping(value = "/admin/showUnfinished", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse AshowUnfinishedRecords(){
+        return consultAppointmentRecordService.showUnfinishedRecords();
+    }
+
+
+    /**
+     * 描述：中心管理员根据咨询师的姓名查看所有未完成的预约记录
+     *
+     */
+    @RequestMapping(value = "/admin/showUnfinishedByCon", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse AshowUnfinishedRecordsByConName(@RequestParam("ConName")String ConName){
+        return consultAppointmentRecordService.showUnfinishedRecordsByConName(ConName);
+    }
+
+
+    /**
+     * 描述：中心管理员根据学生的姓名查看所有未完成的预约记录
+     *
+     */
+    @RequestMapping(value = "/admin/showUnfinishedByStu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse AshowUnfinishedRecordsByStuName(@RequestParam("StuName")String StuName){
+        return consultAppointmentRecordService.showUnfinishedRecordsByStuName(StuName);
+    }
 }
 

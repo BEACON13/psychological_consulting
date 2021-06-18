@@ -59,7 +59,8 @@ public class ClosingReportController {
         ClosingReport report = new ClosingReport();
         report.setCId(Long.parseLong(info.get("cId").toString()))
                 .setConsultEffectSelf((String) info.get("consultEffectSelf"))
-                .setProblemType((String) info.get("problemType"));
+                .setProblemType((String) info.get("problemType"))
+                .setSId(sId);
 
         //计算学生完成的咨询次数
         int num = consultAppointmentRecordService.countConsultingNum(sId);
@@ -114,5 +115,42 @@ public class ClosingReportController {
                 .getClosingReportByCon(SecurityUtils.getCurrentUserInfo().getPId()));
     }
 
-}
+    /*
+     * 展示所有结案报告
+     */
+    @RequestMapping(value = "/admin/show/closingReport/all", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getAllClosingReport(){
+        return JsonResponse.success(closingReportService.getAllClosingReport());
+    }
 
+    /*
+     * 展示结案报告
+     * 根据咨询师姓名
+     */
+    @RequestMapping(value = "/admin/show/closingReport/con", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getClosingReportByConName(@RequestParam("con_name")String conName){
+        return JsonResponse.success(closingReportService.getAllClosingReportByConName(conName));
+    }
+
+    /*
+     * 展示所有结案报告
+     * 根据学生姓名
+     */
+    @RequestMapping(value = "/admin/show/closingReport/stu", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getClosingReportByStuName(@RequestParam("stu_name")String stuName){
+        return JsonResponse.success(closingReportService.getAllClosingReportByStuName(stuName));
+    }
+
+    /*
+     * 展示所有结案报告
+     * 根据咨询师姓名和学生姓名
+     */
+    @RequestMapping(value = "/admin/show/closingReport/stuAndCon", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getClosingReportByStuName(@RequestParam("stu_name")String stuName, @RequestParam("con_name")String conName){
+        return JsonResponse.success(closingReportService.getAllClosingReportByStuAndConName(conName,stuName));
+    }
+}

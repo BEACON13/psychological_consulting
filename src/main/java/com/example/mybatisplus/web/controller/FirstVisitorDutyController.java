@@ -29,6 +29,26 @@ public class FirstVisitorDutyController {
     @Autowired
     private FirstVisitorDutyService firstVisitorDutyService;
 
+    /*
+     * 描述：显示初访员空闲排班
+     *
+     */
+    @RequestMapping(value="/admin/getFVDuty/available",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse getAvailableFVDuty(){
+        return JsonResponse.success(firstVisitorDutyService.getAvailableFVDuty());
+    }
+
+
+    /*
+     * 描述：显示初访员所有排班
+     *
+     */
+    @RequestMapping(value="/admin/getFVDuty/all",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse getAllFVDuty(){
+        return JsonResponse.success(firstVisitorDutyService.getAllFVDuty());
+    }
 
 }
 

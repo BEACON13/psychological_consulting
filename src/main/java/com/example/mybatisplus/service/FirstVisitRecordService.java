@@ -3,6 +3,7 @@ package com.example.mybatisplus.service;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.vo.FirstVisitRecordVO;
 
 import java.util.List;
 
@@ -17,15 +18,19 @@ import java.util.List;
 public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
 
 
-    public JsonResponse showRecords();
+    JsonResponse showRecords();
 
-    public JsonResponse showAllRecords();
+    JsonResponse showAllRecords();
 
-    public JsonResponse getRecordsByName(String stuName);
+    JsonResponse getRecordsByName(String stuName);
 
-    public List<FirstVisitRecord> getRecordByStudent(Long sId);
+    List<FirstVisitRecord> getRecordByStudent(Long sId);
 
-    public JsonResponse getFVRecord();
+    JsonResponse getFVRecord();
 
-    public JsonResponse manageFVRecord(Long fvrId);
+    JsonResponse manageFVRecord(Long fvrId);
+
+    List<FirstVisitRecordVO> getAllRecordsAdmin();
+
+    int insertFVRecord(FirstVisitRecord record);
 }

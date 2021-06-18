@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PersonTypeService extends IService<PersonType> {
 
+    int deletePersonType(Long pId);
 }

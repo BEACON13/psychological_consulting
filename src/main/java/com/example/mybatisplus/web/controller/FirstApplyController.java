@@ -2,6 +2,7 @@ package com.example.mybatisplus.web.controller;
 
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.model.domain.Student;
+import com.example.mybatisplus.model.vo.FirstApplyVO;
 import com.example.mybatisplus.service.StudentService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.FirstApplyService;
 import com.example.mybatisplus.model.domain.FirstApply;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -80,6 +83,24 @@ public class FirstApplyController {
             return JsonResponse.successMessage("插入成功");
 
         return JsonResponse.failure("插入失败");
+    }
+
+    /*
+     * 管理员获得初访申请
+     * 其中包括紧急申请和普通申请
+     * 紧急申请得分大于75
+     */
+    @RequestMapping(value = "/admin/firstApply", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse adminGetFirstApply(){
+        List<FirstApplyVO> urgentApplies = firstApplyService.getUrgentApply();
+        List<FirstApplyVO> normalApplies = firstApplyService.getNormalApply();
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("紧急申请",urgentApplies);
+        map.put("普通申请",normalApplies);
+
+        return JsonResponse.success(map);
     }
 
 

@@ -16,33 +16,27 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-17
+ * @since 2021-06-18
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="AddConsult对象", description="")
-public class AddConsult extends Model<AddConsult> {
+@ApiModel(value="Location对象", description="")
+public class Location extends Model<Location> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "add_c_id", type = IdType.AUTO)
-    private Long addCId;
+    @TableId(value = "location_id", type = IdType.AUTO)
+    private Long locationId;
 
-    private Long sId;
+    private Integer locationType;
 
-    private Long cId;
-
-    private Integer tpId;
-
-    private Integer times;
-
-    private Boolean isFinished;
+    private String locationName;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.addCId;
+        return this.locationId;
     }
 
 }

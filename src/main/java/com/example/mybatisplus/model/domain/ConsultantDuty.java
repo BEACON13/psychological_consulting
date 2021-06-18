@@ -2,6 +2,7 @@ package com.example.mybatisplus.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -21,28 +22,26 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="AddConsult对象", description="")
-public class AddConsult extends Model<AddConsult> {
+@ApiModel(value="ConsultantDuty对象", description="")
+public class ConsultantDuty extends Model<ConsultantDuty> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "add_c_id", type = IdType.AUTO)
-    private Long addCId;
-
-    private Long sId;
-
-    private Long cId;
+    @TableId(value = "cd_id", type = IdType.AUTO)
+    private Long cdId;
 
     private Integer tpId;
 
-    private Integer times;
+    private Long locationId;
 
-    private Boolean isFinished;
+    private Long cId;
+
+    private LocalDate freeTime;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.addCId;
+        return this.cdId;
     }
 
 }

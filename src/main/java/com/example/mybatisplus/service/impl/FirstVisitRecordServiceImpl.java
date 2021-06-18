@@ -146,6 +146,22 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         return JsonResponse.successMessage("取消预约成功!");
     }
 
+    /*
+     * 中心管理员查看所有预约记录
+     */
+    @Override
+    public List<FirstVisitRecordVO> getAllRecordsAdmin() {
+        return firstVisitRecordMapper.getAllRecordAdmin();
+    }
+
+    /*
+     * 中心管理员审核初访申请后，进行插入操作
+     */
+    @Override
+    public int insertFVRecord(FirstVisitRecord record) {
+        return firstVisitRecordMapper.insert(record);
+    }
+
     /**
      * 描述：获取学生是否拥有申请初访资格
      *
@@ -156,4 +172,5 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         wrapper.lambda().eq(FirstVisitRecord::getSId,sId);
         return baseMapper.selectList(wrapper);
     }
+
 }

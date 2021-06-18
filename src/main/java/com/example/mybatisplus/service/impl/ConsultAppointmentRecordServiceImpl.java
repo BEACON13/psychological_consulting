@@ -6,8 +6,10 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.mapper.ConsultAppointmentRecordMapper;
 import com.example.mybatisplus.model.vo.ConsultAppointmentRecordVO;
+import com.example.mybatisplus.service.AddConsultService;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.mybatisplus.service.ConsultantDutyService;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -34,7 +33,11 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     @Autowired
     ConsultAppointmentRecordMapper cram;
 
+    @Autowired
+    ConsultantDutyService consultantDutyService;
 
+    @Autowired
+    AddConsultService addConsultService;
 
     /*
     根据咨询师id获取其所有的咨询记录
@@ -48,10 +51,11 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /*
-    今天及之前
-    未完成
-    即未填报
-    */
+     * 获取未填写记录
+     * 今天及之前
+     * 未完成
+     * 即未填报
+     */
     @Override
     public List<ConsultAppointmentRecordVO> getRecordNotFilledInByConsultantID(Long consultantId) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
@@ -60,25 +64,39 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         return cram.getRecordNotFilledIn(consultantId,date);
     }
 
+    /*
+     * 获取所有未完成的记录
+     * 输入咨询师id
+     */
     @Override
     public List<ConsultAppointmentRecordVO> getAllUnfinishedRecordByConsultantID(Long consultantId) {
 
         return cram.getUnfinishedRecords(consultantId);
     }
 
-
+    /*
+     * 获取记录
+     * 输入咨询师id和学生姓名
+     */
     @Override
     public List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudent(Long cId, String stuName) {
         return cram.getRecordByConsultantAndStudent(cId,stuName);
     }
 
+    /*
+     * 获取记录
+     * 输入咨询师id和学生id
+     */
     @Override
     public List<ConsultAppointmentRecordVO> getRecordByConsultantAndStudentID(Long cId, Long sId) {
         return cram.getRecordByConsultantAndStudentID(cId,sId);
     }
 
 
-
+    /*
+     * 获取未完成和未填报的记录
+     * 输入咨询师id
+     */
     @Override
     public Map<String, List> getUnfinishedAndNotFilledIn(Long consultantId) {
         Map<String,List> map=new HashMap<>();
@@ -88,7 +106,8 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     }
 
     /*
-    当填写报告之后，调用该service，将咨询记录设置为已完成
+     * 当填写报告之后，调用该service，将咨询记录设置为已完成
+     * 输入咨询预约id
      */
     @Override
     public int finishAppointment(Long consultAppointId) {
@@ -100,8 +119,9 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     }
 
     /*
-    获取特定学生咨询的数目
-    */
+     * 获取特定学生咨询的数目
+     * 输入学生id
+     */
     @Override
     public int countConsultingNum(Long sId) {
         QueryWrapper<ConsultAppointmentRecord> wrapper = new QueryWrapper<>();
@@ -110,6 +130,10 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         return baseMapper.selectCount(wrapper);
     }
 
+    /*
+     * 获取学生的咨询记录
+     * 输入学生id
+     */
     @Override
     public List<ConsultAppointmentRecordVO> getStuRecord(Long id) {
 
@@ -130,7 +154,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
     }
 
     /*
-    删除某学生还没有进行的咨询记录
+     * 删除某学生还没有进行的咨询记录
      */
     @Override
     public void deleteUndoneRecords(Long sId) {
@@ -144,7 +168,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理查看所有预约记录（包括各咨询师、各学生）
+     * 描述：心理助理、中心管理员查看所有预约记录（包括各咨询师、各学生）
      *
      */
     @Override
@@ -156,7 +180,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理根据咨询师姓名查看咨询预约记录
+     * 描述：心理助理、中心管理员根据咨询师姓名查看咨询预约记录
      *
      */
     @Override
@@ -167,7 +191,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理根据学生姓名查看咨询预约记录
+     * 描述：心理助理、中心管理员根据学生姓名查看咨询预约记录
      *
      */
     @Override
@@ -179,7 +203,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理查看所有未完成的预约记录（包括各咨询师、各学生）
+     * 描述：心理助理、中心管理员查看所有未完成的预约记录（包括各咨询师、各学生）
      *
      */
     @Override
@@ -190,7 +214,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理根据咨询师的姓名查看所有未完成的预约记录
+     * 描述：心理助理、中心管理员根据咨询师的姓名查看所有未完成的预约记录
      *
      */
     @Override
@@ -201,7 +225,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理根据学生的姓名查看所有未完成的预约记录
+     * 描述：心理助理、中心管理员根据学生的姓名查看所有未完成的预约记录
      *
      */
     @Override
@@ -231,8 +255,54 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
                 .set(ConsultAppointmentRecord::getCId,cID)
                 .set(ConsultAppointmentRecord::getDate,date);
         cram.update(null,wrapper);
-        return null;
+        return JsonResponse.successMessage("修改成功!");
     }
 
+    /*
+     * 插入record
+     */
+    @Override
+    public boolean insertRecords(Map<String, Object> info) {
+
+        boolean flag=true;
+
+        //获得建立咨询预约需要的数据
+        Long sID = Long.parseLong(info.get("s_id").toString());
+        Integer tpID = (Integer)info.get("tp_id");
+        Long cID = Long.parseLong(info.get("c_id").toString());
+        Integer times = (Integer)info.get("times");
+
+        //获取空闲日期
+        LocalDate date = consultantDutyService.getFreeTime(tpID,cID);
+
+        //获取咨询地点
+        Long lID = consultantDutyService.getLocation(tpID,cID);
+
+        //产生申请对应的多次咨询预约记录信息
+        List<ConsultAppointmentRecord> list = new ArrayList<>(times);
+        for (int i=0; i<times; i++){
+            ConsultAppointmentRecord record = new ConsultAppointmentRecord();
+            record.setSId(sID)
+                    .setTpId(tpID)
+                    .setLocationId(lID)
+                    .setCId(cID)
+                    .setDate(date.plusDays(i* 7L));
+            list.add(record);
+        }
+
+        //插入数据
+        this.saveBatch(list);
+
+        //将apply置为完成状态
+        Long addConsultId = Long.parseLong(info.get("add_consult_id").toString());
+        if(addConsultService.finishAdd(addConsultId)<=0)
+            flag=false;
+
+        //更新咨询师的空闲日期
+        if(consultantDutyService.updateFreeTime(tpID,cID,date.plusDays(times* 7L))<=0)
+            flag=false;
+
+        return flag;
+    }
 
 }
