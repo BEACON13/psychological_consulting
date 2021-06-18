@@ -6,12 +6,10 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.mapper.FirstVisitorDutyMapper;
 import com.example.mybatisplus.mapper.StudentMapper;
-import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
-import com.example.mybatisplus.model.domain.FirstVisitRecord;
+import com.example.mybatisplus.model.domain.*;
 import com.example.mybatisplus.mapper.FirstVisitRecordMapper;
-import com.example.mybatisplus.model.domain.FirstVisitorDuty;
 import com.example.mybatisplus.model.vo.FirstVisitRecordVO;
-import com.example.mybatisplus.service.FirstVisitRecordService;
+import com.example.mybatisplus.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +38,14 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
     FirstVisitRecordMapper firstVisitRecordMapper;
     @Autowired
     FirstVisitorDutyMapper firstVisitorDutyMapper;
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    TimePeriodService timePeriodService;
+    @Autowired
+    LocationService locationService;
+    @Autowired
+    ConsultApplyService consultApplyService;
 
 
     /**
@@ -159,6 +165,16 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
      */
     @Override
     public int insertFVRecord(FirstVisitRecord record) {
+        //给学生邮件系统发送邮件
+        Student stu = studentService.getById(record.getSId());
+        TimePeriod tp = timePeriodService.getById(record.getTpId());
+        Location l = locationService.getById(record.getLocationId());
+        LocalDate date = record.getDate();
+        String toUser = stu.getCode() + "@stu.scu.edu.cn";
+        String text = stu.getName() + "同学你好，你已成功预约初访，请于"+date.toString()+"，即周"+tp.getWeekday().toString()
+                +"的"+tp.getStartTime().toString()+"到达"+l.getLocationName()+"进行初访咨询。请准时参加，谢谢！";
+        consultApplyService.sendMessage(toUser,text);
+
         return firstVisitRecordMapper.insert(record);
     }
 

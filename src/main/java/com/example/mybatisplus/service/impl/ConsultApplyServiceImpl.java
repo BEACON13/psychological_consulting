@@ -4,17 +4,21 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
+import com.example.mybatisplus.mapper.ConsultantDutyMapper;
 import com.example.mybatisplus.model.domain.*;
 import com.example.mybatisplus.mapper.ConsultApplyMapper;
 import com.example.mybatisplus.model.vo.ConsultApplyVO;
 import com.example.mybatisplus.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +43,15 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
     FirstApplyService firstApplyService;
     @Autowired
     FirstVisitReportService firstVisitReportService;
-    
+    @Autowired
+    JavaMailSender javaMailSender;
+    @Autowired
+    TimePeriodService timePeriodService;
+    @Autowired
+    LocationService locationService;
+    @Autowired
+    ConsultantDutyMapper consultantDutyMapper;
+
 
     /**
      * 描述：学生是否能够申请咨询
@@ -183,9 +195,19 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
         wrapper2.lambda().eq(ConsultantDuty::getTpId,tpID)
                 .eq(ConsultantDuty::getCId,cID)
                 .set(ConsultantDuty::getFreeTime,date.plusDays(7*8));
-
+        consultantDutyMapper.update(null,wrapper2);
         //插入records
         cars.saveBatch(c);
+
+        //给学生邮件系统发送邮件
+        Student stu = studentService.getById(sID);
+        TimePeriod tp = timePeriodService.getById(tpID);
+        Location l = locationService.getById(lID);
+        String toUser = stu.getCode() + "@stu.scu.edu.cn";
+        String text = stu.getName() + "同学你好，你已成功预约心理咨询，请于"+date.toString()+"起，每周"+tp.getWeekday().toString()
+                +"的"+tp.getStartTime().toString()+"到达"+l.getLocationName()+"进行咨询,一共八周。请准时参加，谢谢！";
+        sendMessage(toUser,text);
+
         return JsonResponse.successMessage("处理成功!");
     }
 
@@ -195,8 +217,26 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
      *
      */
     @Override
-    public void sendMessage() {
-
+    public void sendMessage(String toUser,String text) {
+        // 构建一个邮件对象
+        SimpleMailMessage message = new SimpleMailMessage();
+        // 设置邮件主题
+        message.setSubject("心理咨询预约");
+        // 设置邮件发送者，这个跟application.yml中设置的要一致
+        message.setFrom("416633359@qq.com");
+        // 设置邮件接收者，可以有多个接收者，中间用逗号隔开，以下类似
+        // message.setTo("10*****16@qq.com","12****32*qq.com");
+        message.setTo(toUser);
+        // 设置邮件抄送人，可以有多个抄送人
+        //message.setCc("12****32*qq.com");
+        // 设置隐秘抄送人，可以有多个
+        //message.setBcc("7******9@qq.com");
+        // 设置邮件发送日期
+        message.setSentDate(new Date());
+        // 设置邮件的正文
+        message.setText(text);
+        // 发送邮件
+        javaMailSender.send(message);
     }
 
 
