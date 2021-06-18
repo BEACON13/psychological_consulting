@@ -1,5 +1,8 @@
 package com.example.mybatisplus.web.controller;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
+import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -10,6 +13,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.AddConsultService;
 import com.example.mybatisplus.model.domain.AddConsult;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 
@@ -30,6 +35,9 @@ public class AddConsultController {
 
     @Autowired
     private AddConsultService addConsultService;
+
+    @Autowired
+    private ConsultAppointmentRecordService consultAppointmentRecordService;
 
     /**
      * 描述：咨询师申请追加时间段
@@ -59,6 +67,20 @@ public class AddConsultController {
     public JsonResponse showUnfinishedAddApply(){
         return JsonResponse.success(addConsultService.getUnfinishedAddConsult());
     }
+
+    /*
+     * 中心管理员审核通过追加申请
+     * 将其插入到咨询预约记录(ConsultAppointmentRecord)
+     */
+    @RequestMapping(value = "/admin/insert/apply")
+    @ResponseBody
+    public JsonResponse insertConsultApply(@RequestBody Map<String,Object> info){
+        return JsonResponse.success(consultAppointmentRecordService.insertRecords(info));
+    }
+
+    /*
+     * 中心管理员拒绝追加申请
+     */
 
 }
 

@@ -143,4 +143,49 @@ public class ConsultantDutyServiceImpl extends ServiceImpl<ConsultantDutyMapper,
     public JsonResponse deleteConsultantDuty(Long cdID, Integer tpID, Long cID) {
         return null;
     }
+
+    /*
+     * 获得某个时间段下，某个咨询师的预计空闲日期
+     * 输入时间段id和咨询师id
+     */
+    @Override
+    public LocalDate getFreeTime(Integer tpId, Long cId) {
+
+        //如果时间已过，调整freeTime
+        checkFreeTime(tpId,cId);
+
+        //查询时间
+        QueryWrapper<ConsultantDuty> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultantDuty::getTpId, tpId)
+                .eq(ConsultantDuty::getCId,cId)
+                .last("limit 1");
+        ConsultantDuty duty = baseMapper.selectOne(wrapper);
+        return duty.getFreeTime();
+    }
+
+    /*
+     * 获得某个时间段，某位咨询师的咨询地点
+     * 输入时间段id和咨询师id
+     */
+    @Override
+    public Long getLocation(Integer tpId, Long cId) {
+        QueryWrapper<ConsultantDuty> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ConsultantDuty::getTpId, tpId)
+                .eq(ConsultantDuty::getCId,cId)
+                .last("limit 1");
+        ConsultantDuty duty = baseMapper.selectOne(wrapper);
+        return duty.getLocationId();
+    }
+
+    /*
+     * 更新咨询师排班的预计空闲日期
+     */
+    @Override
+    public int updateFreeTime(Integer tpId,Long cId,LocalDate newFreeDate) {
+        UpdateWrapper<ConsultantDuty> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(ConsultantDuty::getTpId,tpId)
+                .eq(ConsultantDuty::getCId,cId)
+                .set(ConsultantDuty::getFreeTime,newFreeDate);
+        return baseMapper.update(null,wrapper);
+    }
 }

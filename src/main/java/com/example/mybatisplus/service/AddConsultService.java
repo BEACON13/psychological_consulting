@@ -23,4 +23,6 @@ public interface AddConsultService extends IService<AddConsult> {
     List<AddConsultVO> getAllAddConsult();
 
     List<AddConsultVO> getUnfinishedAddConsult();
+
+    int finishAdd(Long addConsultId);
 }

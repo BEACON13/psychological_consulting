@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.model.domain.AddConsult;
@@ -57,5 +58,17 @@ public class AddConsultServiceImpl extends ServiceImpl<AddConsultMapper, AddCons
     @Override
     public List<AddConsultVO> getUnfinishedAddConsult() {
         return addConsultMapper.getUnfinishedAddConsult();
+    }
+
+
+    /*
+     * 完成追加咨询请求
+     */
+    @Override
+    public int finishAdd(Long addConsultId) {
+        UpdateWrapper<AddConsult> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(AddConsult::getAddCId,addConsultId)
+                .set(AddConsult::getIsFinished,1);
+        return baseMapper.update(null,wrapper);
     }
 }
