@@ -25,7 +25,7 @@ public interface FirstVisitorDutyService extends IService<FirstVisitorDuty> {
 
     JsonResponse alterFVDuty(Long fvdID, Integer tpID, Long fvID, Long lID);
 
-    JsonResponse deleteFVDuty(Long fvdID, Integer tpID, Long fvID, Long lID);
+    JsonResponse deleteFVDuty(Long fvdID, Integer tpID, Long fvID);
 
     JsonResponse insertFVDuty(Integer fvdID, Long fvID, Long lID);
 

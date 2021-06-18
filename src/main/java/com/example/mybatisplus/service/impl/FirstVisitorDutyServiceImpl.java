@@ -96,7 +96,7 @@ public class FirstVisitorDutyServiceImpl extends ServiceImpl<FirstVisitorDutyMap
      *
      */
     @Override
-    public JsonResponse deleteFVDuty(Long fvdID, Integer tpID, Long fvID, Long lID) {
+    public JsonResponse deleteFVDuty(Long fvdID, Integer tpID, Long fvID) {
         //查询是否有未完成初访预约
         QueryWrapper<FirstVisitRecord> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(FirstVisitRecord::getFvId,fvID)
@@ -112,11 +112,12 @@ public class FirstVisitorDutyServiceImpl extends ServiceImpl<FirstVisitorDutyMap
         wrapper3.lambda().eq(TimePeriod::getTpId,tpID);
         TimePeriod timePeriod = timePeriodService.getOne(wrapper3);
 
+        firstVisitorDutyMapper.deleteById(fvdID);
         String message = "";
         if (firstVisitRecords.isEmpty()) {
             message = "删除成功!";
         }else{
-            message = "删除成功，还有未完成的咨询预约，请通知心理助理对咨询师："
+            message = "删除成功，还有未完成的咨询预约，请对初访员："
                     + person.getName() + " 周" + timePeriod.getWeekday() + " "
                     + timePeriod.getStartTime() + "的初访预约信息进行修改，并通知学生相关变动。";
         }

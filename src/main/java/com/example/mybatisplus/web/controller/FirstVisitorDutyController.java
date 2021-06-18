@@ -70,8 +70,8 @@ public class FirstVisitorDutyController {
     @RequestMapping(value = "/admin/deleteFVDuty", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse deleteFVDuty(@RequestParam("fvd_id")Long fvdID,@RequestParam("tp_id")Integer tpID,
-                                             @RequestParam("fv_id")Long fvID,@RequestParam("l_id")Long lID){
-        return firstVisitorDutyService.deleteFVDuty(fvdID,tpID,fvID,lID);
+                                             @RequestParam("fv_id")Long fvID){
+        return firstVisitorDutyService.deleteFVDuty(fvdID,tpID,fvID);
     }
 
 
