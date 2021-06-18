@@ -29,4 +29,5 @@ public interface FirstVisitorDutyService extends IService<FirstVisitorDuty> {
 
     JsonResponse insertFVDuty(Integer fvdID, Long fvID, Long lID);
 
+    void refreshDuty();
 }

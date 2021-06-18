@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
@@ -27,6 +28,7 @@ import java.util.List;
  * @author Kristy
  * @since 2021-06-15
  */
+
 @Service
 public class FirstVisitorDutyServiceImpl extends ServiceImpl<FirstVisitorDutyMapper, FirstVisitorDuty> implements FirstVisitorDutyService {
 
@@ -142,5 +144,16 @@ public class FirstVisitorDutyServiceImpl extends ServiceImpl<FirstVisitorDutyMap
                 .setTpId(tpID);
         firstVisitorDutyMapper.insert(f);
         return JsonResponse.successMessage("新增成功!");
+    }
+
+    /*
+     * 刷新初访员排班情况
+     * 将is_available字段置为1
+     */
+    @Override
+    public void refreshDuty() {
+        UpdateWrapper<FirstVisitorDuty> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().set(FirstVisitorDuty::getIsAvailable,1);
+        baseMapper.update(null,wrapper);
     }
 }
