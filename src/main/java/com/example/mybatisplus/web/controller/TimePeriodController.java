@@ -62,26 +62,6 @@ public class TimePeriodController {
     }
 
     /*
-     * 修改时间段
-     * 只需要提供被修改的字段
-     *
-     */
-    @RequestMapping(value="admin/change/timePeriod")
-    @ResponseBody
-    public JsonResponse changeTimePeriod(@RequestBody Map<String,Object> info){
-        TimePeriod tp = new TimePeriod();
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm:ss");
-        tp.setStartTime(LocalTime.parse((String) info.get("startTime"),df))
-                .setDuration((Integer) info.get("duration"))
-                .setWeekday((Integer) info.get("weekday"))
-                .setTpId((Integer) info.get("tpId"));
-
-        return timePeriodService.updateTimePeriod(tp)?
-                JsonResponse.successMessage("修改成功"):
-                JsonResponse.failure("修改失败");
-    }
-
-    /*
      * 删除时间段
      *
      */
