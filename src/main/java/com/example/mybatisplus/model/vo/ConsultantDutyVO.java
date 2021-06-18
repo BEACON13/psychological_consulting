@@ -1,8 +1,13 @@
 package com.example.mybatisplus.model.vo;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Data
+@Accessors
 public class ConsultantDutyVO {
 
     private Long cdId;

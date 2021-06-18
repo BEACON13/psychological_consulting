@@ -51,5 +51,11 @@ public class ConsultantDutyController {
     public JsonResponse showConsultantDuty(){
         return consultantDutyService.showConsultantDuty();
     }
+
+
+    /**
+     * 描述：中心管理员更改咨询师排版地点
+     *
+     */
 }
 
