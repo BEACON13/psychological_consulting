@@ -122,6 +122,14 @@ public class FirstVisitRecordController {
         return JsonResponse.success(firstVisitRecordService.getRecordByStuName(name));
     }
 
+    /*
+     * 中心管理员查看全部未完成预约记录
+     */
+    @RequestMapping(value="/admin/show/FVRecords/unfinished",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedFirstVisitRecords(){
+        return JsonResponse.success(firstVisitRecordService.getUnfinishedRecord());
+    }
 
     /*
      * 中心管理员修改预约记录

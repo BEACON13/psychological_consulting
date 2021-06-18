@@ -127,7 +127,7 @@
           and fa.name = #{name}
     </select>
 
-    <!--中心管理员查看所有未完成-->
+    <!--中心管理员查看所有未完成记录-->
     <select id="getUnfinishedRecord" resultMap="VOResultMap">
         select fvr.*,tp.start_time,tp.duration,l.location_name,p.name fvname,fa.*
         from first_visit_record fvr,time_period tp,location l,person p,first_apply fa

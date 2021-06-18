@@ -238,7 +238,7 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
     }
 
     /*
-     * 中心管理员获得是所有的未完成记录
+     * 中心管理员获得所有的未完成记录
      */
     @Override
     public List<FirstVisitRecordVO> getUnfinishedRecord() {

@@ -44,4 +44,5 @@ public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
     LocalDate getFirstVisitDate(int tpId);
 
     List<FirstVisitRecordVO> getUnfinishedRecord();
+
 }
