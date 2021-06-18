@@ -3,7 +3,9 @@ package com.example.mybatisplus.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
+import com.example.mybatisplus.mapper.ConsultAppointmentRecordMapper;
 import com.example.mybatisplus.mapper.TimePeriodMapper;
+import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.model.domain.ConsultantDuty;
 import com.example.mybatisplus.mapper.ConsultantDutyMapper;
 import com.example.mybatisplus.model.domain.TimePeriod;
@@ -38,6 +40,8 @@ public class ConsultantDutyServiceImpl extends ServiceImpl<ConsultantDutyMapper,
     ConsultantDutyMapper consultantDutyMapper;
     @Autowired
     TimePeriodService timePeriodService;
+    @Autowired
+    ConsultAppointmentRecordMapper appointmentRecordMapper;
 
     /**
      * 描述：判断咨询师的空闲时间是否在今日之前
@@ -101,5 +105,42 @@ public class ConsultantDutyServiceImpl extends ServiceImpl<ConsultantDutyMapper,
     public JsonResponse showConsultantDuty() {
         List<ConsultantDutyVO> consultantDutyVOS = consultantDutyMapper.showConsultantDuty();
         return JsonResponse.success(consultantDutyVOS,"success!");
+    }
+
+
+    /**
+     * 描述：中心管理员更改咨询师排班地点
+     *
+     */
+    @Override
+    public JsonResponse alterConsultantDuty(Integer tpID,Long cID,Long lID) {
+        //查询地点是否冲突
+        QueryWrapper<ConsultantDuty> wrapper2 = new QueryWrapper<>();
+        wrapper2.lambda().eq(ConsultantDuty::getTpId,tpID)
+                .eq(ConsultantDuty::getLocationId,lID);
+        List<ConsultantDuty> consultantDuties = consultantDutyMapper.selectList(wrapper2);
+        if(!consultantDuties.isEmpty())
+            return JsonResponse.failure("地点冲突！");
+
+        //更新排班表
+        UpdateWrapper<ConsultantDuty> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(ConsultantDuty::getTpId,tpID)
+                .eq(ConsultantDuty::getCId,cID)
+                .set(ConsultantDuty::getLocationId,lID);
+        consultantDutyMapper.update(null,wrapper);
+
+        //修改该排版对应的未完成的预约
+        UpdateWrapper<ConsultAppointmentRecord> wrapper3 = new UpdateWrapper<>();
+        wrapper3.lambda().eq(ConsultAppointmentRecord::getCId,cID)
+                .eq(ConsultAppointmentRecord::getTpId,tpID)
+                .eq(ConsultAppointmentRecord::getIsFinished,0)
+                .set(ConsultAppointmentRecord::getLocationId,lID);
+        appointmentRecordMapper.update(null,wrapper3);
+        return JsonResponse.successMessage("修改成功,请通知该排版下未完成咨询的同学地点变动!");
+    }
+
+    @Override
+    public JsonResponse deleteConsultantDuty(Long cdID, Integer tpID, Long cID) {
+        return null;
     }
 }

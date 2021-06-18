@@ -182,7 +182,7 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
         UpdateWrapper<ConsultantDuty> wrapper2 = new UpdateWrapper<>();
         wrapper2.lambda().eq(ConsultantDuty::getTpId,tpID)
                 .eq(ConsultantDuty::getCId,cID)
-                .set(ConsultantDuty::getFreeTime,date.plusDays(7*7));
+                .set(ConsultantDuty::getFreeTime,date.plusDays(7*8));
 
         //插入records
         cars.saveBatch(c);

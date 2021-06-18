@@ -18,4 +18,8 @@ public interface ConsultantDutyService extends IService<ConsultantDuty> {
     JsonResponse showFreeTime(Integer tpID);
 
     JsonResponse showConsultantDuty();
+
+    JsonResponse alterConsultantDuty(Integer tpID,Long cID,Long lID);
+
+    JsonResponse deleteConsultantDuty(Long cdID, Integer tpID, Long cID);
 }

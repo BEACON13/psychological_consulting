@@ -57,5 +57,21 @@ public class ConsultantDutyController {
      * 描述：中心管理员更改咨询师排班地点
      *
      */
+    @RequestMapping(value = "/admin/alterConDuty", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse alterConsultantDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("c_id")Long cID,@RequestParam("l_id")Long lID){
+        return consultantDutyService.alterConsultantDuty(tpID,cID,lID);
+    }
+
+
+    /**
+     * 描述：中心管理员删除咨询师排班
+     *
+     */
+    @RequestMapping(value = "/admin/deleteConDuty", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse deleteConsultantDuty(@RequestParam("cd_id")Long cdID,@RequestParam("tp_id")Integer tpID,@RequestParam("c_id")Long cID){
+        return consultantDutyService.deleteConsultantDuty(cdID,tpID,cID);
+    }
 }
 
