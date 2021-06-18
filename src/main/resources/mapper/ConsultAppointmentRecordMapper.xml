@@ -40,9 +40,9 @@
             <result column="emergency_phone" property="emergencyPhone" />
             <result column="danger_level" property="dangerLevel" />
             <result column="problem_type" property="problemType" />
-            <result column="tp_id_1" property="tpId1" />
-            <result column="tp_id_2" property="tpId2" />
-            <result column="tp_id_3" property="tpId3" />
+            <result column="tp_id1" property="tpId1" />
+            <result column="tp_id2" property="tpId2" />
+            <result column="tp_id3" property="tpId3" />
             <result column="num" property="num" />
             <result column="is_finished" property="isFinished" />
         </association>
