@@ -115,5 +115,23 @@ public class ClosingReportController {
                 .getClosingReportByCon(SecurityUtils.getCurrentUserInfo().getPId()));
     }
 
+    /*
+     * 展示所有结案报告
+     */
+    @RequestMapping(value = "/admin/show/closingReport/all", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getAllClosingReport(){
+        return JsonResponse.success(closingReportService.getAllClosingReport());
+    }
+
+    /*
+     * 展示结案报告
+     * 根据咨询师姓名
+     */
+
+    /*
+     * 展示所有结案报告
+     * 根据咨询师姓名和学生姓名
+     */
 }
 

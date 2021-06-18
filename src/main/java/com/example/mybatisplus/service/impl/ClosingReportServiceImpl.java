@@ -39,4 +39,9 @@ public class ClosingReportServiceImpl extends ServiceImpl<ClosingReportMapper, C
     public List<ClosingReportVO> getClosingReportByCon(Long cId) {
         return crm.getClosingReportByCon(cId);
     }
+
+    @Override
+    public List<ClosingReportVO> getAllClosingReport() {
+        return crm.getAllClosingReport();
+    }
 }

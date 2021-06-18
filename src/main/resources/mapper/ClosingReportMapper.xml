@@ -46,4 +46,12 @@
           and p.p_id = #{c_id}
     </select>
 
+    <!--中心管理员获得所有结案报告-->
+    <select id="getAllClosingReport" resultMap="VOResultMap">
+        select cr.*,stu.name stu_name,p.name consultant_name
+        from closing_report cr, person p,student stu
+        where cr.s_id = stu.s_id
+          and cr.c_id = p.p_id
+    </select>
+
 </mapper>

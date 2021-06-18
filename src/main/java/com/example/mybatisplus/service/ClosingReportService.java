@@ -19,4 +19,6 @@ public interface ClosingReportService extends IService<ClosingReport> {
     List<ClosingReportVO> getClosingReportByConAndStu(String stuName,Long cId);
 
     List<ClosingReportVO> getClosingReportByCon(Long cId);
+
+    List<ClosingReportVO> getAllClosingReport();
 }

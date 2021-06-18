@@ -22,4 +22,7 @@ public interface ClosingReportMapper extends BaseMapper<ClosingReport> {
     List<ClosingReportVO> getClosingReportByConAndStu(@Param("stu_name") String stu_name,@Param("c_id") Long cId);
 
     List<ClosingReportVO> getClosingReportByCon(@Param("c_id") Long cId);
+
+    List<ClosingReportVO> getAllClosingReport();
+
 }
