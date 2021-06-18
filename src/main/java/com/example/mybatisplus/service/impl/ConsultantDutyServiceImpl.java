@@ -91,4 +91,15 @@ public class ConsultantDutyServiceImpl extends ServiceImpl<ConsultantDutyMapper,
         List<ConsultantDutyVO> consultantDutyVOS = consultantDutyMapper.showFreeTime(tpID);
         return JsonResponse.success(consultantDutyVOS,"success!");
     }
+
+
+    /**
+     * 描述：中心管理员查看咨询师排班
+     *
+     */
+    @Override
+    public JsonResponse showConsultantDuty() {
+        List<ConsultantDutyVO> consultantDutyVOS = consultantDutyMapper.showConsultantDuty();
+        return JsonResponse.success(consultantDutyVOS,"success!");
+    }
 }

@@ -4,11 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
-import com.example.mybatisplus.model.domain.ConsultApply;
+import com.example.mybatisplus.model.domain.*;
 import com.example.mybatisplus.mapper.ConsultApplyMapper;
-import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
-import com.example.mybatisplus.model.domain.FirstApply;
-import com.example.mybatisplus.model.domain.FirstVisitReport;
 import com.example.mybatisplus.model.vo.ConsultApplyVO;
 import com.example.mybatisplus.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -163,6 +160,7 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
         Long cID = Long.parseLong(form.get("c_id").toString());
         LocalDate date = LocalDate.parse((String)form.get("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+        //要插入的8条记录
         List<ConsultAppointmentRecord> c = new ArrayList<>(8);
         for(int i = 0;i < 8;i++){
             ConsultAppointmentRecord cc = new ConsultAppointmentRecord();
@@ -174,11 +172,19 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
             c.add(cc);
         }
 
+        //更新apply里的is_finished字段为1
         UpdateWrapper<ConsultApply> wrapper = new UpdateWrapper<>();
         wrapper.lambda().eq(ConsultApply::getConsultApplyId,caID)
                 .set(ConsultApply::getIsFinished,1);
         consultApplyMapper.update(null,wrapper);
 
+        //更新咨询师排班里的free_time字段
+        UpdateWrapper<ConsultantDuty> wrapper2 = new UpdateWrapper<>();
+        wrapper2.lambda().eq(ConsultantDuty::getTpId,tpID)
+                .eq(ConsultantDuty::getCId,cID)
+                .set(ConsultantDuty::getFreeTime,date.plusDays(7*7));
+
+        //插入records
         cars.saveBatch(c);
         return JsonResponse.successMessage("处理成功!");
     }

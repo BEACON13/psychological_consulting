@@ -36,4 +36,14 @@
             and cd.location_id = l.location_id
             and cd.c_id = p.p_id
     </select>
+
+
+    <!--显示所有咨询师排版-->
+    <select id="showConsultantDuty" resultMap="VOResultMap">
+        select cd.*,tp.start_time,tp.duration,l.location_name,p.name
+        from consultant_duty cd,time_period tp,location l,person p
+        where cd.tp_id = tp.tp_id
+            and cd.location_id = l.location_id
+            and cd.c_id = p.p_id
+    </select>
 </mapper>

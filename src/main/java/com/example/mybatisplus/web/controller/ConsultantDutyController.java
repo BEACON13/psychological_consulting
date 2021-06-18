@@ -40,5 +40,16 @@ public class ConsultantDutyController {
 
         return consultantDutyService.showFreeTime(tpID);
     }
+
+
+    /**
+     * 描述：中心管理员查看咨询师排班
+     *
+     */
+    @RequestMapping(value = "/admin/showConDuty", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showConsultantDuty(){
+        return consultantDutyService.showConsultantDuty();
+    }
 }
 

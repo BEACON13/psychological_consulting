@@ -22,4 +22,5 @@ public interface ConsultantDutyMapper extends BaseMapper<ConsultantDuty> {
 
     List<ConsultantDutyVO> showFreeTime(@Param("tpID") Integer tpID);
 
+    List<ConsultantDutyVO> showConsultantDuty();
 }

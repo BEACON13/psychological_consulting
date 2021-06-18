@@ -16,4 +16,6 @@ public interface ConsultantDutyService extends IService<ConsultantDuty> {
     void checkFreeTime(Integer tpID,Long cID);
 
     JsonResponse showFreeTime(Integer tpID);
+
+    JsonResponse showConsultantDuty();
 }
