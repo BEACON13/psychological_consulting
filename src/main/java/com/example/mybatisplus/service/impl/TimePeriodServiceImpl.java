@@ -37,8 +37,21 @@ public class TimePeriodServiceImpl extends ServiceImpl<TimePeriodMapper, TimePer
         return JsonResponse.success(timePeriods,"success!");
     }
 
+    /*
+     * 插入新时间段
+     *
+     */
     @Override
     public boolean insertTimePeriod(TimePeriod tp) {
         return this.save(tp);
+    }
+
+    /*
+     * 修改时间段
+     *
+     */
+    @Override
+    public boolean updateTimePeriod(TimePeriod tp) {
+        return this.updateById(tp);
     }
 }

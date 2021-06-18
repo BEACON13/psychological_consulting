@@ -17,4 +17,6 @@ public interface TimePeriodService extends IService<TimePeriod> {
     JsonResponse getTimePeriod();
 
     boolean insertTimePeriod(TimePeriod tp);
+
+    boolean updateTimePeriod(TimePeriod tp);
 }
