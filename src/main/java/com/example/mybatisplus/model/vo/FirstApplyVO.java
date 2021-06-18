@@ -48,4 +48,6 @@ public class FirstApplyVO {
 
     private Integer duration;
 
+    private Integer weekday;
+
 }
