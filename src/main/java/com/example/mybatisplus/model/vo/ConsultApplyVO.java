@@ -36,11 +36,17 @@ public class ConsultApplyVO {
 
     private Integer duration1;
 
+    private Integer weekday1;
+
     private LocalTime StartTime2;
 
     private Integer duration2;
 
+    private Integer weekday2;
+
     private LocalTime StartTime3;
 
     private Integer duration3;
+
+    private Integer weekday3;
 }

@@ -144,7 +144,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理查看所有预约记录（包括各咨询师、各学生）
+     * 描述：心理助理、中心管理员查看所有预约记录（包括各咨询师、各学生）
      *
      */
     @Override
@@ -156,7 +156,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理根据咨询师姓名查看咨询预约记录
+     * 描述：心理助理、中心管理员根据咨询师姓名查看咨询预约记录
      *
      */
     @Override
@@ -167,7 +167,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理根据学生姓名查看咨询预约记录
+     * 描述：心理助理、中心管理员根据学生姓名查看咨询预约记录
      *
      */
     @Override
@@ -179,7 +179,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理查看所有未完成的预约记录（包括各咨询师、各学生）
+     * 描述：心理助理、中心管理员查看所有未完成的预约记录（包括各咨询师、各学生）
      *
      */
     @Override
@@ -190,7 +190,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理根据咨询师的姓名查看所有未完成的预约记录
+     * 描述：心理助理、中心管理员根据咨询师的姓名查看所有未完成的预约记录
      *
      */
     @Override
@@ -201,7 +201,7 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
 
     /**
-     * 描述：心理助理根据学生的姓名查看所有未完成的预约记录
+     * 描述：心理助理、中心管理员根据学生的姓名查看所有未完成的预约记录
      *
      */
     @Override

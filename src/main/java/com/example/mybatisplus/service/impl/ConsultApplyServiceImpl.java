@@ -165,11 +165,13 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
 
         List<ConsultAppointmentRecord> c = new ArrayList<>(8);
         for(int i = 0;i < 8;i++){
-            c.get(i).setSId(sID)
+            ConsultAppointmentRecord cc = new ConsultAppointmentRecord();
+            cc.setSId(sID)
                     .setTpId(tpID)
                     .setLocationId(lID)
                     .setCId(cID)
                     .setDate(date.plusDays(7*i));
+            c.add(cc);
         }
 
         UpdateWrapper<ConsultApply> wrapper = new UpdateWrapper<>();

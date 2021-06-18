@@ -43,20 +43,21 @@
         <!--VO字段-->
         <result column="start_time" property="startTime"/>
         <result column="duration" property="duration"/>
+        <result column="weekday" property="weekday"/>
     </resultMap>
 
     <select id="getUrgentApply" resultMap="VOResultMap">
-        select fa.*,tp.start_time,tp.duration
+        select fa.*,tp.start_time,tp.duration,tp.weekday
         from first_apply fa,time_period tp
         where fa.tp_id = tp.tp_id
-          and fa.score &gt; 75
+          and fa.score &gt;= 75
     </select>
 
     <select id="getNormalApply" resultMap="VOResultMap">
-        select fa.*,tp.start_time,tp.duration
+        select fa.*,tp.start_time,tp.duration,tp.weekday
         from first_apply fa,time_period tp
         where fa.tp_id = tp.tp_id
-          and fa.score &lt;= 75
+          and fa.score &lt; 75
     </select>
 
 </mapper>
