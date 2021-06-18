@@ -36,4 +36,9 @@ public class TimePeriodServiceImpl extends ServiceImpl<TimePeriodMapper, TimePer
         List<TimePeriod> timePeriods = timePeriodMapper.selectList(wrapper);
         return JsonResponse.success(timePeriods,"success!");
     }
+
+    @Override
+    public boolean insertTimePeriod(TimePeriod tp) {
+        return this.save(tp);
+    }
 }
