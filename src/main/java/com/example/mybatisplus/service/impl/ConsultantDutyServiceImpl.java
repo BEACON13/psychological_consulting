@@ -133,26 +133,25 @@ public class ConsultantDutyServiceImpl extends ServiceImpl<ConsultantDutyMapper,
      *
      */
     @Override
-    public JsonResponse alterConsultantDuty(Integer tpID,Long cID,Long lID) {
+    public JsonResponse alterConsultantDuty(Long cdID, Integer tpID,Long cID,Long lID) {
         //查询地点是否冲突
         if(isConflic(tpID,lID))
             return JsonResponse.failure("地点冲突！");
 
         //更新排班表
         UpdateWrapper<ConsultantDuty> wrapper = new UpdateWrapper<>();
-        wrapper.lambda().eq(ConsultantDuty::getTpId,tpID)
-                .eq(ConsultantDuty::getCId,cID)
+        wrapper.lambda().eq(ConsultantDuty::getCdId,cdID)
                 .set(ConsultantDuty::getLocationId,lID);
         consultantDutyMapper.update(null,wrapper);
 
-        //修改该排版对应的未完成的预约
+        //修改该排班对应的未完成的预约
         UpdateWrapper<ConsultAppointmentRecord> wrapper3 = new UpdateWrapper<>();
         wrapper3.lambda().eq(ConsultAppointmentRecord::getCId,cID)
                 .eq(ConsultAppointmentRecord::getTpId,tpID)
                 .eq(ConsultAppointmentRecord::getIsFinished,0)
                 .set(ConsultAppointmentRecord::getLocationId,lID);
         appointmentRecordMapper.update(null,wrapper3);
-        return JsonResponse.successMessage("修改成功,请通知该排版下未完成咨询的同学地点变动!");
+        return JsonResponse.successMessage("修改成功,请通知该排班下未完成咨询的同学地点变动!");
     }
 
 

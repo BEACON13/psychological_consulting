@@ -50,5 +50,39 @@ public class FirstVisitorDutyController {
         return JsonResponse.success(firstVisitorDutyService.getAllFVDuty());
     }
 
+
+    /**
+     * 描述：中心管理员修改初访员排班地点
+     *
+     */
+    @RequestMapping(value = "/admin/alterFVDuty", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse alterFVDuty(@RequestParam("fvd_id")Long fvdID,@RequestParam("tp_id")Integer tpID,
+                                    @RequestParam("fv_id")Long fvID,@RequestParam("l_id")Long lID){
+        return firstVisitorDutyService.alterFVDuty(fvdID,tpID,fvID,lID);
+    }
+
+
+    /**
+     * 描述：中心管理员删除初访员排班
+     *
+     */
+    @RequestMapping(value = "/admin/deleteFVDuty", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse deleteFVDuty(@RequestParam("fvd_id")Long fvdID,@RequestParam("tp_id")Integer tpID,
+                                             @RequestParam("fv_id")Long fvID,@RequestParam("l_id")Long lID){
+        return firstVisitorDutyService.deleteFVDuty(fvdID,tpID,fvID,lID);
+    }
+
+
+    /**
+     * 描述：中心管理员新增初访员排班
+     *
+     */
+    @RequestMapping(value = "/admin/insertFVDuty", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse insertFVDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("fv_id")Long fvID,@RequestParam("l_id")Long lID){
+        return firstVisitorDutyService.insertFVDuty(tpID,fvID,lID);
+    }
 }
 

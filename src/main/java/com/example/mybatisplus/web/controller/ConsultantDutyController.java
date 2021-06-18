@@ -59,8 +59,9 @@ public class ConsultantDutyController {
      */
     @RequestMapping(value = "/admin/alterConDuty", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse alterConsultantDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("c_id")Long cID,@RequestParam("l_id")Long lID){
-        return consultantDutyService.alterConsultantDuty(tpID,cID,lID);
+    public JsonResponse alterConsultantDuty(@RequestParam("cd_id")Long cdID,@RequestParam("tp_id")Integer tpID,
+                                            @RequestParam("c_id")Long cID,@RequestParam("l_id")Long lID){
+        return consultantDutyService.alterConsultantDuty(cdID,tpID,cID,lID);
     }
 
 
@@ -70,7 +71,8 @@ public class ConsultantDutyController {
      */
     @RequestMapping(value = "/admin/deleteConDuty", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse deleteConsultantDuty(@RequestParam("cd_id")Long cdID,@RequestParam("tp_id")Integer tpID,@RequestParam("c_id")Long cID){
+    public JsonResponse deleteConsultantDuty(@RequestParam("cd_id")Long cdID,@RequestParam("tp_id")Integer tpID,
+                                             @RequestParam("c_id")Long cID){
         return consultantDutyService.deleteConsultantDuty(cdID,tpID,cID);
     }
 
@@ -81,7 +83,8 @@ public class ConsultantDutyController {
      */
     @RequestMapping(value = "/admin/insertConDuty", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse insertConsultantDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("weekday")Integer weekday,@RequestParam("c_id")Long cID,@RequestParam("l_id")Long lID){
+    public JsonResponse insertConsultantDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("weekday")Integer weekday,
+                                             @RequestParam("c_id")Long cID,@RequestParam("l_id")Long lID){
         return consultantDutyService.insertConsultantDuty(tpID,weekday,cID,lID);
     }
 }
