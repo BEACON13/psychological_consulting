@@ -5,11 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import com.example.mybatisplus.mapper.ConsultAppointmentRecordMapper;
+import com.example.mybatisplus.model.domain.Location;
+import com.example.mybatisplus.model.domain.Student;
+import com.example.mybatisplus.model.domain.TimePeriod;
 import com.example.mybatisplus.model.vo.ConsultAppointmentRecordVO;
-import com.example.mybatisplus.service.AddConsultService;
-import com.example.mybatisplus.service.ConsultAppointmentRecordService;
+import com.example.mybatisplus.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.mybatisplus.service.ConsultantDutyService;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,13 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
     @Autowired
     AddConsultService addConsultService;
+
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    TimePeriodService timePeriodService;
+    @Autowired
+    LocationService locationService;
 
     /*
     根据咨询师id获取其所有的咨询记录
@@ -302,6 +310,13 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
         if(consultantDutyService.updateFreeTime(tpID,cID,date.plusDays(times* 7L))<=0)
             flag=false;
 
+        //给学生发送邮件
+        Student stu = studentService.getById(sID);
+        TimePeriod tp = timePeriodService.getById(tpID);
+        Location l = locationService.getById(lID);
+        String toUser = stu.getCode() + "@stu.scu.edu.cn";
+        String text = stu.getName() + "同学你好，你已成功追加心理咨询，请于"+date.toString()+"起，每周"+tp.getWeekday().toString()
+                +"的"+tp.getStartTime().toString()+"到达"+l.getLocationName()+"进行咨询,一共"+times.toString()+"周。请准时参加，谢谢！";
         return flag;
     }
 
