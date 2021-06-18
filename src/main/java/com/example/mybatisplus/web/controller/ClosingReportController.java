@@ -143,5 +143,14 @@ public class ClosingReportController {
     public JsonResponse getClosingReportByStuName(@RequestParam("stu_name")String stuName){
         return JsonResponse.success(closingReportService.getAllClosingReportByStuName(stuName));
     }
-}
 
+    /*
+     * 展示所有结案报告
+     * 根据咨询师姓名和学生姓名
+     */
+    @RequestMapping(value = "/admin/show/closingReport/stuAndCon", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getClosingReportByStuName(@RequestParam("stu_name")String stuName, @RequestParam("con_name")String conName){
+        return JsonResponse.success(closingReportService.getAllClosingReportByStuAndConName(conName,stuName));
+    }
+}
