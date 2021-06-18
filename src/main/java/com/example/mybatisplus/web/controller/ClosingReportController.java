@@ -128,6 +128,11 @@ public class ClosingReportController {
      * 展示结案报告
      * 根据咨询师姓名
      */
+    @RequestMapping(value = "/admin/show/closingReport/con", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getClosingReportByConName(@RequestParam("con_name")String conName){
+        return JsonResponse.success(closingReportService.getAllClosingReportByConName(conName));
+    }
 
     /*
      * 展示所有结案报告
