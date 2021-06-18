@@ -53,5 +53,7 @@ public interface ConsultAppointmentRecordService extends IService<ConsultAppoint
     JsonResponse showUnfinishedRecordsByStuName(String StuName);
 
     JsonResponse manageRecords(Map form);
+
+    boolean insertRecords(Map<String,Object> info);
 }
 
