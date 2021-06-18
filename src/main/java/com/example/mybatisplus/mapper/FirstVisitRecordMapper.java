@@ -31,4 +31,6 @@ public interface FirstVisitRecordMapper extends BaseMapper<FirstVisitRecord> {
     List<FirstVisitRecordVO> getRecordByFVName(@Param("name") String name);
 
     List<FirstVisitRecordVO> getRecordByFVNameUnfinished(@Param("name") String name);
+
+    List<FirstVisitRecordVO> getRecordByStuName(@Param("name") String name);
 }

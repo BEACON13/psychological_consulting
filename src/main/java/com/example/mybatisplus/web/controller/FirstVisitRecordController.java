@@ -105,12 +105,21 @@ public class FirstVisitRecordController {
     }
 
     /*
-     * 中心管理员查看根据咨询师姓名查看预约记录
+     * 中心管理员查看根据咨询师姓名查看未完成的预约记录
      */
     @RequestMapping(value="/admin/show/FVRecords/firstVisitor/unfinished",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showFirstVisitRecordsByFirstVisitorUnfinished(@RequestParam("fv_name")String name){
         return JsonResponse.success(firstVisitRecordService.getRecordByFirstVisitorNameUnfinished(name));
+    }
+
+    /*
+     * 中心管理员查看根据学生姓名查看预约记录
+     */
+    @RequestMapping(value="/admin/show/FVRecords/student",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showFirstVisitRecordsByStudentName(@RequestParam("stu_name")String name){
+        return JsonResponse.success(firstVisitRecordService.getRecordByStuName(name));
     }
 
     /*

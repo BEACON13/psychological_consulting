@@ -181,6 +181,15 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         return firstVisitRecordMapper.getRecordByFVNameUnfinished(name);
     }
 
+    /*
+     * 中心管理员通过学生姓名查看初访记录
+     *
+     */
+    @Override
+    public List<FirstVisitRecordVO> getRecordByStuName(String name) {
+        return firstVisitRecordMapper.getRecordByStuName(name);
+    }
+
     /**
      * 描述：获取学生是否拥有申请初访资格
      *

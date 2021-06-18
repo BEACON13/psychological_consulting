@@ -37,4 +37,6 @@ public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
     List<FirstVisitRecordVO> getRecordByFirstVisitorName(String name);
 
     List<FirstVisitRecordVO> getRecordByFirstVisitorNameUnfinished(String name);
+
+    List<FirstVisitRecordVO> getRecordByStuName(String name);
 }
