@@ -27,10 +27,11 @@
         <result column="consultant_name" property="consultantName" />
         <result column="start_time" property="startTime"/>
         <result column="duration" property="duration"/>
+        <result column="weekday" property="weekday"/>
     </resultMap>
 
     <select id="getAllAddConsult" resultMap="VOResultMap">
-        select ac.*,stu.name stu_name,p.name consultant_name,tp.start_time,tp.duration
+        select ac.*,stu.name stu_name,p.name consultant_name,tp.start_time,tp.duration,tp.weekday
         from add_consult ac,student stu,person p,time_period tp
         where ac.s_id = stu.s_id
           and ac.c_id = p.p_id
@@ -38,7 +39,7 @@
     </select>
 
     <select id="getUnfinishedAddConsult" resultMap="VOResultMap">
-        select ac.*,stu.name stu_name,p.name consultant_name,tp.start_time,tp.duration
+        select ac.*,stu.name stu_name,p.name consultant_name,tp.start_time,tp.duration,tp.weekday
         from add_consult ac,student stu,person p,time_period tp
         where ac.s_id = stu.s_id
           and ac.c_id = p.p_id
