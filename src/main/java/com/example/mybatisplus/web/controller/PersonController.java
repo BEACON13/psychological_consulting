@@ -67,7 +67,7 @@ public class PersonController {
     public JsonResponse insertUser(@RequestBody Map<String,Object> info){
         Person person = new Person();
         person.setUsername((String) info.get("username"))
-                .setPassword((String) info.get("password"))
+                .setPassword("12345678")
                 .setName((String) info.get("name"))
                 .setPhone((String) info.get("phone"))
                 .setGender((String) info.get("gender"))

@@ -84,5 +84,15 @@ public class FirstVisitorDutyController {
     public JsonResponse insertFVDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("fv_id")Long fvID,@RequestParam("l_id")Long lID){
         return firstVisitorDutyService.insertFVDuty(tpID,fvID,lID);
     }
+
+    /*
+     * 描述：中心管理员获得某时间段时空闲的初访员
+     *
+     */
+    @RequestMapping(value="admin/availabale/firstVisitor", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getAvailableFVByTimePeriod(@RequestParam("tp_id")Integer tpID){
+        return JsonResponse.success(firstVisitorDutyService.getAvailableFVByTimePeriod(tpID));
+    }
 }
 

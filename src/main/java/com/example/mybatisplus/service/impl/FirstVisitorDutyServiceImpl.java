@@ -34,12 +34,16 @@ public class FirstVisitorDutyServiceImpl extends ServiceImpl<FirstVisitorDutyMap
 
     @Autowired
     FirstVisitorDutyMapper firstVisitorDutyMapper;
+
     @Autowired
     FirstVisitRecordMapper firstVisitRecordMapper;
+
     @Autowired
     PersonMapper personMapper;
+
     @Autowired
     TimePeriodService timePeriodService;
+
 
     @Override
     public List<FirstVisitorDutyVO> getAllFVDuty() {
@@ -155,5 +159,14 @@ public class FirstVisitorDutyServiceImpl extends ServiceImpl<FirstVisitorDutyMap
         UpdateWrapper<FirstVisitorDuty> wrapper = new UpdateWrapper<>();
         wrapper.lambda().set(FirstVisitorDuty::getIsAvailable,1);
         baseMapper.update(null,wrapper);
+    }
+
+    /*
+     * 描述：中心管理员获得某时间段时空闲的初访员
+     *
+     */
+    @Override
+    public List<FirstVisitorDutyVO> getAvailableFVByTimePeriod(int tpId) {
+        return firstVisitorDutyMapper.getAvailableFVDutyInTp(tpId);
     }
 }

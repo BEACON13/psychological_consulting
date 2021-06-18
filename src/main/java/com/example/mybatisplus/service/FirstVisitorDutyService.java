@@ -3,6 +3,7 @@ package com.example.mybatisplus.service;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.FirstVisitorDuty;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.domain.Person;
 import com.example.mybatisplus.model.vo.FirstVisitorDutyVO;
 
 import java.util.List;
@@ -30,4 +31,6 @@ public interface FirstVisitorDutyService extends IService<FirstVisitorDuty> {
     JsonResponse insertFVDuty(Integer fvdID, Long fvID, Long lID);
 
     void refreshDuty();
+
+    List<FirstVisitorDutyVO> getAvailableFVByTimePeriod(int tpId);
 }
