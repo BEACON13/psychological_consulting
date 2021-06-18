@@ -75,12 +75,19 @@ public class AddConsultController {
     @RequestMapping(value = "/admin/insert/apply")
     @ResponseBody
     public JsonResponse insertConsultApply(@RequestBody Map<String,Object> info){
-        return JsonResponse.success(consultAppointmentRecordService.insertRecords(info));
+        consultAppointmentRecordService.insertRecords(info);
+        return JsonResponse.successMessage("插入成功");
     }
 
     /*
      * 中心管理员拒绝追加申请
      */
-
+    @RequestMapping(value = "/admin/reject/apply", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse rejectConsultApply(@RequestParam("add_consult_id") Long id){
+        return addConsultService.finishAdd(id)>0 ?
+                JsonResponse.successMessage("拒绝成功"):
+                JsonResponse.failure("拒绝出错");
+    }
 }
 

@@ -262,7 +262,9 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
      * 插入record
      */
     @Override
-    public int insertRecords(Map<String, Object> info) {
+    public boolean insertRecords(Map<String, Object> info) {
+
+        boolean flag=true;
 
         //获得建立咨询预约需要的数据
         Long sID = Long.parseLong(info.get("s_id").toString());
@@ -293,12 +295,14 @@ public class ConsultAppointmentRecordServiceImpl extends ServiceImpl<ConsultAppo
 
         //将apply置为完成状态
         Long addConsultId = Long.parseLong(info.get("add_consult_id").toString());
-        addConsultService.finishAdd(addConsultId);
+        if(addConsultService.finishAdd(addConsultId)<=0)
+            flag=false;
 
         //更新咨询师的空闲日期
-        consultantDutyService.updateFreeTime(tpID,cID,date.plusDays(times* 7L));
+        if(consultantDutyService.updateFreeTime(tpID,cID,date.plusDays(times* 7L))<=0)
+            flag=false;
 
-        return 0;
+        return flag;
     }
 
 }
