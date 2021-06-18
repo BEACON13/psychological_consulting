@@ -1,6 +1,8 @@
 package com.example.mybatisplus.web.controller;
 
 import com.example.mybatisplus.common.utls.SecurityUtils;
+import com.example.mybatisplus.model.domain.ViewPDF;
+import com.example.mybatisplus.model.vo.ClosingReportVO;
 import com.example.mybatisplus.service.ConsultAppointmentRecordService;
 import com.example.mybatisplus.service.ConsultAppointmentReportService;
 import com.example.mybatisplus.service.StudentService;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.ClosingReportService;
 import com.example.mybatisplus.model.domain.ClosingReport;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -152,5 +157,18 @@ public class ClosingReportController {
     @ResponseBody
     public JsonResponse getClosingReportByStuName(@RequestParam("stu_name")String stuName, @RequestParam("con_name")String conName){
         return JsonResponse.success(closingReportService.getAllClosingReportByStuAndConName(conName,stuName));
+    }
+
+    /**
+     * 描述：打印结案报告
+     *
+     */
+    @RequestMapping(value = "/admin/printPDF")
+    @ResponseBody
+    public JsonResponse printPDF(){
+        List<ClosingReportVO> allClosingReport = closingReportService.getAllClosingReport();
+        Map<String, Object> model = new HashMap<>();
+        model.put("sheet",allClosingReport);
+        return JsonResponse.success(new ModelAndView(new ViewPDF(), model),"success");
     }
 }
