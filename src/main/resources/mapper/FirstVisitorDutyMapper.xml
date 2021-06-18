@@ -46,4 +46,15 @@
           and fvd.is_available = 1
     </select>
 
+    <!--查看某时间段下空闲排班-->
+    <select id="getAvailableFVDutyInTp" resultMap="VOResultMap">
+        select fvd.*,tp.start_time,tp.duration,loc.location_name,p.name
+        from first_visitor_duty fvd,time_period tp,location loc,person p
+        where fvd.tp_id = tp.tp_id
+          and fvd.location_id = loc.location_id
+          and fvd.fv_id = p.p_id
+          and fvd.is_available = 1
+          and fvd.tp_id=#{tp_id}
+    </select>
+
 </mapper>
