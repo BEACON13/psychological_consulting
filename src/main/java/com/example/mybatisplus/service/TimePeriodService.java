@@ -15,4 +15,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface TimePeriodService extends IService<TimePeriod> {
 
     JsonResponse getTimePeriod();
+
+    boolean insertTimePeriod(TimePeriod tp);
+
+    boolean updateTimePeriod(TimePeriod tp);
+
+    int deleteTimePeriod(Long tpId);
 }

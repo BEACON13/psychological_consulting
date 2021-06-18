@@ -10,6 +10,11 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.TimePeriodService;
 import com.example.mybatisplus.model.domain.TimePeriod;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
 
 /**
  *
@@ -38,5 +43,35 @@ public class TimePeriodController {
     public JsonResponse getTimePeriod(){
         return timePeriodService.getTimePeriod();
     }
+
+    /*
+     * 插入新时间段
+     */
+    @RequestMapping(value="admin/insert/timePeriod")
+    @ResponseBody
+    public JsonResponse insertTimePeriod(@RequestBody Map<String,Object> info){
+        TimePeriod tp = new TimePeriod();
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm:ss");
+        tp.setStartTime(LocalTime.parse((String) info.get("startTime"),df))
+                .setDuration((Integer) info.get("duration"))
+                .setWeekday((Integer) info.get("weekday"));
+
+        return timePeriodService.insertTimePeriod(tp)?
+                JsonResponse.successMessage("插入成功"):
+                JsonResponse.failure("插入出错");
+    }
+
+    /*
+     * 删除时间段
+     *
+     */
+    @RequestMapping(value="admin/delete/timePeriod")
+    @ResponseBody
+    public JsonResponse deleteTimePeriod(@RequestParam("tp_id")Long tpId){
+        return timePeriodService.deleteTimePeriod(tpId)>0?
+                JsonResponse.successMessage("删除成功"):
+                JsonResponse.failure("删除失败");
+    }
+
 }
 
