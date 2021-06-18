@@ -33,4 +33,6 @@ public class AddConsultVO {
 
     private Integer duration;
 
+    private Integer weekday;
+
 }
