@@ -41,5 +41,24 @@ public class AddConsultController {
 
         return addConsultService.addConsultTP(form);
     }
+
+    /*
+     * 中心管理员查看所有追加申请
+     */
+    @RequestMapping(value = "/admin/showAddApply/all", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showAllAddApply(){
+        return JsonResponse.success(addConsultService.getAllAddConsult());
+    }
+
+    /*
+     * 中心管理员查看未完成的追加申请
+     */
+    @RequestMapping(value = "/admin/showAddApply/unfinished", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showUnfinishedAddApply(){
+        return JsonResponse.success(addConsultService.getUnfinishedAddConsult());
+    }
+
 }
 
