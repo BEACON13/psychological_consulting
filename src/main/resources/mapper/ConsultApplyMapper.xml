@@ -38,18 +38,21 @@
 
         <result column="startTime1" property="startTime1"/>
         <result column="duration1" property="duration1"/>
+        <result column="weekday1" property="weekday1"/>
         <result column="startTime2" property="startTime2"/>
         <result column="duration2" property="duration2"/>
+        <result column="weekday2" property="weekday2"/>
         <result column="startTime3" property="startTime3"/>
         <result column="duration3" property="duration3"/>
+        <result column="weekday3" property="weekday3"/>
     </resultMap>
 
 
     <!--心理助理查看所有申请-->
     <select id="showAllApplies" resultMap="VOResultMap">
-        select ca.*,tp1.start_time startTime1,tp1.duration duration1,
-	        tp2.start_time startTime2,tp2.duration duration2,
-	        tp3.start_time startTime3,tp3.duration duration3
+        select ca.*,tp1.start_time startTime1,tp1.duration duration1,tp1.weekday weekday1
+	        tp2.start_time startTime2,tp2.duration duration2,tp2.weekday weekday2
+	        tp3.start_time startTime3,tp3.duration duration3,tp3.weekday weekday3
         from consult_apply ca, time_period tp1,time_period tp2,time_period tp3
         where tp1.tp_id = ca.tp_id1
 	        and tp2.tp_id = ca.tp_id2
@@ -58,9 +61,9 @@
 
     <!--心理助理根据学生姓名查询申请-->
     <select id="showApplyByStuName" resultMap="VOResultMap">
-        select ca.*,tp1.start_time startTime1,tp1.duration duration1,
-	        tp2.start_time startTime2,tp2.duration duration2,
-	        tp3.start_time startTime3,tp3.duration duration3
+        select ca.*,tp1.start_time startTime1,tp1.duration duration1,tp1.weekday weekday1
+	        tp2.start_time startTime2,tp2.duration duration2,tp2.weekday weekday2
+	        tp3.start_time startTime3,tp3.duration duration3,tp3.weekday weekday3
         from consult_apply ca, time_period tp1,time_period tp2,time_period tp3
         where tp1.tp_id = ca.tp_id1
 	        and tp2.tp_id = ca.tp_id2
@@ -70,9 +73,9 @@
 
     <!--心理助理查看所有未完成的申请-->
     <select id="showUnfinishedApplies" resultMap="VOResultMap">
-        select ca.*,tp1.start_time startTime1,tp1.duration duration1,
-	        tp2.start_time startTime2,tp2.duration duration2,
-	        tp3.start_time startTime3,tp3.duration duration3
+        select ca.*,tp1.start_time startTime1,tp1.duration duration1,tp1.weekday weekday1
+	        tp2.start_time startTime2,tp2.duration duration2,tp2.weekday weekday2
+	        tp3.start_time startTime3,tp3.duration duration3,tp3.weekday weekday3
         from consult_apply ca, time_period tp1,time_period tp2,time_period tp3
         where tp1.tp_id = ca.tp_id1
 	        and tp2.tp_id = ca.tp_id2
@@ -83,9 +86,9 @@
 
     <!--心理助理根据学生姓名查询未完成申请-->
     <select id="showUnfinishedApplyByStuName" resultMap="VOResultMap">
-        select ca.*,tp1.start_time startTime1,tp1.duration duration1,
-	        tp2.start_time startTime2,tp2.duration duration2,
-	        tp3.start_time startTime3,tp3.duration duration3
+        select ca.*,tp1.start_time startTime1,tp1.duration duration1,tp1.weekday weekday1
+	        tp2.start_time startTime2,tp2.duration duration2,tp2.weekday weekday2
+	        tp3.start_time startTime3,tp3.duration duration3,tp3.weekday weekday3
         from consult_apply ca, time_period tp1,time_period tp2,time_period tp3
         where tp1.tp_id = ca.tp_id1
 	        and tp2.tp_id = ca.tp_id2
