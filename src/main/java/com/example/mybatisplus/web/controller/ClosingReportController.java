@@ -164,8 +164,8 @@ public class ClosingReportController {
      */
     @RequestMapping(value = "/admin/printPDF")
     @ResponseBody
-    public void printPDF() throws Exception {
+    public JsonResponse printPDF() throws Exception {
         List<ClosingReportVO> allClosingReport = closingReportService.getAllClosingReport();
-        pdfService.generatePDF(allClosingReport);
+        return pdfService.generatePDF(allClosingReport);
     }
 }
