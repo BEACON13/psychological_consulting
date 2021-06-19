@@ -10,6 +10,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.FirstVisitorDutyService;
 import com.example.mybatisplus.model.domain.FirstVisitorDuty;
 
+import java.util.Map;
+
 
 /**
  *
@@ -55,10 +57,13 @@ public class FirstVisitorDutyController {
      * 描述：中心管理员修改初访员排班地点
      *
      */
-    @RequestMapping(value = "/admin/alterFVDuty", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/alterFVDuty")
     @ResponseBody
-    public JsonResponse alterFVDuty(@RequestParam("fvd_id")Long fvdID,@RequestParam("tp_id")Integer tpID,
-                                    @RequestParam("fv_id")Long fvID,@RequestParam("l_id")Long lID){
+    public JsonResponse alterFVDuty(@RequestBody Map form){
+        Long fvdID = Long.parseLong(form.get("fvd_id").toString());
+        Integer tpID = (Integer)form.get("tp_id");
+        Long fvID = Long.parseLong(form.get("fv_id").toString());
+        Long lID = Long.parseLong(form.get("l_id").toString());
         return firstVisitorDutyService.alterFVDuty(fvdID,tpID,fvID,lID);
     }
 
