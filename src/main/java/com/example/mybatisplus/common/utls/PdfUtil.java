@@ -2,10 +2,7 @@ package com.example.mybatisplus.common.utls;
 
 
 import com.example.mybatisplus.model.vo.ClosingReportVO;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.Phrase;
+import com.lowagie.text.*;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -16,8 +13,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class PdfUtil {
-    public void createPDF(Document document, PdfWriter writer, List<ClosingReportVO> reports) throws IOException {
-        //Document document = new Document(PageSize.A4);
+    public void createPDF(Document document1, PdfWriter writer, List<ClosingReportVO> reports) throws IOException {
+        Document document = new Document(PageSize.A4);
         try {
             document.addTitle("结案报告");
             document.addAuthor("kristy");
