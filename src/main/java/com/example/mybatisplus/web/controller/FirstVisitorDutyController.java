@@ -86,7 +86,7 @@ public class FirstVisitorDutyController {
      * 描述：中心管理员新增初访员排班
      *
      */
-    @RequestMapping(value = "/admin/insertFVDuty", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/insertFVDuty")
     @ResponseBody
     public JsonResponse insertFVDuty(@RequestBody Map form){
         Integer tpID = (Integer)form.get("tp_id");

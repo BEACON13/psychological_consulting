@@ -34,7 +34,7 @@ public class PdfServiceImpl implements PdfService {
     public JsonResponse generatePDF(List<ClosingReportVO> reports) throws Exception{
 
         // 生成文件位置
-        String filename = "src/main/resources/pdf/" + formatTimeStr2 + ".pdf";
+        String filename = "D:/" + formatTimeStr2 + ".pdf";
         Document document = new Document(PageSize.A4);  // 生成是A4纸
         PdfWriter.getInstance(document, new FileOutputStream(filename));
         document.addTitle("这是PDF标题");
@@ -56,16 +56,16 @@ public class PdfServiceImpl implements PdfService {
 
         Font font = new Font(BaseFont.createFont( "STSongStd-Light" ,"UniGB-UCS2-H",BaseFont.NOT_EMBEDDED));
         font.setSize(7);
-        PdfPTable table = new PdfPTable(10);
+        PdfPTable table = new PdfPTable(16);
         // 结案报告标题  第一行
         PdfPCell cell1 = new PdfPCell(new Phrase("结案报告", font));
-        cell1.setColspan(16);
+        cell1.setColspan(18);
         setStyle(cell1);
         table.addCell(cell1);
 
         // 结案报告ID: 第二行
         PdfPCell cell2 = new PdfPCell(new Phrase("结案报告ID:", font));
-        cell2.setColspan(1);
+        cell2.setColspan(2);
         setStyle(cell2);
         table.addCell(cell2);
 
@@ -89,7 +89,7 @@ public class PdfServiceImpl implements PdfService {
 
         // 咨询次数 第二行
         PdfPCell cell6 = new PdfPCell(new Phrase("咨询次数:",font));
-        cell6.setColspan(1);
+        cell6.setColspan(2);
         setStyle(cell6);
         table.addCell(cell6);
 
@@ -102,38 +102,38 @@ public class PdfServiceImpl implements PdfService {
         // 根据自己业务封装数据
         for (ClosingReportVO r : reports) {
             PdfPCell cell19 = new PdfPCell(new Phrase(r.getClosingReportId().toString(), font));
-            cell19.setColspan(1);    // 占几列
+            cell19.setColspan(2);    // 占几列
             cell19.setRowspan(1);    // 占几行
             setStyle(cell19);
             table.addCell(cell19);
 
             PdfPCell cell20 = new PdfPCell(new Phrase(r.getStuName(), font));
-            cell19.setColspan(2);    // 占几列
-            cell19.setRowspan(1);    // 占几行
+            cell20.setColspan(2);    // 占几列
+            cell20.setRowspan(1);    // 占几行
             setStyle(cell20);
             table.addCell(cell20);
 
             PdfPCell cell21 = new PdfPCell(new Phrase(r.getConsultantName(), font));
-            cell19.setColspan(2);    // 占几列
-            cell19.setRowspan(1);    // 占几行
+            cell21.setColspan(2);    // 占几列
+            cell21.setRowspan(1);    // 占几行
             setStyle(cell21);
             table.addCell(cell21);
 
             PdfPCell cell22 = new PdfPCell(new Phrase(r.getProblemType(), font));
-            cell19.setColspan(2);    // 占几列
-            cell19.setRowspan(1);    // 占几行
+            cell22.setColspan(2);    // 占几列
+            cell22.setRowspan(1);    // 占几行
             setStyle(cell22);
             table.addCell(cell22);
 
             PdfPCell cell23 = new PdfPCell(new Phrase(r.getConsultNum().toString(), font));
-            cell19.setColspan(1);    // 占几列
-            cell19.setRowspan(1);    // 占几行
+            cell23.setColspan(2);    // 占几列
+            cell23.setRowspan(1);    // 占几行
             setStyle(cell23);
             table.addCell(cell23);
 
             PdfPCell cell24 = new PdfPCell(new Phrase(r.getConsultEffectSelf(), font));
-            cell19.setColspan(8);    // 占几列
-            cell19.setRowspan(1);    // 占几行
+            cell24.setColspan(8);    // 占几列
+            cell24.setRowspan(1);    // 占几行
             setStyle(cell24);
             table.addCell(cell24);
         }
