@@ -159,13 +159,37 @@ public class ClosingReportController {
     }
 
     /**
-     * 描述：打印结案报告
+     * 描述：打印全部结案报告
      *
      */
-    @RequestMapping(value = "/admin/printPDF")
+    @RequestMapping(value = "/admin/printAllPDF")
     @ResponseBody
-    public JsonResponse printPDF() throws Exception {
+    public JsonResponse printAllPDF() throws Exception {
         List<ClosingReportVO> allClosingReport = closingReportService.getAllClosingReport();
         return pdfService.generatePDF(allClosingReport);
+    }
+
+
+    /**
+     * 描述：根据咨询师姓名打印结案报告
+     *
+     */
+    @RequestMapping(value = "/admin/printPDFByCon")
+    @ResponseBody
+    public JsonResponse printPDFByCon(@RequestParam("con_name")String conName) throws Exception {
+        List<ClosingReportVO> allClosingReportByConName = closingReportService.getAllClosingReportByConName(conName);
+        return pdfService.generatePDF(allClosingReportByConName);
+    }
+
+
+    /**
+     * 描述：根据学生姓名打印结案报告
+     *
+     */
+    @RequestMapping(value = "/admin/printPDFByStu")
+    @ResponseBody
+    public JsonResponse printPDFByStu(@RequestParam("stu_name")String stuName) throws Exception {
+        List<ClosingReportVO> allClosingReportByStuName = closingReportService.getAllClosingReportByStuName(stuName);
+        return pdfService.generatePDF(allClosingReportByStuName);
     }
 }
