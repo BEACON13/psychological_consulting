@@ -22,4 +22,6 @@ public interface FirstApplyService extends IService<FirstApply> {
     List<FirstApplyVO> getUrgentApply();
 
     List<FirstApplyVO> getNormalApply();
+
+    int finishFirstApply(Long firstApplyId);
 }

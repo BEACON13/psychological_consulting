@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.service.FirstApplyService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class FirstVisitRecordController {
 
     @Autowired
     private FirstVisitRecordService firstVisitRecordService;
+
+    @Autowired
+    private FirstApplyService firstApplyService;
 
     /**
      * 描述：显示该初访员未完成的初访预约
@@ -165,6 +169,10 @@ public class FirstVisitRecordController {
                 .setFvId(Long.parseLong(info.get("fvId").toString()));
                 //.setDate(LocalDate.parse((String)info.get("date"),
                 //        DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        //将对应的first apply设置为完成状态
+        firstApplyService.finishFirstApply(
+                Long.parseLong(info.get("firstApplyId").toString()));
 
         return firstVisitRecordService.insertFVRecord(record)>0?
                 JsonResponse.successMessage("插入完成"):
