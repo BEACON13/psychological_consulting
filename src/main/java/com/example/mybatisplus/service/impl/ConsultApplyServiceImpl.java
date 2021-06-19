@@ -11,6 +11,7 @@ import com.example.mybatisplus.model.vo.ConsultApplyVO;
 import com.example.mybatisplus.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -89,11 +90,19 @@ public class ConsultApplyServiceImpl extends ServiceImpl<ConsultApplyMapper, Con
 
         List<FirstApply> firstApplyByStu = firstApplyService.getFirstApplyByStu(id);
         int n = firstApplyByStu.size();
-        FirstApply f = firstApplyByStu.get(n-1);
+        FirstApply f;
+        if(n>0)
+            f = firstApplyByStu.get(n-1);
+        else
+            f = null;
 
         List<FirstVisitReport> fvReportsBySId = firstVisitReportService.getFVReportsBySId(id);
         int m = fvReportsBySId.size();
-        FirstVisitReport fvr = fvReportsBySId.get(m-1);
+        FirstVisitReport fvr;
+        if(m>0)
+           fvr = fvReportsBySId.get(m-1);
+        else
+            fvr = null;
 
         ConsultApply consultApply = new ConsultApply();
         consultApply.setSId(id)

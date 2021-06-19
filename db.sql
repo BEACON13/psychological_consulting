@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 16/06/2021 17:55:34
+ Date: 19/06/2021 19:03:08
 */
 
 SET NAMES utf8mb4;
@@ -33,12 +33,13 @@ CREATE TABLE `add_consult`  (
   INDEX `FK_stu_add_consult`(`s_id`) USING BTREE,
   CONSTRAINT `FK_Reference_35` FOREIGN KEY (`c_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_stu_add_consult` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of add_consult
 -- ----------------------------
 BEGIN;
+INSERT INTO `add_consult` VALUES (3, 4, 5, 1, 3, 0);
 COMMIT;
 
 -- ----------------------------
@@ -99,7 +100,7 @@ CREATE TABLE `consult_apply`  (
 -- Records of consult_apply
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 1, 6, 7, 8, 1), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8, 1), (4, 4, '李小萌', '19987209803', '江安小区', '15528907543', '中', '抑郁', 1, 8, 15, 8, 0);
+INSERT INTO `consult_apply` VALUES (1, 1, '范若曦', '15529080856', '四川大学江安校区', '13289075672', '中', '焦虑', 1, 6, 7, 8, 1), (2, 2, '王琳', '13256783961', '郫都西路', '18765097314', '轻', '社交恐惧症', 8, 9, 10, 8, 1), (4, 4, '李小萌', '19987209803', '江安小区', '15528907543', '中', '抑郁', 1, 8, 15, 8, 1);
 COMMIT;
 
 -- ----------------------------
@@ -124,13 +125,13 @@ CREATE TABLE `consult_appointment_record`  (
   CONSTRAINT `FK_Reference_28` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_29` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_stu_consult_appoint` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of consult_appointment_record
 -- ----------------------------
 BEGIN;
-INSERT INTO `consult_appointment_record` VALUES (1, 1, 1, 3, 1, 0, '2020-06-08', 1), (2, 1, 1, 3, 1, 0, '2020-06-15', 1), (3, 1, 1, 3, 1, 0, '2020-06-22', 1), (4, 1, 1, 3, 1, 0, '2020-06-29', 1), (5, 1, 1, 3, 1, 0, '2020-07-06', 1), (6, 1, 1, 3, 1, 0, '2020-07-13', 1), (7, 1, 1, 3, 1, 0, '2020-07-13', 1), (8, 1, 1, 3, 1, 0, '2020-07-20', 1), (9, 2, 8, 5, 5, 0, '2021-05-17', 1), (10, 2, 8, 5, 5, 0, '2021-05-24', 1), (11, 2, 8, 3, 5, 0, '2021-05-31', 1), (12, 2, 8, 5, 5, 0, '2021-06-07', 1), (13, 2, 8, 5, 5, 0, '2021-06-14', 0), (14, 2, 8, 3, 5, 0, '2021-06-21', 0), (15, 2, 8, 5, 5, 0, '2021-06-28', 0), (16, 2, 8, 5, 5, 0, '2021-07-05', 0);
+INSERT INTO `consult_appointment_record` VALUES (1, 1, 1, 3, 1, 0, '2020-06-08', 1), (2, 1, 1, 3, 1, 0, '2020-06-15', 1), (3, 1, 1, 3, 1, 0, '2020-06-22', 1), (4, 1, 1, 3, 1, 0, '2020-06-29', 1), (5, 1, 1, 3, 1, 0, '2020-07-06', 1), (6, 1, 1, 3, 1, 0, '2020-07-13', 1), (7, 1, 1, 3, 1, 0, '2020-07-13', 1), (8, 1, 1, 3, 1, 0, '2020-07-20', 1), (9, 2, 8, 5, 5, 0, '2021-05-17', 1), (10, 2, 8, 5, 5, 0, '2021-05-24', 1), (11, 2, 8, 3, 5, 0, '2021-05-31', 1), (12, 2, 8, 5, 5, 0, '2021-06-07', 1), (13, 2, 8, 5, 5, 0, '2021-06-14', 0), (14, 2, 8, 5, 5, 0, '2021-06-21', 0), (15, 2, 8, 5, 5, 0, '2021-06-28', 0), (16, 2, 8, 5, 5, 0, '2021-07-05', 0), (58, 4, 1, 4, 5, 0, '2021-06-21', 0), (59, 4, 1, 4, 5, 0, '2021-06-28', 0), (60, 4, 1, 4, 5, 0, '2021-07-05', 0), (61, 4, 1, 4, 5, 0, '2021-07-12', 0), (62, 4, 1, 4, 5, 0, '2021-07-19', 0), (63, 4, 1, 4, 5, 0, '2021-07-26', 0), (64, 4, 1, 4, 5, 0, '2021-08-02', 0), (65, 4, 1, 4, 5, 0, '2021-08-09', 0);
 COMMIT;
 
 -- ----------------------------
@@ -180,13 +181,13 @@ CREATE TABLE `consultant_duty`  (
   CONSTRAINT `FK_consultant_loc` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_33` FOREIGN KEY (`c_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_time_cd` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of consultant_duty
 -- ----------------------------
 BEGIN;
-INSERT INTO `consultant_duty` VALUES (1, 1, 3, 1, '2021-06-14'), (2, 2, 3, 1, '2021-06-14'), (3, 3, 3, 1, '2021-06-14'), (4, 4, 3, 1, '2021-06-14'), (5, 1, 4, 5, '2021-06-14'), (6, 2, 4, 5, '2021-06-14'), (7, 3, 4, 5, '2021-06-14'), (8, 4, 4, 5, '2021-06-14'), (9, 5, 3, 1, '2021-06-15'), (10, 6, 3, 1, '2021-06-15'), (11, 7, 5, 5, '2021-06-15'), (12, 8, 5, 5, '2021-07-13'), (13, 9, 4, 5, '2021-06-16'), (14, 10, 4, 5, '2021-06-16'), (15, 11, 3, 1, '2021-06-16'), (16, 12, 3, 1, '2021-06-16'), (17, 13, 3, 1, '2021-06-17'), (18, 14, 3, 1, '2021-06-17'), (19, 15, 3, 1, '2021-06-17'), (20, 16, 3, 1, '2021-06-17'), (21, 15, 4, 5, '2021-06-17'), (22, 16, 4, 5, '2021-06-17'), (23, 17, 5, 5, '2021-06-18'), (24, 18, 5, 5, '2021-06-18'), (25, 19, 5, 5, '2021-06-18'), (26, 20, 5, 5, '2021-06-18'), (27, 19, 4, 1, '2021-06-18'), (28, 20, 4, 1, '2021-06-18');
+INSERT INTO `consultant_duty` VALUES (1, 1, 3, 1, '2021-06-21'), (2, 2, 3, 1, '2021-06-14'), (3, 3, 3, 1, '2021-06-14'), (4, 4, 3, 1, '2021-06-14'), (5, 1, 4, 5, '2021-08-16'), (6, 2, 4, 5, '2021-06-14'), (7, 3, 4, 5, '2021-06-14'), (8, 4, 4, 5, '2021-06-14'), (9, 5, 3, 1, '2021-06-15'), (10, 6, 3, 1, '2021-06-15'), (11, 7, 5, 5, '2021-06-15'), (12, 8, 5, 5, '2021-07-13'), (13, 9, 4, 5, '2021-06-16'), (14, 10, 4, 5, '2021-06-16'), (15, 11, 3, 1, '2021-06-16'), (16, 12, 3, 1, '2021-06-16'), (17, 13, 3, 1, '2021-06-17'), (18, 14, 3, 1, '2021-06-17'), (19, 15, 3, 1, '2021-06-17'), (20, 16, 3, 1, '2021-06-17'), (21, 15, 4, 5, '2021-06-17'), (22, 16, 4, 5, '2021-06-17'), (23, 17, 5, 5, '2021-06-18'), (24, 18, 5, 5, '2021-06-18'), (25, 19, 5, 5, '2021-06-18'), (26, 20, 5, 5, '2021-06-18'), (27, 19, 4, 1, '2021-06-18'), (28, 20, 4, 1, '2021-06-18');
 COMMIT;
 
 -- ----------------------------
@@ -245,7 +246,7 @@ CREATE TABLE `first_visit_record`  (
   CONSTRAINT `FK_Reference_25` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_32` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_stu_fvr` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of first_visit_record
@@ -303,7 +304,7 @@ CREATE TABLE `first_visitor_duty`  (
   CONSTRAINT `FK_fv_loc` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_fvd_time` FOREIGN KEY (`tp_id`) REFERENCES `time_period` (`tp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Reference_31` FOREIGN KEY (`fv_id`) REFERENCES `person` (`p_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of first_visitor_duty
@@ -393,13 +394,13 @@ CREATE TABLE `student`  (
   `is_qualified` tinyint(1) NULL DEFAULT NULL,
   `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`s_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '学生表';
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '学生表';
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
 BEGIN;
-INSERT INTO `student` VALUES (1, '2018141411216', '范若曦', '15529080856', '软件学院', 2018, '女', '2000-05-16', 0, '123'), (2, '2017151638792', '王琳', '13256783961', '经济学院', 2017, '女', '1999-03-11', 1, '123456'), (3, '2019151663516', '张达', '18976280862', '数学学院', 2019, '男', '2001-06-10', 0, '123'), (4, '2020151637823', '李小萌', '19987209803', '计算机学院', 2020, '女', '2002-04-27', 1, '123'), (5, '2019151728901', '王鹏', '13289074892', '化学学院', 2019, '男', '2000-01-12', 0, '123'), (6, '2018141463095', '张锋', '15598370973', '电子信息学院', 2018, '男', '2000-11-22', 0, '123'), (7, '2017131878972', '李雯雯', '19878047823', '文学与新闻学院', 2017, '女', '1999-04-08', 0, '123');
+INSERT INTO `student` VALUES (1, '2018141411216', '范若曦', '15529080856', '软件学院', 2018, '女', '2000-05-16', 0, '123'), (2, '2017151638792', '王琳', '13256783961', '经济学院', 2017, '女', '1999-03-11', 1, '123456'), (3, '2019151663516', '张达', '18976280862', '数学学院', 2019, '男', '2001-06-10', 0, '123'), (4, '2018141411396', '李小萌', '19987209803', '计算机学院', 2020, '女', '2002-04-27', 1, '123'), (5, '2019151728901', '王鹏', '13289074892', '化学学院', 2019, '男', '2000-01-12', 0, '123'), (6, '2018141463095', '张锋', '15598370973', '电子信息学院', 2018, '男', '2000-11-22', 0, '123'), (7, '2017131878972', '李雯雯', '19878047823', '文学与新闻学院', 2017, '女', '1999-04-08', 0, '123'), (8, '2018141411396', '毛毛', '13736665310', '软件学院', 2018, '女', '2000-04-29', 0, '3777');
 COMMIT;
 
 -- ----------------------------
@@ -419,7 +420,7 @@ CREATE TABLE `time_period`  (
 -- Records of time_period
 -- ----------------------------
 BEGIN;
-INSERT INTO `time_period` VALUES (1, '08:00:00', 60, 1, 0), (2, '10:00:00', 60, 1, 0), (3, '14:00:00', 60, 1, 0), (4, '16:00:00', 60, 1, 0), (5, '08:00:00', 60, 2, 0), (6, '10:00:00', 60, 2, 0), (7, '14:00:00', 60, 2, 0), (8, '16:00:00', 60, 2, 0), (9, '08:00:00', 60, 3, 0), (10, '10:00:00', 60, 3, 0), (11, '14:00:00', 60, 3, 0), (12, '16:00:00', 60, 3, 0), (13, '08:00:00', 60, 4, 0), (14, '10:00:00', 60, 4, 0), (15, '14:00:00', 60, 4, 0), (16, '16:00:00', 60, 4, 0), (17, '08:00:00', 60, 5 ,0), (18, '10:00:00', 60, 5, 0), (19, '14:00:00', 60, 5, 0), (20, '16:00:00', 60, 5, 0);
+INSERT INTO `time_period` VALUES (1, '08:00:00', 60, 1, 0), (2, '10:00:00', 60, 1, 0), (3, '14:00:00', 60, 1, 0), (4, '16:00:00', 60, 1, 0), (5, '08:00:00', 60, 2, 0), (6, '10:00:00', 60, 2, 0), (7, '14:00:00', 60, 2, 0), (8, '16:00:00', 60, 2, 0), (9, '08:00:00', 60, 3, 0), (10, '10:00:00', 60, 3, 0), (11, '14:00:00', 60, 3, 0), (12, '16:00:00', 60, 3, 0), (13, '08:00:00', 60, 4, 0), (14, '10:00:00', 60, 4, 0), (15, '14:00:00', 60, 4, 0), (16, '16:00:00', 60, 4, 0), (17, '08:00:00', 60, 5, 0), (18, '10:00:00', 60, 5, 0), (19, '14:00:00', 60, 5, 0), (20, '16:00:00', 60, 5, 0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
