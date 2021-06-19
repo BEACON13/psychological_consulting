@@ -51,6 +51,7 @@
         from first_apply fa,time_period tp
         where fa.tp_id = tp.tp_id
           and fa.score &gt;= 75
+          and fa.is_finished = 0
     </select>
 
     <select id="getNormalApply" resultMap="VOResultMap">
@@ -58,6 +59,7 @@
         from first_apply fa,time_period tp
         where fa.tp_id = tp.tp_id
           and fa.score &lt; 75
+          and fa.is_finished = 0
     </select>
 
 </mapper>
