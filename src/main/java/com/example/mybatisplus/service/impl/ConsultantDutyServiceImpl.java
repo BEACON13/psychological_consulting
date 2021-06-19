@@ -25,8 +25,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -109,7 +111,10 @@ public class ConsultantDutyServiceImpl extends ServiceImpl<ConsultantDutyMapper,
     @Override
     public JsonResponse showConsultantDuty() {
         List<ConsultantDutyVO> consultantDutyVOS = consultantDutyMapper.showConsultantDuty();
-        return JsonResponse.success(consultantDutyVOS,"success!");
+        List<ConsultantDutyVO> listsort = consultantDutyVOS.stream()
+                .sorted(Comparator.comparing(ConsultantDutyVO::getWeekday).thenComparing(ConsultantDutyVO::getStartTime))
+                .collect(Collectors.toList());
+        return JsonResponse.success(listsort,"success!");
     }
 
 
