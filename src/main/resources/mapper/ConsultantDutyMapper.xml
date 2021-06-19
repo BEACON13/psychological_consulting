@@ -41,7 +41,7 @@
 
     <!--显示所有咨询师排版-->
     <select id="showConsultantDuty" resultMap="VOResultMap">
-        select cd.*,tp.start_time,tp.duration,tp,weekday,l.location_name,p.name
+        select cd.*,tp.start_time,tp.duration,tp.weekday,l.location_name,p.name
         from consultant_duty cd,time_period tp,location l,person p
         where cd.tp_id = tp.tp_id
             and cd.location_id = l.location_id
