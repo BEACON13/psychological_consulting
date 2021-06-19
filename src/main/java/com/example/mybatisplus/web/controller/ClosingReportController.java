@@ -1,11 +1,8 @@
 package com.example.mybatisplus.web.controller;
 
 import com.example.mybatisplus.common.utls.SecurityUtils;
-import com.example.mybatisplus.model.domain.ViewPDF;
 import com.example.mybatisplus.model.vo.ClosingReportVO;
-import com.example.mybatisplus.service.ConsultAppointmentRecordService;
-import com.example.mybatisplus.service.ConsultAppointmentReportService;
-import com.example.mybatisplus.service.StudentService;
+import com.example.mybatisplus.service.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -13,9 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
-import com.example.mybatisplus.service.ClosingReportService;
 import com.example.mybatisplus.model.domain.ClosingReport;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +44,9 @@ public class ClosingReportController {
 
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
+
+    @Autowired
+    private PdfService pdfService;
 
 
     /*
@@ -165,10 +164,8 @@ public class ClosingReportController {
      */
     @RequestMapping(value = "/admin/printPDF")
     @ResponseBody
-    public ModelAndView printPDF(){
+    public void printPDF() throws Exception {
         List<ClosingReportVO> allClosingReport = closingReportService.getAllClosingReport();
-        Map<String, Object> model = new HashMap<>();
-        model.put("sheet",allClosingReport);
-        return new ModelAndView(new ViewPDF(), model);
+        pdfService.generatePDF(allClosingReport);
     }
 }

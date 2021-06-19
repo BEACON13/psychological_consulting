@@ -72,10 +72,12 @@ public class FirstVisitorDutyController {
      * 描述：中心管理员删除初访员排班
      *
      */
-    @RequestMapping(value = "/admin/deleteFVDuty", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/deleteFVDuty")
     @ResponseBody
-    public JsonResponse deleteFVDuty(@RequestParam("fvd_id")Long fvdID,@RequestParam("tp_id")Integer tpID,
-                                             @RequestParam("fv_id")Long fvID){
+    public JsonResponse deleteFVDuty(@RequestBody Map form){
+        Long fvdID = Long.parseLong(form.get("fvd_id").toString());
+        Integer tpID = (Integer)form.get("tp_id");
+        Long fvID = Long.parseLong(form.get("fv_id").toString());
         return firstVisitorDutyService.deleteFVDuty(fvdID,tpID,fvID);
     }
 
@@ -86,7 +88,10 @@ public class FirstVisitorDutyController {
      */
     @RequestMapping(value = "/admin/insertFVDuty", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse insertFVDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("fv_id")Long fvID,@RequestParam("l_id")Long lID){
+    public JsonResponse insertFVDuty(@RequestBody Map form){
+        Integer tpID = (Integer)form.get("tp_id");
+        Long fvID = Long.parseLong(form.get("fv_id").toString());
+        Long lID = Long.parseLong(form.get("l_id").toString());
         return firstVisitorDutyService.insertFVDuty(tpID,fvID,lID);
     }
 
