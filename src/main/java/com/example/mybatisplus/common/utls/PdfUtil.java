@@ -15,12 +15,14 @@ import java.util.List;
 public class PdfUtil {
     public void createPDF(Document document1, PdfWriter writer, List<ClosingReportVO> reports) throws IOException {
         Document document = new Document(PageSize.A4);
+
         try {
             document.addTitle("结案报告");
             document.addAuthor("kristy");
             document.addSubject("结案报告");
             document.addKeywords("结案报告");
             document.open();
+            document.newPage();
             PdfPTable table = createTable(writer,reports);
             document.add(table);
         } catch (FileNotFoundException e) {
