@@ -170,8 +170,13 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
         TimePeriod tp = timePeriodService.getById(record.getTpId());
         Location l = locationService.getById(record.getLocationId());
 
+        //计算初访日期
         LocalDate date = this.getFirstVisitDate(record.getTpId());
 
+        //插入到记录中
+        record.setDate(date);
+
+        //填写邮件并发送
         String toUser = stu.getCode() + "@stu.scu.edu.cn";
         String text = stu.getName() + "同学你好，你已成功预约初访，请于"+date.toString()+"，即周"+tp.getWeekday().toString()
                 +"的"+tp.getStartTime().toString()+"到达"+l.getLocationName()+"进行初访咨询。请准时参加，谢谢！";
