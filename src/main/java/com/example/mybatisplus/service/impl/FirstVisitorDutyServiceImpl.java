@@ -18,7 +18,9 @@ import com.example.mybatisplus.service.TimePeriodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -47,7 +49,11 @@ public class FirstVisitorDutyServiceImpl extends ServiceImpl<FirstVisitorDutyMap
 
     @Override
     public List<FirstVisitorDutyVO> getAllFVDuty() {
-        return firstVisitorDutyMapper.getAllFVDuty();
+        List<FirstVisitorDutyVO> allFVDuty = firstVisitorDutyMapper.getAllFVDuty();
+        List<FirstVisitorDutyVO> listsort = allFVDuty.stream()
+                .sorted(Comparator.comparing(FirstVisitorDutyVO::getWeekday).thenComparing(FirstVisitorDutyVO::getStartTime))
+                .collect(Collectors.toList());
+        return listsort;
     }
 
     @Override
@@ -169,4 +175,6 @@ public class FirstVisitorDutyServiceImpl extends ServiceImpl<FirstVisitorDutyMap
     public List<FirstVisitorDutyVO> getAvailableFVByTimePeriod(int tpId) {
         return firstVisitorDutyMapper.getAvailableFVDutyInTp(tpId);
     }
+
+
 }
