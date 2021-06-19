@@ -10,6 +10,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.ConsultantDutyService;
 import com.example.mybatisplus.model.domain.ConsultantDuty;
 
+import java.util.Map;
+
 
 /**
  *
@@ -57,10 +59,14 @@ public class ConsultantDutyController {
      * 描述：中心管理员更改咨询师排班地点
      *
      */
-    @RequestMapping(value = "/admin/alterConDuty", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/alterConDuty")
     @ResponseBody
-    public JsonResponse alterConsultantDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("c_id")Long cID,@RequestParam("l_id")Long lID){
-        return consultantDutyService.alterConsultantDuty(tpID,cID,lID);
+    public JsonResponse alterConsultantDuty(@RequestBody Map form){
+        Long cdID = Long.parseLong(form.get("cd_id").toString());
+        Integer tpID = (Integer)form.get("tp_id");
+        Long cID = Long.parseLong(form.get("c_id").toString());
+        Long lID = Long.parseLong(form.get("l_id").toString());
+        return consultantDutyService.alterConsultantDuty(cdID,tpID,cID,lID);
     }
 
 
@@ -68,9 +74,12 @@ public class ConsultantDutyController {
      * 描述：中心管理员删除咨询师排班
      *
      */
-    @RequestMapping(value = "/admin/deleteConDuty", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/deleteConDuty")
     @ResponseBody
-    public JsonResponse deleteConsultantDuty(@RequestParam("cd_id")Long cdID,@RequestParam("tp_id")Integer tpID,@RequestParam("c_id")Long cID){
+    public JsonResponse deleteConsultantDuty(@RequestBody Map form){
+        Long cdID = Long.parseLong(form.get("cd_id").toString());
+        Integer tpID = (Integer)form.get("tp_id");
+        Long cID = Long.parseLong(form.get("c_id").toString());
         return consultantDutyService.deleteConsultantDuty(cdID,tpID,cID);
     }
 
@@ -81,7 +90,11 @@ public class ConsultantDutyController {
      */
     @RequestMapping(value = "/admin/insertConDuty", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse insertConsultantDuty(@RequestParam("tp_id")Integer tpID,@RequestParam("weekday")Integer weekday,@RequestParam("c_id")Long cID,@RequestParam("l_id")Long lID){
+    public JsonResponse insertConsultantDuty(@RequestBody Map form){
+        Integer tpID = (Integer)form.get("tp_id");
+        Integer weekday = (Integer)form.get("weekday");
+        Long cID = Long.parseLong(form.get("c_id").toString());
+        Long lID = Long.parseLong(form.get("l_id").toString());
         return consultantDutyService.insertConsultantDuty(tpID,weekday,cID,lID);
     }
 }

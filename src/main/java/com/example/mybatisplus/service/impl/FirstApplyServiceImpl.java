@@ -1,6 +1,7 @@
 package com.example.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.model.domain.FirstApply;
 import com.example.mybatisplus.mapper.FirstApplyMapper;
 import com.example.mybatisplus.model.vo.FirstApplyVO;
@@ -52,5 +53,17 @@ public class FirstApplyServiceImpl extends ServiceImpl<FirstApplyMapper, FirstAp
     @Override
     public List<FirstApplyVO> getNormalApply() {
         return firstApplyMapper.getNormalApply();
+    }
+
+    /*
+     * 在first apply完成后将其插入
+     * 此时把first apply置为finish
+     */
+    @Override
+    public int finishFirstApply(Long firstApplyId) {
+        UpdateWrapper<FirstApply> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(FirstApply::getFaId,firstApplyId)
+                .set(FirstApply::getIsFinished,1);
+        return baseMapper.update(null,wrapper);
     }
 }

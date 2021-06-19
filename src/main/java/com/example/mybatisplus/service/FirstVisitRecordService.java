@@ -5,6 +5,7 @@ import com.example.mybatisplus.model.domain.FirstVisitRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mybatisplus.model.vo.FirstVisitRecordVO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -33,4 +34,15 @@ public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
     List<FirstVisitRecordVO> getAllRecordsAdmin();
 
     int insertFVRecord(FirstVisitRecord record);
+
+    List<FirstVisitRecordVO> getRecordByFirstVisitorName(String name);
+
+    List<FirstVisitRecordVO> getRecordByFirstVisitorNameUnfinished(String name);
+
+    List<FirstVisitRecordVO> getRecordByStuName(String name);
+
+    LocalDate getFirstVisitDate(int tpId);
+
+    List<FirstVisitRecordVO> getUnfinishedRecord();
+
 }

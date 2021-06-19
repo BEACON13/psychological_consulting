@@ -89,6 +89,7 @@ public class FirstApplyController {
      * 管理员获得初访申请
      * 其中包括紧急申请和普通申请
      * 紧急申请得分大于75
+     * 为未完成的申请
      */
     @RequestMapping(value = "/admin/firstApply", method = RequestMethod.GET)
     @ResponseBody

@@ -6,12 +6,10 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.mapper.FirstVisitorDutyMapper;
 import com.example.mybatisplus.mapper.StudentMapper;
-import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
-import com.example.mybatisplus.model.domain.FirstVisitRecord;
+import com.example.mybatisplus.model.domain.*;
 import com.example.mybatisplus.mapper.FirstVisitRecordMapper;
-import com.example.mybatisplus.model.domain.FirstVisitorDuty;
 import com.example.mybatisplus.model.vo.FirstVisitRecordVO;
-import com.example.mybatisplus.service.FirstVisitRecordService;
+import com.example.mybatisplus.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +38,14 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
     FirstVisitRecordMapper firstVisitRecordMapper;
     @Autowired
     FirstVisitorDutyMapper firstVisitorDutyMapper;
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    TimePeriodService timePeriodService;
+    @Autowired
+    LocationService locationService;
+    @Autowired
+    ConsultApplyService consultApplyService;
 
 
     /**
@@ -159,7 +165,89 @@ public class FirstVisitRecordServiceImpl extends ServiceImpl<FirstVisitRecordMap
      */
     @Override
     public int insertFVRecord(FirstVisitRecord record) {
+        //给学生邮件系统发送邮件
+        Student stu = studentService.getById(record.getSId());
+        TimePeriod tp = timePeriodService.getById(record.getTpId());
+        Location l = locationService.getById(record.getLocationId());
+
+        //计算初访日期
+        LocalDate date = this.getFirstVisitDate(record.getTpId());
+
+        //插入到记录中
+        record.setDate(date);
+
+        //填写邮件并发送
+        String toUser = stu.getCode() + "@stu.scu.edu.cn";
+        String text = stu.getName() + "同学你好，你已成功预约初访，请于"+date.toString()+"，即周"+tp.getWeekday().toString()
+                +"的"+tp.getStartTime().toString()+"到达"+l.getLocationName()+"进行初访咨询。请准时参加，谢谢！";
+        consultApplyService.sendMessage(toUser,text);
+
         return firstVisitRecordMapper.insert(record);
+    }
+
+    /*
+     * 中心管理员通过初访员姓名查看初访记录
+     *
+     */
+    @Override
+    public List<FirstVisitRecordVO> getRecordByFirstVisitorName(String name) {
+
+        return firstVisitRecordMapper.getRecordByFVName(name);
+    }
+
+    /*
+     * 中心管理员通过初访员姓名查看未完成的初访记录
+     *
+     */
+    @Override
+    public List<FirstVisitRecordVO> getRecordByFirstVisitorNameUnfinished(String name) {
+        return firstVisitRecordMapper.getRecordByFVNameUnfinished(name);
+    }
+
+    /*
+     * 中心管理员通过学生姓名查看初访记录
+     *
+     */
+    @Override
+    public List<FirstVisitRecordVO> getRecordByStuName(String name) {
+        return firstVisitRecordMapper.getRecordByStuName(name);
+    }
+
+    /*
+     * 计算初访日期
+     */
+    @Override
+    public LocalDate getFirstVisitDate(int tpId) {
+        //获取当前日期
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        date.format(formatter);
+
+        //获取初访预约的时间段信息
+        TimePeriod timePeriod = timePeriodService.getById(tpId);
+
+        //预约在星期几
+        int FVWeekday=timePeriod.getWeekday();
+
+        //今天是星期几
+        int todayWeekday = date.getDayOfWeek().getValue();
+
+        //计算初访日期
+        LocalDate firstVisitDate;
+        if(FVWeekday > todayWeekday)
+            firstVisitDate = date.plusDays(FVWeekday - todayWeekday);
+        else
+            firstVisitDate = date.plusDays(7 - todayWeekday + FVWeekday);
+
+        return firstVisitDate;
+    }
+
+    /*
+     * 中心管理员获得所有的未完成记录
+     */
+    @Override
+    public List<FirstVisitRecordVO> getUnfinishedRecord() {
+        return firstVisitRecordMapper.getUnfinishedRecord();
     }
 
     /**

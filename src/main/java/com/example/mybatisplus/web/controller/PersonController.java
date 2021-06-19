@@ -26,7 +26,7 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/person")
+@RequestMapping("/api")
 public class PersonController {
 
     private final Logger logger = LoggerFactory.getLogger( PersonController.class );
@@ -40,7 +40,7 @@ public class PersonController {
      * 描述：登录
      *
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/person/login", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse login(@RequestParam("username")String username,@RequestParam("pwd")String pwd,@RequestParam("type")String type){
         /*Map<String,String> map = (Map<String, String>) form;
@@ -53,7 +53,7 @@ public class PersonController {
      * 描述：修改用户密码
      *
      */
-    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    @RequestMapping(value = "/person/modify", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse modifyPwd(@RequestParam("newPwd")String newPwd){
         return personService.modifyPwd(newPwd);
@@ -62,12 +62,12 @@ public class PersonController {
     /*
      * 中心管理员增加用户
      */
-    @RequestMapping(value = "admin/insert/user")
+    @RequestMapping(value = "/admin/insert/user")
     @ResponseBody
     public JsonResponse insertUser(@RequestBody Map<String,Object> info){
         Person person = new Person();
         person.setUsername((String) info.get("username"))
-                .setPassword((String) info.get("password"))
+                .setPassword("12345678")
                 .setName((String) info.get("name"))
                 .setPhone((String) info.get("phone"))
                 .setGender((String) info.get("gender"))
@@ -97,7 +97,7 @@ public class PersonController {
     /*
      * 中心管理员查看所有的初访员
      */
-    @RequestMapping(value = "admin/show/firstvisitor",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/show/firstvisitor",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showFirstVisitors(){
 
@@ -107,7 +107,7 @@ public class PersonController {
     /*
      * 中心管理员查看所有的咨询师
      */
-    @RequestMapping(value = "admin/show/consultant",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/show/consultant",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showConsultants(){
 
@@ -117,7 +117,7 @@ public class PersonController {
     /*
      * 中心管理员查看所有的心理助理
      */
-    @RequestMapping(value = "admin/show/assistant",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/show/assistant",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showAssistants(){
 
@@ -128,7 +128,7 @@ public class PersonController {
      * 修改Person信息
      * info中只需要包括需要修改的信息和id即可
      */
-    @RequestMapping(value = "admin/change/personInfo")
+    @RequestMapping(value = "/admin/change/personInfo")
     @ResponseBody
     public JsonResponse changePersonInfo(@RequestBody Map<String,Object> info){
         Person person = new Person();
@@ -152,7 +152,7 @@ public class PersonController {
     /*
      * 删除Person
      */
-    @RequestMapping(value = "admin/delete/person",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/delete/person",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse deletePerson(@RequestParam("pId") Long pId){
 
@@ -169,10 +169,21 @@ public class PersonController {
      * 展示所有Person
      * !!!!!!!!!!可能不需要此功能!!!!!!!!!!!!
      */
-    @RequestMapping(value = "admin/show/alluser",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/show/alluser",method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse showAllPerson(){
         return JsonResponse.success(personService.showAllPerson());
+    }
+
+    /**
+     * 描述：根据type返回人员信息
+     *
+     */
+    @RequestMapping(value = "/getPersonInfo",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getPersonInfo(@RequestParam("type")String type){
+        List<Person> people = personService.showPersonByType(type);
+        return JsonResponse.success(people,"success");
     }
 }
 

@@ -1,9 +1,8 @@
 package com.example.mybatisplus.web.controller;
 
 import com.example.mybatisplus.common.utls.SecurityUtils;
-import com.example.mybatisplus.service.ConsultAppointmentRecordService;
-import com.example.mybatisplus.service.ConsultAppointmentReportService;
-import com.example.mybatisplus.service.StudentService;
+import com.example.mybatisplus.model.vo.ClosingReportVO;
+import com.example.mybatisplus.service.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -11,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
-import com.example.mybatisplus.service.ClosingReportService;
 import com.example.mybatisplus.model.domain.ClosingReport;
 
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -43,6 +44,9 @@ public class ClosingReportController {
 
     @Autowired
     private ConsultAppointmentReportService consultAppointmentReportService;
+
+    @Autowired
+    private PdfService pdfService;
 
 
     /*
@@ -152,5 +156,16 @@ public class ClosingReportController {
     @ResponseBody
     public JsonResponse getClosingReportByStuName(@RequestParam("stu_name")String stuName, @RequestParam("con_name")String conName){
         return JsonResponse.success(closingReportService.getAllClosingReportByStuAndConName(conName,stuName));
+    }
+
+    /**
+     * 描述：打印结案报告
+     *
+     */
+    @RequestMapping(value = "/admin/printPDF")
+    @ResponseBody
+    public JsonResponse printPDF() throws Exception {
+        List<ClosingReportVO> allClosingReport = closingReportService.getAllClosingReport();
+        return pdfService.generatePDF(allClosingReport);
     }
 }
