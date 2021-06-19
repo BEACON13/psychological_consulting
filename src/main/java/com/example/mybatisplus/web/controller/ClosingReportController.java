@@ -165,10 +165,10 @@ public class ClosingReportController {
      */
     @RequestMapping(value = "/admin/printPDF")
     @ResponseBody
-    public JsonResponse printPDF(){
+    public ModelAndView printPDF(){
         List<ClosingReportVO> allClosingReport = closingReportService.getAllClosingReport();
         Map<String, Object> model = new HashMap<>();
         model.put("sheet",allClosingReport);
-        return JsonResponse.success(new ModelAndView(new ViewPDF(), model),"success");
+        return new ModelAndView(new ViewPDF(), model);
     }
 }
