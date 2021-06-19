@@ -88,7 +88,7 @@ public class ConsultantDutyController {
      * 描述：中心管理员新增咨询师排班
      *
      */
-    @RequestMapping(value = "/admin/insertConDuty", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/insertConDuty")
     @ResponseBody
     public JsonResponse insertConsultantDuty(@RequestBody Map form){
         Integer tpID = (Integer)form.get("tp_id");
