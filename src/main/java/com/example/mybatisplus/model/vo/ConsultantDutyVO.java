@@ -24,6 +24,8 @@ public class ConsultantDutyVO {
 
     private Integer duration;
 
+    private Integer weekday;
+
     private String locationName;
 
     private String cName;
