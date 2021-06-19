@@ -20,7 +20,7 @@ public class ViewPDF  extends AbstractPdfView {
     protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
                                     HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 设置response方式,使执行此controller时候自动出现下载页面,而非直接使用excel打开
-        String fileName = new Date().getTime()+"_quotation.pdf";
+        String fileName = new Date().getTime()+"_closingReports.pdf";
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/pdf");
 //        response.setHeader("Content-Disposition","filename=" + new String(fileName.getBytes(), "iso8859-1"));

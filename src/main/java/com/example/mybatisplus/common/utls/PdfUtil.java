@@ -39,7 +39,7 @@ public class PdfUtil {
         PdfPTable table = new PdfPTable(3);//生成一个两列的表格
         PdfPCell cell;
         int size = 20;
-        Font font = new Font(BaseFont.createFont("C://Windows//Fonts//simfang.ttf", BaseFont.IDENTITY_H,
+        Font font = new Font(BaseFont.createFont("C:/Windows/Fonts/simfang.ttf", BaseFont.IDENTITY_H,
                 BaseFont.NOT_EMBEDDED));
         for(int i = 0;i<reports.size();i++) {
             cell = new PdfPCell(new Phrase(reports.get(i).getClosingReportId().toString(),font));//结案报告id
