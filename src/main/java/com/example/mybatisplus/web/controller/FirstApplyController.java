@@ -1,5 +1,9 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.common.utls.SecurityUtils;
+import com.example.mybatisplus.model.domain.Student;
+import com.example.mybatisplus.model.vo.FirstApplyVO;
+import com.example.mybatisplus.service.StudentService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -10,6 +14,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.FirstApplyService;
 import com.example.mybatisplus.model.domain.FirstApply;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,7 +29,7 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/firstApply")
+@RequestMapping("/api")
 public class FirstApplyController {
 
     private final Logger logger = LoggerFactory.getLogger( FirstApplyController.class );
@@ -31,16 +37,34 @@ public class FirstApplyController {
     @Autowired
     private FirstApplyService firstApplyService;
 
+    @Autowired
+    private StudentService studentService;
 
-    /**
+    /*
+     * 描述：检查学生是否有预约申请的资格
+     *
+     */
+    @RequestMapping(value = "/student/firstApply/qualification")
+    @ResponseBody
+    public JsonResponse checkStudentFirstApplyQualification(){
+
+        Student student = SecurityUtils.getCurrentStudentInfo();
+
+        return studentService.isAllowedFirstApply(student.getSId()) ?
+                JsonResponse.successMessage("可以申请") :
+                JsonResponse.failure("没有申请资格！");
+    }
+
+    /*
      * 描述：插入新预约申请
      *
      */
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/insert/firstApply")
     @ResponseBody
-    public JsonResponse insertApply(@RequestParam("firstApply") Map<String,Object> info) {
+    public JsonResponse insertApply(@RequestBody Map<String,Object> info) {
+
         FirstApply firstApply=new FirstApply();
-        firstApply.setSId((Long) info.get("sId"))
+        firstApply.setSId(Long.parseLong (info.get("sId").toString()))
                 .setTpId((Integer) info.get("tpID"))
                 .setScore((Integer) info.get("score"))
                 .setName((String) info.get("name"))
@@ -52,58 +76,34 @@ public class FirstApplyController {
                 .setEmergencyLevel((String) info.get("emergencyLevel"))
                 .setProblemType((String) info.get("problemType"))
                 .setConsultExpectation((String) info.get("consultExpectation"))
-                .setConsultHistory((String) info.get("consultHistory"))
-                .setIsFinished((Boolean) info.get("isFinished"));
+                .setConsultHistory((String) info.get("consultHistory"));
+
+
         if(firstApplyService.insertFirstApply(firstApply)>0)
-            return JsonResponse.success(null);
+            return JsonResponse.successMessage("插入成功");
+
         return JsonResponse.failure("插入失败");
     }
 
-    /**
-    * 描述：根据Id 查询
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    /*
+     * 管理员获得初访申请
+     * 其中包括紧急申请和普通申请
+     * 紧急申请得分大于75
+     * 为未完成的申请
+     */
+    @RequestMapping(value = "/admin/firstApply", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        FirstApply  firstApply =  firstApplyService.getById(id);
-        return JsonResponse.success(firstApply);
-    }
+    public JsonResponse adminGetFirstApply(){
+        List<FirstApplyVO> urgentApplies = firstApplyService.getUrgentApply();
+        List<FirstApplyVO> normalApplies = firstApplyService.getNormalApply();
 
-    /**
-    * 描述：根据Id删除
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        firstApplyService.removeById(id);
-        return JsonResponse.success(null);
+        Map<String,Object> map = new HashMap<>();
+        map.put("紧急申请",urgentApplies);
+        map.put("普通申请",normalApplies);
+
+        return JsonResponse.success(map);
     }
 
 
-    /**
-    * 描述：根据Id 更新
-    *
-    */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public JsonResponse updateFirstApply(@PathVariable("id") Long  id,FirstApply  firstApply) throws Exception {
-        firstApply.setSId(id);
-        firstApplyService.updateById(firstApply);
-        return JsonResponse.success(null);
-    }
-
-
-    /**
-    * 描述:创建FirstApply
-    *
-    */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse create(FirstApply  firstApply) throws Exception {
-        firstApplyService.save(firstApply);
-        return JsonResponse.success(null);
-    }
 }
 

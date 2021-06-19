@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.AddConsultMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.AddConsult">
+        <id column="add_c_id" property="addCId" />
+        <result column="s_id" property="sId" />
+        <result column="c_id" property="cId" />
+        <result column="tp_id" property="tpId" />
+        <result column="times" property="times" />
+        <result column="is_finished" property="isFinished" />
+    </resultMap>
+
+    <!--VO查询映射结果-->
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.AddConsultVO">
+        <!--原有字段-->
+        <id column="add_c_id" property="addCId" />
+        <result column="s_id" property="sId" />
+        <result column="c_id" property="cId" />
+        <result column="tp_id" property="tpId" />
+        <result column="times" property="times" />
+        <result column="is_finished" property="isFinished" />
+
+        <!--VO字段-->
+        <result column="stu_name" property="stuName" />
+        <result column="consultant_name" property="consultantName" />
+        <result column="start_time" property="startTime"/>
+        <result column="duration" property="duration"/>
+        <result column="weekday" property="weekday"/>
+    </resultMap>
+
+    <select id="getAllAddConsult" resultMap="VOResultMap">
+        select ac.*,stu.name stu_name,p.name consultant_name,tp.start_time,tp.duration,tp.weekday
+        from add_consult ac,student stu,person p,time_period tp
+        where ac.s_id = stu.s_id
+          and ac.c_id = p.p_id
+          and ac.tp_id = tp.tp_id
+    </select>
+
+    <select id="getUnfinishedAddConsult" resultMap="VOResultMap">
+        select ac.*,stu.name stu_name,p.name consultant_name,tp.start_time,tp.duration,tp.weekday
+        from add_consult ac,student stu,person p,time_period tp
+        where ac.s_id = stu.s_id
+          and ac.c_id = p.p_id
+          and ac.tp_id = tp.tp_id
+          and ac.is_finished = 0
+    </select>
+
+</mapper>

@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2021-04-19
  */
 @Controller
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 public class AdminController {
 
     private final Logger logger = LoggerFactory.getLogger( AdminController.class );

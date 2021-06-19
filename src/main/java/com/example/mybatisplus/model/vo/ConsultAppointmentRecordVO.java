@@ -1,20 +1,42 @@
 package com.example.mybatisplus.model.vo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.example.mybatisplus.model.domain.ConsultApply;
 import com.example.mybatisplus.model.domain.ConsultAppointmentRecord;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
-@EqualsAndHashCode(callSuper = true)
+
+
 @Accessors(chain = true)
 @Data
-public class ConsultAppointmentRecordVO extends ConsultAppointmentRecord {
+public class ConsultAppointmentRecordVO {
+    private static final long serialVersionUID = 1L;
 
-    private String stuName;
+    private Long consultAppointId;
 
-    private String ConsultantName;
+    private Long sId;
+
+    private Integer tpId;
+
+    private Long locationId;
+
+    private Long cId;
+
+    private Boolean isDeleted;
+
+    private LocalDate date;
+
+    private Boolean isFinished;
+
+    private String consultantName;
 
     private LocalTime startTime;
 
@@ -22,15 +44,7 @@ public class ConsultAppointmentRecordVO extends ConsultAppointmentRecord {
 
     private String locationName;
 
-    @Override
-    public String toString() {
-        return super.toString()+
-                "ConsultAppointmentRecordVO{" +
-                "stuName='" + stuName + '\'' +
-                ", ConsultantName='" + ConsultantName + '\'' +
-                ", startTime=" + startTime +
-                ", duration=" + duration +
-                ", locationName='" + locationName + '\'' +
-                '}';
-    }
+    private ConsultApply consultApply;
+
+
 }

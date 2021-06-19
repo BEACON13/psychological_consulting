@@ -3,7 +3,9 @@ package com.example.mybatisplus.service;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.vo.FirstVisitRecordVO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,13 +19,30 @@ import java.util.List;
 public interface FirstVisitRecordService extends IService<FirstVisitRecord> {
 
 
-    public JsonResponse showRecords();
+    JsonResponse showRecords();
 
-    public JsonResponse showAllRecords();
+    JsonResponse showAllRecords();
 
-    public JsonResponse getRecordsByName(String stuName);
+    JsonResponse getRecordsByName(String stuName);
 
-    public List<FirstVisitRecord> getRecordByStudent(Long sId);
+    List<FirstVisitRecord> getRecordByStudent(Long sId);
 
-    public JsonResponse getFVRecord();
+    JsonResponse getFVRecord();
+
+    JsonResponse manageFVRecord(Long fvrId);
+
+    List<FirstVisitRecordVO> getAllRecordsAdmin();
+
+    int insertFVRecord(FirstVisitRecord record);
+
+    List<FirstVisitRecordVO> getRecordByFirstVisitorName(String name);
+
+    List<FirstVisitRecordVO> getRecordByFirstVisitorNameUnfinished(String name);
+
+    List<FirstVisitRecordVO> getRecordByStuName(String name);
+
+    LocalDate getFirstVisitDate(int tpId);
+
+    List<FirstVisitRecordVO> getUnfinishedRecord();
+
 }

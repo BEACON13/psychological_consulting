@@ -3,6 +3,7 @@ package com.example.mybatisplus.mapper;
 import com.example.mybatisplus.model.domain.FirstVisitRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.mybatisplus.model.vo.FirstVisitRecordVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,12 +18,22 @@ import java.util.List;
  */
 @Repository
 public interface FirstVisitRecordMapper extends BaseMapper<FirstVisitRecord> {
-    List<FirstVisitRecordVO> showRecords(Long id);
+    List<FirstVisitRecordVO> showRecords(@Param("id") Long id);
 
-    List<FirstVisitRecordVO> showAllRecords(Long id);
+    List<FirstVisitRecordVO> showAllRecords(@Param("id") Long id);
 
-    List<FirstVisitRecordVO> getRecordsByName(Long id, String stuName);
+    List<FirstVisitRecordVO> getRecordsByName(@Param("id") Long id, @Param("stuName") String stuName);
 
-    List<FirstVisitRecordVO> getFVRecord(Long id);
+    List<FirstVisitRecordVO> getFVRecord(@Param("id") Long id);
+
+    List<FirstVisitRecordVO> getAllRecordAdmin();
+
+    List<FirstVisitRecordVO> getRecordByFVName(@Param("name") String name);
+
+    List<FirstVisitRecordVO> getRecordByFVNameUnfinished(@Param("name") String name);
+
+    List<FirstVisitRecordVO> getRecordByStuName(@Param("name") String name);
+
+    List<FirstVisitRecordVO> getUnfinishedRecord();
 
 }

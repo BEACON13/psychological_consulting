@@ -57,32 +57,64 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public int changePwd(String code,String newPwd) {
         UpdateWrapper<Student> wrapper = new UpdateWrapper();
-        wrapper.lambda().eq(Student::getCode,code).set(Student::getPassword,newPwd);
+        wrapper.lambda().eq(Student::getCode,code)
+                .set(Student::getPassword,newPwd);
         return baseMapper.update(null,wrapper);
     }
 
+    /*
+    检查学生是否允许申请初访
+     */
     @Override
-    public boolean isAllowedFirstApply(Student student) {
+    public boolean isAllowedFirstApply(Long id) {
 
         //如果学生已经具有咨询资格，则不应该申请初访
-        if (student.getIsQualified())
-            return false;
+       if (isQualified(id))
+           return false;
 
-        //如果学生具有未完成的初访申请，则不应该申请初访
-        List<FirstApply> applies = firstApplyService.getFirstApplyByStu(student.getSId());
+        //如果学生具有未完成的初访申请(firstApply)，则不应该申请初访
+        List<FirstApply> applies = firstApplyService.getFirstApplyByStu(id);
         for (FirstApply a: applies) {
+
             if (!a.getIsFinished())
                 return false;
         }
 
-        //如果学生具有未完成的初访预约，则不应该申请初访
-        List<FirstVisitRecord> records = firstVisitRecordService.getRecordByStudent(student.getSId());
+        //如果学生具有未完成的初访预约(firstApplyRecord)，则不应该申请初访
+        List<FirstVisitRecord> records = firstVisitRecordService.getRecordByStudent(id);
         for (FirstVisitRecord r: records){
-            if(!r.getIsFinished()){
+            if(!r.getIsFinished())
                 return false;
-            }
+
         }
 
         return true;
     }
+
+    @Override
+    public boolean isQualified(Long id) {
+        QueryWrapper<Student> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Student::getSId,id);
+        Student stu = baseMapper.selectOne(wrapper);
+
+        return stu.getIsQualified();
+    }
+
+
+    public Long getIdByName(String name) {
+        QueryWrapper<Student> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Student::getName,name);
+        Student student = baseMapper.selectOne(wrapper);
+        return student.getSId();
+    }
+
+    @Override
+    public int setUnQualified(Long id) {
+        UpdateWrapper<Student> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(Student::getSId,id)
+                .set(Student::getIsQualified,0);
+        return baseMapper.update(null,wrapper);
+    }
+
+
 }

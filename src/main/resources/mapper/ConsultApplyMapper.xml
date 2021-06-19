@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.ConsultApplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.ConsultApply">
+        <id column="consult_apply_id" property="consultApplyId" />
+        <result column="s_id" property="sId" />
+        <result column="stu_name" property="stuName" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="emergency_phone" property="emergencyPhone" />
+        <result column="danger_level" property="dangerLevel" />
+        <result column="problem_type" property="problemType" />
+        <result column="tp_id1" property="tpId1" />
+        <result column="tp_id2" property="tpId2" />
+        <result column="tp_id3" property="tpId3" />
+        <result column="num" property="num" />
+        <result column="is_finished" property="isFinished" />
+    </resultMap>
+
+
+    <!--VO查询结果-->
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.ConsultApplyVO">
+        <id column="consult_apply_id" property="consultApplyId" />
+        <result column="s_id" property="sId" />
+        <result column="stu_name" property="stuName" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="emergency_phone" property="emergencyPhone" />
+        <result column="danger_level" property="dangerLevel" />
+        <result column="problem_type" property="problemType" />
+        <result column="tp_id1" property="tpId1" />
+        <result column="tp_id2" property="tpId2" />
+        <result column="tp_id3" property="tpId3" />
+        <result column="num" property="num" />
+        <result column="is_finished" property="isFinished" />
+
+        <result column="startTime1" property="startTime1"/>
+        <result column="duration1" property="duration1"/>
+        <result column="weekday1" property="weekday1"/>
+        <result column="startTime2" property="startTime2"/>
+        <result column="duration2" property="duration2"/>
+        <result column="weekday2" property="weekday2"/>
+        <result column="startTime3" property="startTime3"/>
+        <result column="duration3" property="duration3"/>
+        <result column="weekday3" property="weekday3"/>
+    </resultMap>
+
+
+    <!--心理助理查看所有申请-->
+    <select id="showAllApplies" resultMap="VOResultMap">
+        select ca.*,tp1.start_time startTime1,tp1.duration duration1,tp1.weekday weekday1,
+	        tp2.start_time startTime2,tp2.duration duration2,tp2.weekday weekday2,
+	        tp3.start_time startTime3,tp3.duration duration3,tp3.weekday weekday3
+        from consult_apply ca, time_period tp1,time_period tp2,time_period tp3
+        where tp1.tp_id = ca.tp_id1
+	        and tp2.tp_id = ca.tp_id2
+	        and tp3.tp_id = ca.tp_id3
+    </select>
+
+    <!--心理助理根据学生姓名查询申请-->
+    <select id="showApplyByStuName" resultMap="VOResultMap">
+        select ca.*,tp1.start_time startTime1,tp1.duration duration1,tp1.weekday weekday1,
+	        tp2.start_time startTime2,tp2.duration duration2,tp2.weekday weekday2,
+	        tp3.start_time startTime3,tp3.duration duration3,tp3.weekday weekday3
+        from consult_apply ca, time_period tp1,time_period tp2,time_period tp3
+        where tp1.tp_id = ca.tp_id1
+	        and tp2.tp_id = ca.tp_id2
+	        and tp3.tp_id = ca.tp_id3
+	        and ca.stu_name = #{stuName}
+    </select>
+
+    <!--心理助理查看所有未完成的申请-->
+    <select id="showUnfinishedApplies" resultMap="VOResultMap">
+        select ca.*,tp1.start_time startTime1,tp1.duration duration1,tp1.weekday weekday1,
+	        tp2.start_time startTime2,tp2.duration duration2,tp2.weekday weekday2,
+	        tp3.start_time startTime3,tp3.duration duration3,tp3.weekday weekday3
+        from consult_apply ca, time_period tp1,time_period tp2,time_period tp3
+        where tp1.tp_id = ca.tp_id1
+	        and tp2.tp_id = ca.tp_id2
+	        and tp3.tp_id = ca.tp_id3
+	        and ca.is_finished = 0
+    </select>
+
+
+    <!--心理助理根据学生姓名查询未完成申请-->
+    <select id="showUnfinishedApplyByStuName" resultMap="VOResultMap">
+        select ca.*,tp1.start_time startTime1,tp1.duration duration1,tp1.weekday weekday1,
+	        tp2.start_time startTime2,tp2.duration duration2,tp2.weekday weekday2,
+	        tp3.start_time startTime3,tp3.duration duration3,tp3.weekday weekday3
+        from consult_apply ca, time_period tp1,time_period tp2,time_period tp3
+        where tp1.tp_id = ca.tp_id1
+	        and tp2.tp_id = ca.tp_id2
+	        and tp3.tp_id = ca.tp_id3
+	        and ca.stu_name = #{stuName}
+	        and ca.is_finished = 0
+    </select>
+</mapper>

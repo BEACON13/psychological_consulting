@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
@@ -11,6 +12,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -18,16 +21,15 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Kristy
- * @since 2021-06-11
+ * @since 2021-06-16
  */
 @Service
 public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> implements PersonService {
-
     @Autowired
-    private PersonMapper personMapper;
+    PersonMapper personMapper;
 
     @Override
-    public JsonResponse login(String username,String type,String pwd) {
+    public JsonResponse login(String username, String type, String pwd) {
         Person person = personMapper.login(username,type);
         if (person == null)
             return JsonResponse.failure("用户不存在");
@@ -45,4 +47,52 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
         personMapper.update(null,wrapper);
         return JsonResponse.successMessage("修改成功!");
     }
+
+    /*
+     * 插入Person
+     */
+    @Override
+    public void insertPerson(Person person) {
+        personMapper.insertPerson(person);
+    }
+
+    /*
+     * 展示所有Person
+     */
+    @Override
+    public List<Person> showAllPerson() {
+        QueryWrapper<Person> wrapper = new QueryWrapper<>();
+        return baseMapper.selectList(wrapper);
+    }
+
+    /*
+     * 展示所有type人员
+     * e.g. type=”初访员“ 则返回所有初访员Person信息
+     */
+    @Override
+    public List<Person> showPersonByType(String type) {
+
+        return personMapper.getPersonByType(type);
+    }
+
+    /*
+     * 修改Person信息
+     */
+    @Override
+    public int changePersonInfo(Person p) {
+
+        return baseMapper.updateById(p);
+    }
+
+    /*
+     * 删除用户
+     */
+    @Override
+    public int deletePerson(Long pId) {
+        UpdateWrapper<Person> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(Person::getPId,pId)
+                .set(Person::getIsDeleted,1);
+        return baseMapper.update(null,wrapper);
+    }
+
 }

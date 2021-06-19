@@ -1,7 +1,6 @@
 package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.common.JsonResponse;
-import com.example.mybatisplus.model.domain.Person;
 import com.example.mybatisplus.model.domain.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -19,5 +18,9 @@ public interface StudentService extends IService<Student> {
 
     int changePwd(String code,String newPwd);
 
-    boolean isAllowedFirstApply(Student student);
+    boolean isAllowedFirstApply(Long id);
+
+    boolean isQualified(Long id);
+
+    int setUnQualified(Long id);
 }

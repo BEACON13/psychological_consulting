@@ -23,7 +23,7 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/firstVisitReport")
+@RequestMapping("/api")
 public class FirstVisitReportController {
 
     private final Logger logger = LoggerFactory.getLogger( FirstVisitReportController.class );
@@ -35,7 +35,7 @@ public class FirstVisitReportController {
      * 描述：初访员插入初访报告
      *
      */
-    @RequestMapping(value = "/FirstVisitor/insertFVReport", method = RequestMethod.GET)
+    @RequestMapping(value = "/FirstVisitor/insertFVReport")
     @ResponseBody
     public JsonResponse insertFVReport(@RequestBody Map form){
         return firstVisitReportService.insertFVReport(form);
@@ -56,11 +56,32 @@ public class FirstVisitReportController {
 
     /**
      * 描述：该初访员根据学生姓名搜索是否有属于自己的初访报告
+     *
      */
     @RequestMapping(value = "/FirstVisitor/searchFVReports", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse showFVReportsByName(){
-        return firstVisitReportService.showAllFVReports();
+    public JsonResponse showFVReportsByName(@RequestParam("stuName")String stuName){
+        return firstVisitReportService.getFVReportsByName(stuName);
+    }
+
+    /**
+     * 描述：初访员根据记录查看相关报告
+     *
+     */
+    @RequestMapping(value = "/FirstVisitor/showFVReportByRecord", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse showFVReportsByFvrId(@RequestParam("fvrId")Long fvrId){
+        return firstVisitReportService.getFVReportsByFvrId(fvrId);
+    }
+
+    /**
+     * 描述：学生根据记录查看相应的初访报告
+     *
+     */
+    @RequestMapping(value="/student/showFVReports",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getFVRecord(@RequestParam("fvr_id")Long fvrID){
+        return firstVisitReportService.getFVReportsByFvrId(fvrID);
     }
 }
 

@@ -4,6 +4,7 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.model.domain.FirstVisitReport;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,13 @@ public interface FirstVisitReportService extends IService<FirstVisitReport> {
     JsonResponse insertFVReport(Map form);
 
     JsonResponse showAllFVReports();
+
+    JsonResponse getFVReportsByName(String stuName);
+
+
+    List<FirstVisitReport> getFVReportsBySId(Long SID);
+
+    JsonResponse getFVReportsByFvrId(Long fvrId);
+
+
 }

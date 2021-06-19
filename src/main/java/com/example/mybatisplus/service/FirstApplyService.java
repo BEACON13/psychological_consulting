@@ -2,6 +2,7 @@ package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.model.domain.FirstApply;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.vo.FirstApplyVO;
 
 import java.util.List;
 
@@ -14,7 +15,13 @@ import java.util.List;
  * @since 2021-06-14
  */
 public interface FirstApplyService extends IService<FirstApply> {
-    public int insertFirstApply(FirstApply firstApply);
+    int insertFirstApply(FirstApply firstApply);
 
-    public List<FirstApply> getFirstApplyByStu(Long sId);
+    List<FirstApply> getFirstApplyByStu(Long sId);
+
+    List<FirstApplyVO> getUrgentApply();
+
+    List<FirstApplyVO> getNormalApply();
+
+    int finishFirstApply(Long firstApplyId);
 }

@@ -13,4 +13,43 @@
         <result column="date" property="date" />
     </resultMap>
 
+    <!--ConsultAppointmentReportVO查询结果-->
+    <resultMap id="VOResultMap" type="com.example.mybatisplus.model.vo.ConsultAppointmentReportVO">
+        <!--原有列-->
+        <id column="car_id" property="carId" />
+        <result column="consult_appoint_id" property="consultAppointId" />
+        <result column="s_id" property="sId" />
+        <result column="tp_id" property="tpId" />
+        <result column="c_id" property="cId" />
+        <result column="consult_result" property="consultResult" />
+        <result column="date" property="date" />
+
+        <!--VO新增列-->
+        <result column="stu_name" property="stuName"/>
+        <result column="start_time" property="startTime"/>
+        <result column="duration" property="duration"/>
+        <result column="con_name" property="consultantName"/>
+    </resultMap>
+
+    <!--根据咨询师id和学生姓名查询-->
+    <select id="getRecordByConAndStu" resultMap="VOResultMap">
+        select car.*,stu.name stu_name,tp.start_time,tp.duration,p.name con_name
+        from consult_appointment_report car,student stu,person p,time_period tp
+        where car.s_id = stu.s_id
+          and car.tp_id = tp.tp_id
+          and car.c_id = p.p_id
+          and car.c_id = #{c_id}
+          and stu.name = #{stu_name}
+    </select>
+
+    <!--根据咨询师id查询-->
+    <select id="getRecordByCon" resultMap="VOResultMap">
+        select car.*,stu.name stu_name,tp.start_time,tp.duration,p.name con_name
+        from consult_appointment_report car,student stu,person p,time_period tp
+        where car.s_id = stu.s_id
+          and car.tp_id = tp.tp_id
+          and car.c_id = p.p_id
+          and car.c_id = #{c_id}
+    </select>
+
 </mapper>
