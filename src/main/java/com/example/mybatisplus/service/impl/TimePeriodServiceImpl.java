@@ -10,7 +10,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -35,7 +37,9 @@ public class TimePeriodServiceImpl extends ServiceImpl<TimePeriodMapper, TimePer
         QueryWrapper<TimePeriod> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(TimePeriod::getIsDeleted,0);
         List<TimePeriod> timePeriods = timePeriodMapper.selectList(wrapper);
-        return JsonResponse.success(timePeriods,"success!");
+        List<TimePeriod> listsort = timePeriods.stream().sorted(Comparator.comparing(TimePeriod::getWeekday).thenComparing(TimePeriod::getStartTime))
+                .collect(Collectors.toList());
+        return JsonResponse.success(listsort,"success!");
     }
 
     /*
