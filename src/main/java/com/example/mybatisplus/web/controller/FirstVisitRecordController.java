@@ -141,15 +141,14 @@ public class FirstVisitRecordController {
      */
     @RequestMapping(value="/admin/change/FVRecords")
     @ResponseBody
-    public JsonResponse adminChangeFVRecords(@RequestBody Map<String,Object> info){
-        FirstVisitRecord record = new FirstVisitRecord();
-        record.setFvrId(Long.parseLong(info.get("fvrId").toString()))
-                .setSId(Long.parseLong(info.get("sId").toString()))
-                .setTpId((Integer) info.get("tpId"))
-                .setLocationId(Long.parseLong(info.get("locationId").toString()))
-                .setFvId(Long.parseLong(info.get("fvId").toString()))
-                .setDate(LocalDate.parse((String)info.get("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-
+    public JsonResponse adminChangeFVRecords(@RequestBody FirstVisitRecord record){
+//        FirstVisitRecord record = new FirstVisitRecord();
+//        record.setFvrId(Long.parseLong(info.get("fvrId").toString()))
+//                .setSId(Long.parseLong(info.get("sId").toString()))
+//                .setTpId((Integer) info.get("tpId"))
+//                .setLocationId(Long.parseLong(info.get("locationId").toString()))
+//                .setFvId(Long.parseLong(info.get("fvId").toString()))
+//                .setDate(LocalDate.parse((String)info.get("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return firstVisitRecordService.updateById(record)?
                 JsonResponse.successMessage("修改成功"):
                 JsonResponse.failure("修改出错");
@@ -166,9 +165,9 @@ public class FirstVisitRecordController {
         record.setSId(Long.parseLong(info.get("sId").toString()))
                 .setTpId((Integer) info.get("tpId"))
                 .setLocationId(Long.parseLong(info.get("locationId").toString()))
-                .setFvId(Long.parseLong(info.get("fvId").toString()));
-                //.setDate(LocalDate.parse((String)info.get("date"),
-                //        DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                .setFvId(Long.parseLong(info.get("fvId").toString()))
+                .setDate(LocalDate.parse((String)info.get("date"),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         //将对应的first apply设置为完成状态
         firstApplyService.finishFirstApply(

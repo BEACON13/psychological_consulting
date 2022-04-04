@@ -31,6 +31,7 @@ public class PdfServiceImpl implements PdfService {
     private Integer size = 20;
 
 
+    @Override
     public JsonResponse generatePDF(List<ClosingReportVO> reports) throws Exception{
 
         // 生成文件位置
@@ -52,6 +53,7 @@ public class PdfServiceImpl implements PdfService {
      * 生成模板内容
      * @return
      */
+    @Override
     public PdfPTable generateTemplate(List<ClosingReportVO> reports) throws Exception{
 
         Font font = new Font(BaseFont.createFont( "STSongStd-Light" ,"UniGB-UCS2-H",BaseFont.NOT_EMBEDDED));
@@ -145,6 +147,7 @@ public class PdfServiceImpl implements PdfService {
      * 设置样式
      * @param cell
      */
+    @Override
     public void setStyle(PdfPCell cell){
         cell.setFixedHeight(size);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);//设置水平居中
