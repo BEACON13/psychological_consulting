@@ -1,17 +1,15 @@
 package com.example.mybatisplus.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -24,29 +22,24 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "EvaluationTable对象", description = "")
-public class EvaluationTable extends Model<EvaluationTable> {
+@ApiModel(value = "EvaluationResult对象", description = "")
+public class EvaluationResult extends Model<EvaluationResult> {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "评测表id")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "评测表名称")
-    private String evaluationName;
+    private Long stuId;
 
-    @ApiModelProperty(value = "评测表描述")
-    private String description;
+    private Long evaluationTableId;
 
-    @ApiModelProperty(value = "评测表规则")
-    private String rule;
+    private Integer score;
 
-    /**
-     * 逻辑删除属性
-     */
-    @TableLogic
-    @TableField("is_deleted")
+    private String info;
+
+    private LocalDateTime evaluateTime;
+
     private Boolean isDeleted;
 
 

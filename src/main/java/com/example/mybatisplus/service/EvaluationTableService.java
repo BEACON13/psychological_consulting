@@ -1,9 +1,10 @@
 package com.example.mybatisplus.service;
 
-import com.example.mybatisplus.model.domain.EvaluationTable;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.domain.EvaluationResult;
+import com.example.mybatisplus.model.domain.EvaluationTable;
+import com.example.mybatisplus.service.param.EvaluationTableParam;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -18,4 +19,7 @@ public interface EvaluationTableService extends IService<EvaluationTable> {
 
     List<EvaluationTable> listAllEvaluations();
 
+    EvaluationResult evaluate(EvaluationTableParam param);
+
+    EvaluationTable getEvaluationById(Long id);
 }

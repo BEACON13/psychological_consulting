@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.EvaluationQuestionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.EvaluationQuestion">
+        <id column="id" property="id"/>
+        <result column="question" property="question"/>
+        <result column="table_id" property="tableId"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="listQuestions" resultMap="BaseResultMap">
+        SELECT *
+        FROM evaluation_question
+        WHERE is_deleted = 0
+          AND table_id = #{tableId}
+        ORDER BY id
+    </select>
+</mapper>

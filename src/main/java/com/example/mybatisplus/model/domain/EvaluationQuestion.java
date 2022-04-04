@@ -1,9 +1,7 @@
 package com.example.mybatisplus.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,29 +22,22 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "EvaluationTable对象", description = "")
-public class EvaluationTable extends Model<EvaluationTable> {
+@ApiModel(value = "EvaluationQuestion对象", description = "")
+public class EvaluationQuestion extends Model<EvaluationQuestion> {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "评测表id")
+    @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "评测表名称")
-    private String evaluationName;
+    @ApiModelProperty(value = "问题内容")
+    private String question;
 
-    @ApiModelProperty(value = "评测表描述")
-    private String description;
+    @ApiModelProperty(value = "所属于的问卷id")
+    private Long tableId;
 
-    @ApiModelProperty(value = "评测表规则")
-    private String rule;
-
-    /**
-     * 逻辑删除属性
-     */
-    @TableLogic
-    @TableField("is_deleted")
+    @ApiModelProperty(value = "逻辑删除")
     private Boolean isDeleted;
 
 
