@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.EvaluationTableMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.EvaluationTable">
+        <id column="id" property="id"/>
+        <result column="evaluation_name" property="evaluationName"/>
+        <result column="description" property="description"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="listAllEvaluations" resultMap="BaseResultMap">
+        SELECT et.id,
+               et.evaluation_name,
+               et.description,
+               et.is_deleted
+        FROM evaluation_table et
+        WHERE et.is_deleted = 0
+    </select>
+</mapper>
