@@ -6,6 +6,7 @@ import com.example.mybatisplus.model.domain.EvaluationQuestion;
 import com.example.mybatisplus.service.EvaluationQuestionService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,8 @@ import java.util.List;
 public class EvaluationQuestionServiceImpl extends ServiceImpl<EvaluationQuestionMapper, EvaluationQuestion> implements EvaluationQuestionService {
 
     @Override
-    public List<EvaluationQuestion> listQuestions(Long evaluationId) {
-        return this.getBaseMapper().listQuestions(evaluationId);
+    public List<String> listQuestions(Long evaluationId) {
+        List<EvaluationQuestion> evaluationQuestions = this.getBaseMapper().listQuestions(evaluationId);
+        return evaluationQuestions.stream().map(EvaluationQuestion::getQuestion).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
     }
 }

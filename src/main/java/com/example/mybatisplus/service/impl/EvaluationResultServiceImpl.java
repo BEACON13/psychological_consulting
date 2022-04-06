@@ -46,4 +46,38 @@ public class EvaluationResultServiceImpl extends ServiceImpl<EvaluationResultMap
         });
         return vos;
     }
+
+    @Override
+    public EvaluationResultVO getOneEvaluationResult(Long studentId, Long evaluationId) {
+        EvaluationResult result = this.baseMapper.getEvaluationResult(studentId, evaluationId);
+        EvaluationResultVO vo = new EvaluationResultVO();
+        EvaluationTable evaluationTable = evaluationTableService.getEvaluationById(evaluationId);
+        if (result == null) {
+            vo.setInfo("未进行评测");
+        } else {
+            BeanUtils.copyProperties(result, vo);
+        }
+        vo.setEvaluationName(evaluationTable.getEvaluationName());
+        vo.setDescription(evaluationTable.getDescription());
+        vo.setRule(evaluationTable.getRule());
+        return vo;
+    }
+
+    @Override
+    public EvaluationResultVO getLastEvaluationResult(Long studentId) {
+        EvaluationResult result = this.baseMapper.getLastEvaluationResult(studentId);
+        EvaluationResultVO vo = new EvaluationResultVO();
+        if (result == null) {
+            vo.setInfo("未进行评测");
+        } else {
+            BeanUtils.copyProperties(result, vo);
+            EvaluationTable evaluationTable = evaluationTableService.getEvaluationById(result.getEvaluationTableId());
+            vo.setEvaluationName(evaluationTable.getEvaluationName());
+            vo.setDescription(evaluationTable.getDescription());
+            vo.setRule(evaluationTable.getRule());
+        }
+        return vo;
+    }
+
+
 }

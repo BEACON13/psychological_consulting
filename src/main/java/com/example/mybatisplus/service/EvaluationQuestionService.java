@@ -21,6 +21,6 @@ public interface EvaluationQuestionService extends IService<EvaluationQuestion> 
      * @param evaluationId 问卷id
      * @return 评估问题
      */
-    List<EvaluationQuestion> listQuestions(Long evaluationId);
+    List<String> listQuestions(Long evaluationId);
 
 }

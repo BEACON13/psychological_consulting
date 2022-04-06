@@ -12,5 +12,22 @@
         <result column="evaluate_time" property="evaluateTime"/>
         <result column="is_deleted" property="isDeleted"/>
     </resultMap>
+    <select id="getEvaluationResult" resultType="com.example.mybatisplus.model.domain.EvaluationResult">
+        select *
+        from evaluation_result
+        where stu_id = #{studentId}
+          and evaluation_table_id = #{evaluationId}
+          and is_deleted = 0
+        order by id desc
+        limit 1
+    </select>
+    <select id="getLastEvaluationResult" resultType="com.example.mybatisplus.model.domain.EvaluationResult">
+        select *
+        from evaluation_result
+        where stu_id = #{studentId}
+          and is_deleted = 0
+        order by id desc
+        limit 1
+    </select>
 
 </mapper>

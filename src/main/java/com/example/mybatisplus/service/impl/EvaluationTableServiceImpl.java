@@ -44,6 +44,8 @@ public class EvaluationTableServiceImpl extends ServiceImpl<EvaluationTableMappe
         EvaluationCalculateService evaluationCalculateService = null;
         if (EvaluationTableEnum.PHQ_9.getCode().equals(param.getTableId())) {
             evaluationCalculateService = new PHQ9ServiceImpl();
+        } else if (EvaluationTableEnum.SCL_90.getCode().equals(param.getTableId())) {
+            evaluationCalculateService = new SCL90ServiceImpl();
         }
         EvaluationResult result = null;
         if (evaluationCalculateService != null) {

@@ -1,9 +1,10 @@
 package com.example.mybatisplus.web.controller;
 
 import com.example.mybatisplus.common.JsonResponse;
-import com.example.mybatisplus.model.domain.EvaluationQuestion;
+import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.model.domain.EvaluationResult;
 import com.example.mybatisplus.model.domain.EvaluationTable;
+import com.example.mybatisplus.model.domain.Student;
 import com.example.mybatisplus.model.vo.EvaluationResultVO;
 import com.example.mybatisplus.service.EvaluationQuestionService;
 import com.example.mybatisplus.service.EvaluationResultService;
@@ -56,7 +57,7 @@ public class EvaluationController {
     @RequestMapping(value = "/listQuestions", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse listQuestions(@RequestParam("id") Long id) throws Exception {
-        List<EvaluationQuestion> evaluationQuestions = evaluationQuestionService.listQuestions(id);
+        List<String> evaluationQuestions = evaluationQuestionService.listQuestions(id);
         return JsonResponse.success(evaluationQuestions);
     }
 
@@ -66,6 +67,8 @@ public class EvaluationController {
     @RequestMapping(value = "/evaluate", method = RequestMethod.POST)
     @ResponseBody
     public JsonResponse evaluate(@RequestBody EvaluationTableParam param) throws Exception {
+        Student student = SecurityUtils.getCurrentStudentInfo();
+        param.setStuId(student.getSId());
         EvaluationResult evaluationResults = evaluationTableService.evaluate(param);
         if (evaluationResults == null) {
             return JsonResponse.failure("评测失败");
@@ -79,11 +82,19 @@ public class EvaluationController {
      */
     @RequestMapping(value = "/listEvaluationResult", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse listEvaluationResult(@RequestParam("studentId") Long studentId) throws Exception {
-        List<EvaluationResultVO> evaluationResults = evaluationResultService.listEvaluationResult(studentId);
+    public JsonResponse listEvaluationResult() throws Exception {
+        Student student = SecurityUtils.getCurrentStudentInfo();
+        List<EvaluationResultVO> evaluationResults = evaluationResultService.listEvaluationResult(student.getSId());
         return JsonResponse.success(evaluationResults);
     }
 
+    @RequestMapping(value = "/listOneEvaluationResult", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse listOneEvaluationResult(@RequestParam("id") Long evaluationId) throws Exception {
+        Student student = SecurityUtils.getCurrentStudentInfo();
+        EvaluationResultVO evaluationResult = evaluationResultService.getOneEvaluationResult(student.getSId(), evaluationId);
+        return JsonResponse.success(evaluationResult);
+    }
 
 }
 

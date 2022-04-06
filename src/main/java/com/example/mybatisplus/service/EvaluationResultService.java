@@ -16,5 +16,9 @@ import java.util.List;
  */
 public interface EvaluationResultService extends IService<EvaluationResult> {
 
-    public List<EvaluationResultVO> listEvaluationResult(Long studentId);
+    List<EvaluationResultVO> listEvaluationResult(Long studentId);
+
+    EvaluationResultVO getOneEvaluationResult(Long studentId, Long evaluationId);
+
+    EvaluationResultVO getLastEvaluationResult(Long studentId);
 }
